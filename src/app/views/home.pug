@@ -13,10 +13,15 @@ toaster-container
                 p {{s.description}}
                 h4 Screenshots
                 i todo!
-                h4 Meta
+                //- h4 Meta
                 dl
                     dt Support
                     dd
                         a("*ngIf"="s.support_url" href="{{s.support_url}}") {{s.support_url}}
                     dt URI
-                    dd URI: {{s.uri}}
+                    dd {{s.uri}}
+                    dt License
+                    dd
+                        a(href="{{licenseFor(s.license_id).url}}" target="_blank") {{licenseFor(s.license_id).name}}
+                    dt Last Updated
+                    dd {{s.updated_at}}
