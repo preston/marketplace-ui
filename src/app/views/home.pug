@@ -1,0 +1,22 @@
+include layout/navigation
+toaster-container
+
+.container-fluid.services("*ngIf"="!service")
+    .row
+        .col-md-4("*ngFor"="let s of services")
+            .well.service
+                .row
+                    .col-sm-4
+                        img(src="http://placehold.it/200x100")
+                    .col-sm-8
+                        h1 {{s.name}}
+                p {{s.description}}
+                h4 Screenshots
+                i todo!
+                h4 Meta
+                dl
+                    dt Support
+                    dd
+                        a("*ngIf"="s.support_url" href="{{s.support_url}}") {{s.support_url}}
+                    dt URI
+                    dd URI: {{s.uri}}
