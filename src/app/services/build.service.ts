@@ -19,7 +19,7 @@ export class BuildService extends BaseService {
     }
 
     url(service: Service): string {
-        return this.serviceService.url() + service.id + BuildService.PATH;
+        return this.serviceService.url() + '/' + service.id + BuildService.PATH;
     }
 
     index(service: Service) {

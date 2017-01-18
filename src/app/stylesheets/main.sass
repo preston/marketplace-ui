@@ -1,11 +1,34 @@
 @import ribbons
 
-$shadow: 0 20px 20px rgba(0, 0, 0, 0.4)
+$shadow: 0 20px 20px rgba(0, 0, 0, 0.8)
 $content_background: url("/images/textures/crossword.png") repeat
 
 body
   background: url(/images/backgrounds/photo-1456428199391-a3b1cb5e93ab.jpeg) no-repeat center center fixed
   background-size: cover
 
-.services
+.services .service
   margin-top: 20px
+  padding: 10px
+  background: #eee
+  box-shadow: $shadow
+  border-radius: 4px
+  cursor: pointer
+
+#close-service-button
+  position: absolute
+  z-index: 20
+  top: 90px
+  right: 60px
+
+service
+  position: absolute
+  z-index: 10
+  top: 100px
+  right: 70px
+  // bottom: 100px
+  left: 70px
+  box-shadow: $shadow
+  padding: 20px
+  background: rgba(255,255,255,.9)
+  // $content_background

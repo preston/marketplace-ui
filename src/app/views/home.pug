@@ -1,27 +1,32 @@
 include layout/navigation
 toaster-container
 
-.container-fluid.services("*ngIf"="!service")
+
+.container-fluid.services
+    .row
+        .col-md-6.col-md-offset-3
+            .form-group.text-center
+                h2 Find and deploy a health service
+                //- .label(for="search_text")
+                //- span.glyphicon.glyphicon-search
+                //- | Search for deployable health services:
+                .input-group
+                    input.input-lg.form-control(autofocus="true" type="search" "[(ngModel)]"='searchQuery.text' name="search_text" "(keyup)"="search()")
+                    span.input-group-btn
+                        button.btn.btn-lg.btn-primary(type='submit' "[disabled]"="!validSearch()")
+                            span.glyphicon.glyphicon-search
+                            |  Search
     .row
         .col-md-4("*ngFor"="let s of services")
-            .well.service
+            .service("(click)"='select(s)')
                 .row
                     .col-sm-4
                         img(src="http://placehold.it/200x100")
                     .col-sm-8
                         h1 {{s.name}}
+                br
                 p {{s.description}}
-                h4 Screenshots
-                i todo!
-                //- h4 Meta
-                dl
-                    dt Support
-                    dd
-                        a("*ngIf"="s.support_url" href="{{s.support_url}}") {{s.support_url}}
-                    dt URI
-                    dd {{s.uri}}
-                    dt License
-                    dd
-                        a(href="{{licenseFor(s.license_id).url}}" target="_blank") {{licenseFor(s.license_id).name}}
-                    dt Last Updated
-                    dd {{s.updated_at}}
+
+
+    button#close-service-button.btn.btn-default("*ngIf"='service' "(click)"="select(null)") Close
+    service("*ngIf"='service' "[service]"='service' "[licenses]"='licenses')

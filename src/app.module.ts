@@ -8,6 +8,7 @@ import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 import {AppComponent} from './app/app.component';
 import {HomeComponent} from './app/components/home.component';
 import {ApiComponent} from './app/components/api.component';
+import {ServiceComponent} from './app/components/service.component';
 
 import {BuildService} from './app/services/build.service';
 import {LicenseService} from './app/services/license.service';
@@ -45,7 +46,8 @@ const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
     declarations: [
         AppComponent,
         ApiComponent,
-        HomeComponent
+        HomeComponent,
+		ServiceComponent
     ],   // components and directives
     providers: [
         appRoutingProviders,

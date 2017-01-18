@@ -11,6 +11,7 @@ import {Service} from '../models/service';
 export class ServiceService extends BaseService {
 
     public static PATH: string = '/services';
+    public static SEARCH_PATH: string = '/services/search';
 
     constructor(marketplaceService: MarketplaceService, http: Http) {
         super(marketplaceService, http);
@@ -19,6 +20,16 @@ export class ServiceService extends BaseService {
     url(): string {
         return this.marketplaceService.url + ServiceService.PATH;
     }
+
+    searchUrl(): string {
+        return this.marketplaceService.url + ServiceService.SEARCH_PATH;
+    }
+
+    search(text: string) {
+        let services = this.http.post(this.searchUrl(), { text: text }, this.options()).map(res => res.json());
+        return services;
+    }
+
 
     index() {
         // this.services = this.http.get(url).map(res => res.json());

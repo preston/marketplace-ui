@@ -1,0 +1,91 @@
+
+h1 {{service.name}}
+p.lead {{service.description}}
+
+div
+    // Nav tabs
+    ul.nav.nav-tabs(role='tablist')
+        li.active(role='presentation')
+            a(href='#about', aria-controls='about', role='tab', data-toggle='tab')
+                span.glyphicon.glyphicon-home
+                |  About
+        li(role='presentation')
+            a(href='#runtime', aria-controls='runtime', role='tab', data-toggle='tab')
+                span.glyphicon.glyphicon-cog
+                |  Runtime configuration
+        li(role='presentation')
+            a(href='#dependencies', aria-controls='dependencies', role='tab', data-toggle='tab')
+                span.glyphicon.glyphicon-list
+                |  Dependency Resolution
+    // Tab panes
+    .tab-content
+        #about.tab-pane.active.row(role='tabpanel')
+            .col-sm-8
+                #screenshot_carousel.carousel.slide(data-ride='carousel')
+                    // Indicators
+                    ol.carousel-indicators
+                        li.active(data-target='#screenshot_carousel', data-slide-to='0')
+                        li(data-target='#screenshot_carousel', data-slide-to='1')
+                        li(data-target='#screenshot_carousel', data-slide-to='2')
+                    // Wrapper for slides
+                    .carousel-inner(role='listbox')
+                        .item.active
+                            img(src='...', alt='...')
+                            .carousel-caption
+                                | ...
+                        .item
+                            img(src='...', alt='...')
+                            .carousel-caption
+                                | ...
+                        |     ...
+                    // Controls
+                    a.left.carousel-control(href='#screenshot_carousel', role='button', data-slide='prev')
+                        span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
+                        span.sr-only Previous
+                    a.right.carousel-control(href='#screenshot_carousel', role='button', data-slide='next')
+                        span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
+                        span.sr-only Next
+            .col-sm-4
+                dl
+                    dt Support
+                    dd
+                        a("*ngIf"="service.support_url" href="{{service.support_url}}") {{service.support_url}}
+                    dt URI
+                    dd {{service.uri}}
+                    dt License
+                    dd
+                        a(href="{{licenseFor(service.license_id).url}}" target="_blank") {{licenseFor(service.license_id).name}}
+                    dt Last Updated
+                    dd {{service.updated_at}}
+
+            .col-sm-12
+                h2 Published Builds
+                i("*ngIf"="builds.length == 0") None published!
+                table.table.table-condensed.table-striped("*ngIf"="builds.length > 0")
+                    thead
+                        tr
+                            th Service Version
+                            th Build
+                            th Container Repository
+                            th Tag
+                            th Validated?
+                            th Published?
+                            th Release Notes
+                            th Actions
+                    tbody
+                        tr("*ngFor"="let b of builds")
+                            td {{b.service_version}}
+                            td {{b.version}}
+                            td {{b.container_repository_url}}
+                            td {{b.container_tag}}
+                            td {{b.validated_at}}
+                            td {{b.published_at}}
+                            td {{b.release_notes}}
+                            td
+                                .btn-group
+                                    button.btn.btn-primary(disabled="true")
+                                        span.glyphicon.glyphicon-play
+                                        |  Deploy it!
+
+        #runtime.tab-pane(role='tabpanel') TODO Runtime setting configuration
+        #dependencies.tab-pane(role='tabpanel') TODO
