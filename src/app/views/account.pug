@@ -1,0 +1,61 @@
+include layout/navigation
+toaster-container
+
+
+.container-fluid#account
+
+    .row
+        #letter.col-md-6
+            h1 Your Marketplace Account.
+            h1.lead NOT YET IMPLEMENTED
+            a.btn.btn-default("[routerLink]"="['/']")
+                span.glyphicon.glyphicon-home
+                |  Go Home
+            h2
+                b Hi {{status.identity?.user?.name}},
+            hr
+            ul
+                li
+                    b First log in?
+                    br
+                    span Cool. We've used your name and email from {{status.identity?.provider?.name}} to create this account.
+                li
+                    b Were you already logged in using a different identity?
+                    br
+                    span Then we just added this {{status.identity?.provider?.name}} identity to your existing account. You're all set.
+                li
+                    b Accidentally create a new account?
+                    br
+                    span Please remove this {{status.identity?.provider?.name}} identity, which will log you out. Then, log in to your existing account. Once logged in, re-add your {{status.identity.provider.name} identity to your correct account.
+            p We never, ever, receive your password, and can't even recover or reset it for you. You can now use any Marketplace API-compliant app of your choosing!
+
+        #identities.col-md-6
+            h2 Your Sign-On Identities
+            .dropdown("*ngIf"="!status.identity")
+                button#login-menu.btn.btn-sm.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
+                    span.glyphicon.glyphicon-plus
+                    |  Attach (or Switch to) Another Identity
+                    span.caret
+                ul.dropdown-menu(aria-labelledby='login-menu')
+                    li("*ngFor"="let idp of identityProviders")
+                        a("[href]"='idp.redirect_url') {{idp.name}}
+
+            hr
+            p Was created {{status.identity?.user?.created_at}} ago. Your user ID is: {{status.identity?.user?.id}}, which may be accessed via the following SSO identities.
+            b TODO: Identity association table!
+            //- table.table.table-condensed.table-striped
+                thead
+                    tr
+                        th Provider
+                        th Email
+                        th Links
+                tbody
+                    tr("*ngFor"="let i for ")
+                        td
+                            b = i.identity_provider.name
+                            i = i.identity_provider == current_identity.identity_provider ? ' (current)' : nil
+                        td = i.email
+                        td
+                            .btn-group
+                                a href="#{i.identity_provider.issuer}" class="btn btn-sm btn-default" Manage
+                                = link_to 'Remove', user_identity_path(current_user.id, i.id), method: :delete, class: 'btn btn-sm btn-danger'

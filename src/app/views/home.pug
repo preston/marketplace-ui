@@ -2,20 +2,39 @@ include layout/navigation
 toaster-container
 
 
-.container-fluid.services
+.container-fluid#home
     .row
-        .col-md-6.col-md-offset-3
+        .col-md-8.col-md-offset-2
+
+
+
             .form-group.text-center
-                h2 Find and deploy a health service
+                h2
+                    | Find and deploy a health service
+                    span("*ngIf"="status.identity")
+                        | , {{status.identity.user.name}}.
+                    .btn-group.pull-right
+                        span("*ngIf"="status.identity")
+                            a("[routerLink]"="['/account']") manage
+                            |  or
+                            a("(click)"="logout()")  log out
+                        .dropdown("*ngIf"="!status.identity")
+                            button#login-menu.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
+                                span.glyphicon.glyphicon-user
+                                |  Login&nbsp;
+                                span.caret
+                            ul.dropdown-menu(aria-labelledby='login-menu')
+                                li("*ngFor"="let idp of identityProviders")
+                                    a("[href]"='idp.redirect_url') {{idp.name}}
                 //- .label(for="search_text")
                 //- span.glyphicon.glyphicon-search
                 //- | Search for deployable health services:
                 .input-group
-                    input.input-lg.form-control(autofocus="true" type="search" "[(ngModel)]"='searchQuery.text' name="search_text" "(keyup)"="search()")
+                    input.input-lg.form-control(autofocus="true" type="search" "[(ngModel)]"='searchQuery.text' name="search_text" "(keyup)"="search()" placeholder="web")
                     span.input-group-btn
                         button.btn.btn-lg.btn-primary(type='submit' "[disabled]"="!validSearch()")
                             span.glyphicon.glyphicon-search
-                            |  Search
+                            |  Search Marketplace
     .row
         .col-md-4("*ngFor"="let s of services")
             .service("(click)"='select(s)')

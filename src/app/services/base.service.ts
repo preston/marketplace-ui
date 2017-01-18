@@ -13,8 +13,7 @@ export abstract class BaseService {
     }
 
     options(): RequestOptions {
-        let headers = new Headers({ 'Accept': 'application/json' });
-        return new RequestOptions({ headers: headers });
+		return MarketplaceService.REQUEST_OPTIONS;
     }
 
 }

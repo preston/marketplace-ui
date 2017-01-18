@@ -7,6 +7,7 @@ import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
 import {AppComponent} from './app/app.component';
 import {HomeComponent} from './app/components/home.component';
+import {AccountComponent} from './app/components/account.component';
 import {ApiComponent} from './app/components/api.component';
 import {ServiceComponent} from './app/components/service.component';
 
@@ -16,6 +17,7 @@ import {MarketplaceService} from './app/services/marketplace.service';
 import {ServiceService} from './app/services/service.service';
 import {StatusService} from './app/services/status.service';
 import {UserService} from './app/services/user.service';
+import {IdentityProviderService} from './app/services/identity_provider.service';
 
 // import {ExportModule} from './app/modules/export.module';
 
@@ -29,7 +31,8 @@ import { HttpModule } from '@angular/http';
 
 
 const appRoutes: Routes = [
-    { path: '', component: HomeComponent },
+	{ path: '', component: HomeComponent },
+	{ path: 'account', component: AccountComponent },
     { path: 'api', component: ApiComponent }
 ]
 const appRoutingProviders: any[] = [];
@@ -47,6 +50,7 @@ const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
         AppComponent,
         ApiComponent,
         HomeComponent,
+		AccountComponent,
 		ServiceComponent
     ],   // components and directives
     providers: [
@@ -58,6 +62,7 @@ const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
         ServiceService,
         StatusService,
         UserService,
+		IdentityProviderService,
 		{ provide: 'Window', useValue: window }
     ],                    // services
     bootstrap: [AppComponent]     // root component
