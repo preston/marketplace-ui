@@ -5,6 +5,8 @@ import {Routes, RouterModule} from '@angular/router';
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 // import {DragulaModule} from 'ng2-dragula/ng2-dragula';
 
+import { CarouselModule} from 'ng2-bootstrap';
+
 import {AppComponent} from './app/app.component';
 import {HomeComponent} from './app/components/home.component';
 import {AccountComponent} from './app/components/account.component';
@@ -44,7 +46,8 @@ const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
         routing,
         FormsModule,
         HttpModule,
-        ToasterModule
+        ToasterModule,
+		CarouselModule
     ],
     declarations: [
         AppComponent,
@@ -52,6 +55,8 @@ const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
         HomeComponent,
 		AccountComponent,
 		ServiceComponent
+		// CarouselComponent,
+		// SlideComponent
     ],   // components and directives
     providers: [
         appRoutingProviders,

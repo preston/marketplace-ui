@@ -1,6 +1,14 @@
 
-h1 {{service.name}}
-p.lead {{service.description}}
+
+.row
+    .col-md-6
+        h1 {{service.name}}
+        p.lead {{service.description}}
+    .col-md-6
+        .row
+            .col-sm-4(href="#", "*ngFor"="let ss of service.screenshots")
+                .thumbnail
+                    img(src='{{ss.url}}/small', "[alt]"='ss.caption')
 
 div
     // Nav tabs
@@ -10,57 +18,24 @@ div
                 span.glyphicon.glyphicon-home
                 |  About
         li(role='presentation')
+            a(href='#screenshots', aria-controls='screenshots', role='tab', data-toggle='tab')
+                span.glyphicon.glyphicon-picture
+                |  Screenshots
+        li(role='presentation')
             a(href='#runtime', aria-controls='runtime', role='tab', data-toggle='tab')
                 span.glyphicon.glyphicon-cog
                 |  Runtime configuration
         li(role='presentation')
-            a(href='#dependencies', aria-controls='dependencies', role='tab', data-toggle='tab')
+            a(href='#deployment', aria-controls='deployment', role='tab', data-toggle='tab')
                 span.glyphicon.glyphicon-list
-                |  Dependency Resolution
+                |  Deployment Visualization
+
     // Tab panes
     .tab-content
         #about.tab-pane.active.row(role='tabpanel')
             .col-sm-8
-                #screenshot_carousel.carousel.slide(data-ride='carousel')
-                    // Indicators
-                    ol.carousel-indicators
-                        li.active(data-target='#screenshot_carousel', data-slide-to='0')
-                        li(data-target='#screenshot_carousel', data-slide-to='1')
-                        li(data-target='#screenshot_carousel', data-slide-to='2')
-                    // Wrapper for slides
-                    .carousel-inner(role='listbox')
-                        .item.active
-                            img(src='...', alt='...')
-                            .carousel-caption
-                                | ...
-                        .item
-                            img(src='...', alt='...')
-                            .carousel-caption
-                                | ...
-                        |     ...
-                    // Controls
-                    a.left.carousel-control(href='#screenshot_carousel', role='button', data-slide='prev')
-                        span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
-                        span.sr-only Previous
-                    a.right.carousel-control(href='#screenshot_carousel', role='button', data-slide='next')
-                        span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
-                        span.sr-only Next
-            .col-sm-4
-                dl
-                    dt Support
-                    dd
-                        a("*ngIf"="service.support_url" href="{{service.support_url}}") {{service.support_url}}
-                    dt URI
-                    dd {{service.uri}}
-                    dt License
-                    dd
-                        a(href="{{licenseFor(service.license_id).url}}" target="_blank") {{licenseFor(service.license_id).name}}
-                    dt Last Updated
-                    dd {{service.updated_at}}
-
-            .col-sm-12
                 h2 Published Builds
-                i("*ngIf"="builds.length == 0") None published!
+                i("*ngIf"="builds.length == 0") None have been published.
                 table.table.table-condensed.table-striped("*ngIf"="builds.length > 0")
                     thead
                         tr
@@ -87,5 +62,57 @@ div
                                         span.glyphicon.glyphicon-play
                                         |  Deploy it!
 
-        #runtime.tab-pane(role='tabpanel') TODO Runtime setting configuration
-        #dependencies.tab-pane(role='tabpanel') TODO
+            .col-sm-4
+                .row
+
+                    img.thumbnail.col-sm-12(src='{{service.url}}/logo/medium')
+                    .col-sm-12
+                        dl
+                            dt Support
+                            dd
+                                a("*ngIf"="service.support_url" href="{{service.support_url}}") {{service.support_url}}
+                            dt URI
+                            dd {{service.uri}}
+                            dt License
+                            dd
+                                a(href="{{licenseFor(service.license_id).url}}" target="_blank") {{licenseFor(service.license_id).name}}
+                            dt Last Updated
+                            dd {{service.updated_at}}
+
+
+        #screenshots.tab-pane(role='tabpanel')
+            .thumbnail("*ngFor"="let ss of service.screenshots")
+                img(src='{{ss.url}}/medium', "[alt]"='ss.caption')
+                .caption
+                    h4 {{ss.caption}}
+            // ng2-bootstrap bug at the moment: https://github.com/valor-software/ng2-bootstrap/issues/1516
+            //- carousel
+                slide("*ngFor"="let ss of service.screenshots")
+                    img(src='{{ss.url}}/large', "[alt]"='ss.caption')
+
+            //- #screenshot_carousel.carousel.slide(data-ride='carousel')
+                ol.carousel-indicators
+                    li.active(data-target='#screenshot_carousel', data-slide-to='0')
+                    li(data-target='#screenshot_carousel', data-slide-to='1')
+                    li(data-target='#screenshot_carousel', data-slide-to='2')
+                // Wrapper for slides
+                .carousel-inner(role='listbox')
+                    .item.active("*ngFor"="let ss of service.screenshots; let index=index")
+                        img(src='{{ss.url}}/large', "[alt]"='ss.caption')
+                        .carousel-caption
+                            | {{ss.caption}}
+                    .item
+                        img(src='...', alt='...')
+                        .carousel-caption
+                            | ...
+                    |     ...
+                a.left.carousel-control(href='#screenshot_carousel', role='button', data-slide='prev')
+                    span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
+                    span.sr-only Previous
+                a.right.carousel-control(href='#screenshot_carousel', role='button', data-slide='next')
+                    span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
+                    span.sr-only Next
+        #runtime.tab-pane(role='tabpanel')
+            .lead TODO This section will contain tunable parameters than may be specific to the infrastructure environment.
+        #deployment.tab-pane(role='tabpanel')
+            .lead TODO This section will provide deployment artifacts and details on auto-wired dependency resolution specific to the environment reported by your locally-running orchestration agent.

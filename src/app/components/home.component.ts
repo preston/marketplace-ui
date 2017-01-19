@@ -7,6 +7,8 @@ import {IdentityProvider} from '../models/identity_provider';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
+import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
+
 // import {window} from '@angular/browser';
 
 import {ServiceService} from '../services/service.service';
@@ -20,7 +22,9 @@ import {Http} from '@angular/http';
 
 @Component({
     selector: 'home',
-    templateUrl: '/home.html'
+    templateUrl: '/home.html',
+	providers: [CarouselModule]
+
 })
 export class HomeComponent {
 

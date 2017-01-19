@@ -1,6 +1,6 @@
 @import ribbons
 
-$shadow: 0 20px 20px rgba(0, 0, 0, 0.8)
+$shadow: 0 40px 40px rgba(0, 0, 0, 0.9)
 $content_background: url("/images/textures/crossword.png") repeat
 
 body
@@ -12,8 +12,13 @@ body
   padding: 10px
   background: #eee
   box-shadow: $shadow
-  border-radius: 4px
+  border-radius: 2px
   cursor: pointer
+
+  img
+    height: 200px
+    width: 200px
+    object-fit: cover
 
 #close-service-button
   position: absolute
@@ -32,6 +37,9 @@ service
   box-shadow: $shadow
   padding: 20px
   background: rgba(255, 255, 255, 0.9)
+
+  img
+    object-fit: cover
 
   // $content_background
 
