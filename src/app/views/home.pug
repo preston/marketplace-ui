@@ -37,7 +37,7 @@ toaster-container
                             |  Search Marketplace
     .row
         .col-md-4("*ngFor"="let s of services")
-            .service("(click)"='select(s)' style="background: url({{s.url}}/logo/medium) no-repeat cover)")
+            .service("(click)"='select(s)')
                 //- .thumbnail.pull-left
                 //-     img(src="{{s.url}}/logo/medium")
                 //- h2 {{s.name}}
