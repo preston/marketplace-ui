@@ -37,14 +37,20 @@ toaster-container
                             |  Search Marketplace
     .row
         .col-md-4("*ngFor"="let s of services")
-            .service("(click)"='select(s)')
+            .service("(click)"='select(s)' style="background: url({{s.url}}/logo/medium) no-repeat cover)")
+                //- .thumbnail.pull-left
+                //-     img(src="{{s.url}}/logo/medium")
+                //- h2 {{s.name}}
+
                 .row
-                    .col-sm-4
-                        img(src="{{s.url}}/logo/medium")
-                    .col-sm-8
-                        h1 {{s.name}}
-                br
-                p {{s.description}}
+                    .col-sm-6
+                        //- .thumbnail
+                        img.logo(src="{{s.url}}/logo/medium")
+                    .col-sm-6
+                        h2 {{s.name}}
+                    .col-sm-12
+                        hr
+                        p {{s.description}}
 
 
     button#close-service-button.btn.btn-default("*ngIf"='service' "(click)"="select(null)") Close
