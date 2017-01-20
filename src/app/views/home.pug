@@ -1,10 +1,14 @@
 include layout/navigation
 toaster-container
 
+button.btn.btn-default.pull-right("*ngIf"="status.permissions?.everything?.manage" "[routerLink]"="['/system']")
+    span.glyphicon.glyphicon-hdd
+    //- |  System&nbsp;
+
 
 .container-fluid#home
     .row
-        .col-md-8.col-md-offset-2
+        .col-md-10.col-md-offset-1
 
 
 
@@ -12,7 +16,7 @@ toaster-container
                 h2
                     | Find and deploy a health service
                     span("*ngIf"="status.identity")
-                        | , {{status.identity.user.name}}.
+                        | , {{status.identity.user.first_name}}.
                     .btn-group.pull-right
                         span("*ngIf"="status.identity")
                             a("[routerLink]"="['/account']") manage

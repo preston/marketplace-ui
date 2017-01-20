@@ -1,16 +1,14 @@
 import {Component, Output, Inject} from '@angular/core';
-import {Identity} from '../models/identity';
 import {User} from '../models/user';
-import {Status} from '../models/status';
-import {Search} from '../models/search';
+import {Identity} from '../models/identity';
+import {Group} from '../models/group';
 import {IdentityProvider} from '../models/identity_provider';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
-// import {window} from '@angular/browser';
-
-import {IdentityService} from '../services/identity.service';
 import {UserService} from '../services/user.service';
+import {GroupService} from '../services/group.service';
+import {IdentityService} from '../services/identity.service';
 import {IdentityProviderService} from '../services/identity_provider.service';
 import {MarketplaceService} from '../services/marketplace.service';
 
@@ -19,35 +17,30 @@ import {MarketplaceService} from '../services/marketplace.service';
 import {Http} from '@angular/http';
 
 @Component({
-    selector: 'account',
-    templateUrl: '/account.html'
+    selector: 'users',
+    templateUrl: '/users.html'
 })
-export class AccountComponent {
+export class UsersComponent {
 
-    status: Object;
-
-    identityProviders: Array<IdentityProvider> = new Array<IdentityProvider>();
+    // The current selection, if any.
+    user: User = null;
     identities: Array<Identity>;
-    user: User;
+
+    users: Array<User> = new Array<User>();
+    identityProviders: Array<IdentityProvider> = new Array<IdentityProvider>();
 
     constructor(private marketplaceService: MarketplaceService,
         private userService: UserService,
         private identityService: IdentityService,
-        private identityProviderService: IdentityProviderService) {
+        private identityProviderService: IdentityProviderService,
+        private toasterService: ToasterService) {
         this.reload();
     }
 
     reload() {
-        this.status = {};
         this.identities = new Array<Identity>();
-        this.marketplaceService.status().subscribe(d => {
-            this.status = d;
-            this.userService.get(this.status['identity']['user_id']).subscribe(d => {
-                this.user = d;
-                this.identityService.index(this.user).subscribe(d => {
-                    this.identities = d;
-                });
-            });
+        this.userService.index().subscribe(d => {
+            this.users = d['results'];
         });
         this.identityProviderService.index().subscribe(d => {
             this.identityProviders = d;
@@ -65,5 +58,17 @@ export class AccountComponent {
         }
         return match;
     }
+    
+    select(user: User) {
+        this.user = user;
+        this.identityService.index(user).subscribe(d => {
+            this.identities = d;
+        });
+    }
 
+    deleteIdentity(identity: Identity) {
+        // this.identityService.delete(this.user, identity).subscribe(d => {
+        //     this.users = d['results'];
+        // });
+    }
 }

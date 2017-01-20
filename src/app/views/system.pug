@@ -1,0 +1,30 @@
+button.btn.btn-default.pull-right("[routerLink]"="['/']")
+    |  Close&nbsp;
+
+.container-fluid#system
+    .row
+        .col-md-12
+            ul.nav.nav-tabs(role='tablist')
+                li.active(role='presentation')
+                    a(href='#users', aria-controls='users' role='tab', data-toggle='tab')
+                        span.glyphicon.glyphicon-user
+                        |  Users
+                li(role='presentation')
+                    a(href='#groups', aria-controls='groups', role='tab', data-toggle='tab')
+                        span.glyphicon.glyphicon-group
+                        |  Groups
+                li(role='presentation')
+                    a(href='#security', aria-controls='security', role='tab', data-toggle='tab')
+                        span.glyphicon.glyphicon-certificate
+                        |  Security
+                li(role='presentation')
+                    a(href='#advanced', aria-controls='advanced', role='tab', data-toggle='tab')
+                        span.glyphicon.glyphicon-wrench
+                        |  Advanced
+            .tab-content
+                users#users.tab-pane.active(role='tabpanel')
+                groups#groups.tab-pane(role='tabpanel')
+                #security.tab-pane(role='tabpanel')
+                    i (Not implemented)
+                #advanced.tab-pane(role='tabpanel')
+                    i (Not implemented)

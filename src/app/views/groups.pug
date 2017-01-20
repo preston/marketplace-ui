@@ -1,0 +1,17 @@
+
+#groups.container-fluid
+    h1 Account Management
+    p.text-help User accounts work a bit differently than you may expect due to the nature of single sign-on. Every user corresponds to at least one remote identity that is authoritative for names, emails, and other fields. Most of these fields must be updated in the SSO system. When updated, they will be updated the next time the user logs in.
+    table.table.table-condensed.table-striped
+        thead
+            tr
+                th Name
+                th Description
+                th Actions
+                th API
+        tbody
+            tr("*ngFor"="let group of groups")
+                td {{user.name}}
+                td {{user.description}}
+                td
+                    a.btn.btn-default(href="{{group.url}}.json") JSON

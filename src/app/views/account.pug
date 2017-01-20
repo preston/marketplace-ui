@@ -1,16 +1,15 @@
-include layout/navigation
+button.btn.btn-default.pull-right("[routerLink]"="['/']")
+    |  Close&nbsp;
+
+//- include layout/navigation
 toaster-container
-
-
+br
 .container-fluid#account
 
     .row
         #letter.col-md-6
             h1 Your Marketplace Account.
-            h1.lead NOT YET IMPLEMENTED
-            a.btn.btn-default("[routerLink]"="['/']")
-                span.glyphicon.glyphicon-home
-                |  Go Home
+            b.lead NOT FULLY IMPLEMENTED
             h2
                 b Hi {{status.identity?.user?.name}},
             hr
@@ -30,32 +29,47 @@ toaster-container
             p We never, ever, receive your password, and can't even recover or reset it for you. You can now use any Marketplace API-compliant app of your choosing!
 
         #identities.col-md-6
-            h2 Your Sign-On Identities
-            .dropdown("*ngIf"="!status.identity")
-                button#login-menu.btn.btn-sm.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
-                    span.glyphicon.glyphicon-plus
-                    |  Attach (or Switch to) Another Identity
-                    span.caret
-                ul.dropdown-menu(aria-labelledby='login-menu')
-                    li("*ngFor"="let idp of identityProviders")
-                        a("[href]"='idp.redirect_url') {{idp.name}}
+            br
+            section.well
+                h4
+                    span.glyphicon.glyphicon-credit-card
+                    |  Your Sign-On Identities
+                hr
+                p You can authenticate to this account using any associated SSO identity listed here.
+                span("*ngIf"="identities.length == 0")
+                    i None found.
+                table.table.table-condensed("*ngIf"="identities.length > 0")
+                    thead
+                        tr
+                            th ID
+                            th SSO
+                    tbody
+                        tr("*ngFor"="let identity of identities")
+                            td
+                                | {{identity.email}}
+                                br
+                                i Subject: {{identity.sub}}
+                            td {{identityProviderFor(identity.identity_provider_id).name}}
+                            td
+                                a.text-danger("(click)"='deleteIdentity(identity)' disabled)
+                                    span.glyphicon.glyphicon-trash
+                                        //- |  Delete
 
-            hr
-            p Was created {{status.identity?.user?.created_at}} ago. Your user ID is: {{status.identity?.user?.id}}, which may be accessed via the following SSO identities.
-            b TODO: Identity association table!
-            //- table.table.table-condensed.table-striped
-                thead
-                    tr
-                        th Provider
-                        th Email
-                        th Links
-                tbody
-                    tr("*ngFor"="let i for ")
-                        td
-                            b = i.identity_provider.name
-                            i = i.identity_provider == current_identity.identity_provider ? ' (current)' : nil
-                        td = i.email
-                        td
-                            .btn-group
-                                a href="#{i.identity_provider.issuer}" class="btn btn-sm btn-default" Manage
-                                = link_to 'Remove', user_identity_path(current_user.id, i.id), method: :delete, class: 'btn btn-sm btn-danger'
+                .dropdown("*ngIf"="!status.identity")
+                    button#login-menu.btn.btn-sm.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
+                        span.glyphicon.glyphicon-plus
+                        |  Attach (or Switch to) Another Identity
+                        span.caret
+                    ul.dropdown-menu(aria-labelledby='login-menu')
+                        li("*ngFor"="let idp of identityProviders")
+                            a("[href]"='idp.redirect_url') {{idp.name}}
+            section.well
+                h4
+                    span.glyphicon.glyphicon-cloud
+                    |  Your Platform Environments
+                hr
+                i (Not yet implemented)
+
+
+
+            p Your account was created {{status.identity?.user?.created_at}} ago. Your user ID is: {{status.identity?.user?.id}}.

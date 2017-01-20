@@ -1,0 +1,49 @@
+#users.container-fluid
+    .row
+        .col-md-8
+            h1 Account Management
+            p.text-help User accounts work a bit differently than you may expect due to the nature of single sign-on. Every user corresponds to at least one remote identity that is authoritative for names, emails, and other fields. Most of these fields must be updated in the SSO system. When updated, they will be updated the next time the user logs in.
+            .row
+                .col-md-4("*ngFor"="let user of users")
+                    a("(click)"="select(user)")
+                        | {{user.name}}
+            hr
+        .col-md-4("*ngIf"="user")
+            h2 {{user.name}}
+            br
+            section.well
+                h4
+                    span.glyphicon.glyphicon-credit-card
+                    |  Identities
+                hr
+                p Every user can authenticate using any of their SSO identities, which you may view and disassociate them here. Deleting all of a user's identities will effectly orphan the account!
+                span("*ngIf"="identities.length == 0")
+                    i None found.
+                table.table.table-condensed("*ngIf"="identities.length > 0")
+                    thead
+                        tr
+                            th ID
+                            th SSO
+                    tbody
+                        tr("*ngFor"="let identity of identities")
+                            td
+                                | {{identity.name}}
+                                | {{identity.email}}
+                            td {{identityProviderFor(identity.identity_provider_id).name}}
+                            td
+                                a.text-danger("(click)"='deleteIdentity(identity)' disabled)
+                                    span.glyphicon.glyphicon-trash
+                                        //- |  Delete
+            section.well
+                h4
+                    span.glyphicon.glyphicon-certificate
+                    |  Roles
+                hr
+                p Users receive permissions through any number of role appointments.
+                i (Not yet implemented)
+            section.well
+                h4
+                    span.glyphicon.glyphicon-chevron-right
+                    |  API
+                hr
+                a.btn.btn-default(href="{{user.url}}.json" target="_blank") JSON
