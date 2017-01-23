@@ -7,14 +7,10 @@ import {IdentityProvider} from '../models/identity_provider';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
-// import {window} from '@angular/browser';
-
 import {IdentityService} from '../services/identity.service';
 import {UserService} from '../services/user.service';
 import {IdentityProviderService} from '../services/identity_provider.service';
 import {MarketplaceService} from '../services/marketplace.service';
-
-// import {XmlExporterService} from '../services/xml_exporter.service';
 
 import {Http} from '@angular/http';
 
@@ -26,7 +22,7 @@ export class AccountComponent {
 
     status: Object;
 
-    identityProviders: Array<IdentityProvider> = new Array<IdentityProvider>();
+    identityProviders: Array<IdentityProvider>; // = new Array<IdentityProvider>();
     identities: Array<Identity>;
     user: User;
 
@@ -43,7 +39,7 @@ export class AccountComponent {
         this.marketplaceService.status().subscribe(d => {
             this.status = d;
             this.userService.get(this.status['identity']['user_id']).subscribe(d => {
-                this.user = d;
+                this.user = d as User;
                 this.identityService.index(this.user).subscribe(d => {
                     this.identities = d;
                 });

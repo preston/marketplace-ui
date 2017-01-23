@@ -3,6 +3,7 @@ import {Service} from './service';
 
 export class Build {
 
+	public id: string = '';
     public release_notes: string = '';
     public container_respository_url: string = '';
     public container_tag: string = '';

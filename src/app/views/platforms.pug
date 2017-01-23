@@ -1,0 +1,33 @@
+h4
+    .pull-right
+        button.btn.btn-primary("(click)"="create()")
+            span.glyphicon.glyphicon-plus
+            |  Register an infrastructure.
+    span.glyphicon.glyphicon-cloud
+    |  Your Platform Environments
+    .clearfix
+hr
+
+table.table.table-striped.table-condensed
+    thead
+        tr
+            th Name
+            th Public Key
+            th Actions
+    tbody
+        tr("*ngFor"="let p of platforms")
+            td
+                input.form-control(type="type" "[(ngModel)]"="p.name")
+            td
+                textarea.form-control(type="type" "[(ngModel)]"="p.public_key")
+            td
+                .btn-group
+                    button.btn.btn-sm.btn-primary("(click)"="update(p)")
+                        span.glyphicon.glyphicon-cloup-upload
+                        |  Save
+                    button.btn.btn-sm.btn-danger("(click)"="delete(p)")
+                        span.glyphicon.glyphicon-trash
+                        |  Delete
+                br
+                small
+                    i ID: {{p.id}}

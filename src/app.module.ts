@@ -15,6 +15,7 @@ import {ServiceComponent} from './app/components/service.component';
 import {SystemComponent} from './app/components/system.component';
 import {UsersComponent} from './app/components/users.component';
 import {GroupsComponent} from './app/components/groups.component';
+import {PlatformsComponent} from './app/components/platforms.component';
 
 import {BuildService} from './app/services/build.service';
 import {LicenseService} from './app/services/license.service';
@@ -24,10 +25,10 @@ import {StatusService} from './app/services/status.service';
 import {UserService} from './app/services/user.service';
 import {GroupService} from './app/services/group.service';
 import {RoleService} from './app/services/role.service';
+import {PlatformService} from './app/services/platform.service';
 import {IdentityService} from './app/services/identity.service';
 import {IdentityProviderService} from './app/services/identity_provider.service';
 
-// import {ExportModule} from './app/modules/export.module';
 
 enableProdMode();
 
@@ -39,9 +40,9 @@ import { HttpModule } from '@angular/http';
 
 
 const appRoutes: Routes = [
-	{ path: '', component: HomeComponent },
-	{ path: 'account', component: AccountComponent },
-	{ path: 'system', component: SystemComponent },
+    { path: '', component: HomeComponent },
+    { path: 'account', component: AccountComponent },
+    { path: 'system', component: SystemComponent },
     { path: 'api', component: ApiComponent }
 ]
 const appRoutingProviders: any[] = [];
@@ -54,19 +55,20 @@ const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
         FormsModule,
         HttpModule,
         ToasterModule,
-		CarouselModule
+        CarouselModule
     ],
     declarations: [
         AppComponent,
         ApiComponent,
         HomeComponent,
-		AccountComponent,
-		ServiceComponent,
-		SystemComponent,
-		UsersComponent,
-		GroupsComponent
-		// CarouselComponent,
-		// SlideComponent
+        AccountComponent,
+        ServiceComponent,
+        SystemComponent,
+        UsersComponent,
+        GroupsComponent,
+        PlatformsComponent
+        // CarouselComponent,
+        // SlideComponent
     ],   // components and directives
     providers: [
         appRoutingProviders,
@@ -77,11 +79,12 @@ const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
         ServiceService,
         StatusService,
         UserService,
-		GroupService,
-		RoleService,
-		IdentityService,
-		IdentityProviderService,
-		{ provide: 'Window', useValue: window }
+        GroupService,
+        RoleService,
+        IdentityService,
+        IdentityProviderService,
+        PlatformService,
+        { provide: 'Window', useValue: window }
     ],                    // services
     bootstrap: [AppComponent]     // root component
 })

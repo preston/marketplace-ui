@@ -63,13 +63,8 @@ br
                     ul.dropdown-menu(aria-labelledby='login-menu')
                         li("*ngFor"="let idp of identityProviders")
                             a("[href]"='idp.redirect_url') {{idp.name}}
-            section.well
-                h4
-                    span.glyphicon.glyphicon-cloud
-                    |  Your Platform Environments
-                hr
-                i (Not yet implemented)
-
+            .well
+                platforms("[user]"="user")
 
 
             p Your account was created {{status.identity?.user?.created_at}} ago. Your user ID is: {{status.identity?.user?.id}}.
