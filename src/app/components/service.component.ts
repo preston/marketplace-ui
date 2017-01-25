@@ -9,8 +9,6 @@ import {BuildService} from '../services/build.service';
 import {ServiceService} from '../services/service.service';
 import {LicenseService} from '../services/license.service';
 
-// import {Http} from '@angular/http';
-
 @Component({
     selector: 'service',
     templateUrl: '/service.html'
@@ -29,7 +27,11 @@ export class ServiceComponent implements OnInit {
 
 
     ngOnInit() {
-        console.log('Selected service \'' + this.service.name + '\'. Loading builds...');
+        this.reload();
+    }
+
+    reload() {
+        console.log('Service component for \'' + this.service.name + '\'. Loading builds...');
         this.buildService.index(this.service).subscribe(d => {
             this.builds = d;
             console.log('Loaded ' + this.builds.length + ' builds.');

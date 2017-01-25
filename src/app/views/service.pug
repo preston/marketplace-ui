@@ -85,33 +85,6 @@ div
                 img(src='{{ss.url}}/medium', "[alt]"='ss.caption')
                 .caption
                     h4 {{ss.caption}}
-            // ng2-bootstrap bug at the moment: https://github.com/valor-software/ng2-bootstrap/issues/1516
-            //- carousel
-                slide("*ngFor"="let ss of service.screenshots")
-                    img(src='{{ss.url}}/large', "[alt]"='ss.caption')
-
-            //- #screenshot_carousel.carousel.slide(data-ride='carousel')
-                ol.carousel-indicators
-                    li.active(data-target='#screenshot_carousel', data-slide-to='0')
-                    li(data-target='#screenshot_carousel', data-slide-to='1')
-                    li(data-target='#screenshot_carousel', data-slide-to='2')
-                // Wrapper for slides
-                .carousel-inner(role='listbox')
-                    .item.active("*ngFor"="let ss of service.screenshots; let index=index")
-                        img(src='{{ss.url}}/large', "[alt]"='ss.caption')
-                        .carousel-caption
-                            | {{ss.caption}}
-                    .item
-                        img(src='...', alt='...')
-                        .carousel-caption
-                            | ...
-                    |     ...
-                a.left.carousel-control(href='#screenshot_carousel', role='button', data-slide='prev')
-                    span.fa.fa-chevron-left(aria-hidden='true')
-                    span.sr-only Previous
-                a.right.carousel-control(href='#screenshot_carousel', role='button', data-slide='next')
-                    span.fa.fa-chevron-right(aria-hidden='true')
-                    span.sr-only Next
         #runtime.tab-pane(role='tabpanel')
             .lead TODO This section will contain tunable parameters than may be specific to the infrastructure environment.
         #deployment.tab-pane(role='tabpanel')

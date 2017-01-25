@@ -1,7 +1,7 @@
 #users.container-fluid
     .row
         .col-sm-8
-            h1 Account Management
+            h1 Account management
             p.text-help User accounts work a bit differently than you may expect due to the nature of single sign-on. Every user corresponds to at least one remote identity that is authoritative for names, emails, and other fields. Most of these fields must be updated in the SSO system. When updated, they will be updated the next time the user logs in.
             .row
                 .col-md-4("*ngFor"="let user of users")

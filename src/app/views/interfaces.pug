@@ -2,7 +2,7 @@
 
     .row
         .col-sm-6
-            h1 Supported Interface
+            h1 Supported service interfaces
             .pull-right
                 button.btn.btn-primary("(click)"="create()")
                     span.fa.fa-plus
@@ -40,9 +40,6 @@
                     label(for="interface_version") Version
                     input.form-control(type="text" name="interface_version" "[(ngModel)]"="interface.version")
                     p Human-readable version of this interface. Required, but freeform.
-                //- .form-interface
-                    label(for="interface_description") Description
-                    textarea.form-control(type="text" name="interface_description" "[(ngModel)]"="interface.description")
                 .checkbox
                     label(for="interface_description")
                         input(type="checkbox" name="interface_default" "[(ngModel)]"="interface.default")

@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit {
             this.identityProviders = d['results'];
         });
         this.licenseService.index().subscribe(d => {
-            this.licenses = d;
+            this.licenses = d['results'];
             this.loadInitialServices();
         });
     }
