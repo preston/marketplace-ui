@@ -7,8 +7,8 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class MarketplaceService {
 
-    public url: string = 'http://localhost:3000';
-    // public url: string = 'https://marketplace-server.hspconsortium.org';
+    // public url: string = 'http://localhost:3000';
+    public url: string = 'https://marketplace-server.hspconsortium.org';
 
     public static STATUS_PATH: string = '/status';
     public static SESSIONS_PATH: string = '/sessions';
