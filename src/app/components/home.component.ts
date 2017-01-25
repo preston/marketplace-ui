@@ -1,4 +1,4 @@
-import {Component, Output, Inject} from '@angular/core';
+import {Component, Output, Inject, OnInit} from '@angular/core';
 import {Service} from '../models/service';
 import {License} from '../models/license';
 import {Status} from '../models/status';
@@ -8,8 +8,6 @@ import {IdentityProvider} from '../models/identity_provider';
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
 import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
-
-// import {window} from '@angular/browser';
 
 import {ServiceService} from '../services/service.service';
 import {LicenseService} from '../services/license.service';
@@ -23,10 +21,10 @@ import {Http} from '@angular/http';
 @Component({
     selector: 'home',
     templateUrl: '/home.html',
-	providers: [CarouselModule]
+    providers: [CarouselModule]
 
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
     // The currently selected service, if any.
     service: Service = null;
@@ -42,8 +40,11 @@ export class HomeComponent {
         private serviceService: ServiceService,
         private licenseService: LicenseService,
         private identityProviderService: IdentityProviderService,
-		private toasterService: ToasterService,
+        private toasterService: ToasterService,
         @Inject('Window') private window: Window) {
+    }
+
+    ngOnInit() {
         this.reload();
     }
 
@@ -69,8 +70,8 @@ export class HomeComponent {
     }
 
     loadInitialServices() {
-        this.serviceService.index().subscribe(d => {
-            this.services = d;
+        this.serviceService.published().subscribe(d => {
+            this.services = d['results'];
         });
     }
     select(service: Service) {
@@ -79,8 +80,8 @@ export class HomeComponent {
 
     search() {
         if (this.validSearch()) {
-            this.serviceService.search(this.searchQuery.text).subscribe(d => {
-                this.services = d;
+            this.serviceService.searchPublished(this.searchQuery.text).subscribe(d => {
+                this.services = d['results'];
             });
         } else {
             this.loadInitialServices();
@@ -95,7 +96,7 @@ export class HomeComponent {
         this.marketplaceService.logout().subscribe(d => {
             this.loadMarketplaceStatus();
             console.log("Logout complete.");
-			this.toasterService.pop('success', 'Logged out.', 'See you next time!');
+            this.toasterService.pop('success', 'Logged out.', 'See you next time!');
         });
     }
 

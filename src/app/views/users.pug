@@ -1,6 +1,6 @@
 #users.container-fluid
     .row
-        .col-md-8
+        .col-sm-8
             h1 Account Management
             p.text-help User accounts work a bit differently than you may expect due to the nature of single sign-on. Every user corresponds to at least one remote identity that is authoritative for names, emails, and other fields. Most of these fields must be updated in the SSO system. When updated, they will be updated the next time the user logs in.
             .row
@@ -8,7 +8,10 @@
                     a("(click)"="select(user)")
                         | {{user.name}}
             hr
-        .col-md-4("*ngIf"="user")
+            h2 What can't I create a user account?
+            p This UI doesn't provide a way to add user accounts because they are created automatically as part of the single sign-on (SSO) process, and it generally isn't possible to know the details of a 3rd-party identity record until the user logs in for the first time using said identity. Creating a user account without any accompanying identity(ies) essentially creates an orphaned account that cannot be logged into.
+            p If you know what you're doing and know the SSO "subject" identifiers for your new users' identities, the API allows for both user and user identity records to be created at your discretion.
+        .col-sm-4("*ngIf"="user")
             h2 {{user.name}}
             br
             section.well
@@ -47,3 +50,12 @@
                     |  API
                 hr
                 a.btn.btn-default(href="{{user.url}}.json" target="_blank") JSON
+
+            section.well
+                dl
+                    dt UUID
+                    dd {{user.id}}
+                    dt Created
+                    dd {{user.created_at}}
+                    dt Updated
+                    dd {{user.updated_at}}

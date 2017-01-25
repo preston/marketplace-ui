@@ -1,17 +1,45 @@
-
 #groups.container-fluid
-    h1 Account Management
-    p.text-help User accounts work a bit differently than you may expect due to the nature of single sign-on. Every user corresponds to at least one remote identity that is authoritative for names, emails, and other fields. Most of these fields must be updated in the SSO system. When updated, they will be updated the next time the user logs in.
-    table.table.table-condensed.table-striped
-        thead
-            tr
-                th Name
-                th Description
-                th Actions
-                th API
-        tbody
-            tr("*ngFor"="let group of groups")
-                td {{user.name}}
-                td {{user.description}}
-                td
-                    a.btn.btn-default(href="{{group.url}}.json") JSON
+
+    .row
+        .col-sm-8
+            h1 Group Management
+            .pull-right
+                button.btn.btn-primary("(click)"="create()")
+                    span.glyphicon.glyphicon-plus
+                    |  Create a group
+            p.text-help Groups are collections of users, and are usually used to ease the permissions management. When a role is assigned to a group, the role is automatically applied to all members.
+            .clearfix
+            .row
+                .col-md-4("*ngFor"="let group of groups")
+                    a("(click)"="select(group)") {{group.name}}
+            hr
+        .col-sm-4("*ngIf"="group")
+
+            h2
+                | Edit
+                .btn-group.pull-right
+                    button.btn.btn-sm.btn-primary("(click)"="update(group)")
+                        span.glyphicon.glyphicon-cloud-upload
+                        |  Save
+                    button.btn.btn-sm.btn-danger("(click)"="delete(group)")
+                        span.glyphicon.glyphicon-trash
+                        |  Delete
+            hr
+            form.form
+                .form-group
+                    label(for="group_name") Name
+                    input.form-control(type="text" name="group_name" "[(ngModel)]"="group.name")
+
+                    small
+                        i ID: {{group.id}}
+                .form-group
+                    label(for="group_description") Description
+                    textarea.form-control(type="text" name="group_description" "[(ngModel)]"="group.description")
+            dl
+                dt UUID
+                dd {{group.id}}
+                dt Created
+                dd {{group.created_at}}
+                dt Updated
+                dd {{group.updated_at}}
+            //- a.btn.btn-default.btn-small(href="{{group.url}}.json" target="_blank") JSON

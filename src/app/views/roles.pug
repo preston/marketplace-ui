@@ -1,0 +1,50 @@
+#roles.container-fluid
+
+    .row
+        .col-sm-8
+            h1 Role Management
+            .pull-right
+                button.btn.btn-primary("(click)"="create()")
+                    span.glyphicon.glyphicon-plus
+                    |  Create a role
+            p.text-help A role defines a set of permissions, and may be assigned to any number of users and roles by "appointing" it.
+            .clearfix
+            .row
+                .col-md-4("*ngFor"="let role of roles")
+                    a("(click)"="select(role)") {{role.name}}
+            hr
+        .col-sm-4("*ngIf"="role")
+
+            h2
+                | Edit
+                .btn-role.pull-right
+                    button.btn.btn-sm.btn-primary("(click)"="update(role)")
+                        span.glyphicon.glyphicon-cloud-upload
+                        |  Save
+                    button.btn.btn-sm.btn-danger("(click)"="delete(role)")
+                        span.glyphicon.glyphicon-trash
+                        |  Delete
+            hr
+            form.form
+                .form-role
+                    label(for="role_name") Name
+                    input.form-control(type="text" name="role_name" "[(ngModel)]"="role.name")
+
+                    small
+                        i ID: {{role.id}}
+                .form-role
+                    label(for="role_description") Description
+                    textarea.form-control(type="text" name="role_description" "[(ngModel)]"="role.description")
+                .checkbox
+                    label(for="role_description")
+                        input(type="checkbox" name="role_default" "[(ngModel)]"="role.default")
+                        |  Default?
+                    p When checked, new users will automatically be appointed to this role. Changing the value does not modify existing role appointments, or lack thereof.
+            dl
+                dt UUID
+                dd {{role.id}}
+                dt Created
+                dd {{role.created_at}}
+                dt Updated
+                dd {{role.updated_at}}
+                //- a.btn.btn-default.btn-small(href="{{role.url}}.json" target="_blank") JSON

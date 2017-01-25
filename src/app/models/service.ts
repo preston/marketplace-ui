@@ -11,10 +11,12 @@ export class Service {
     public uri: string = '';
     public support_url: string = '';
 	public license_id: string = '';
+    public logo: string;
 
 	public license: License;
 	public user: User;
 
+	public published_at: Date;
 	public visible_at: Date;
 	public created_at: Date;
 	public updated_at: Date;

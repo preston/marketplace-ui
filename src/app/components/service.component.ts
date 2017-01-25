@@ -5,11 +5,9 @@ import {Status} from '../models/status';
 import {Build} from '../models/build';
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
-// import {window} from '@angular/browser';
-
+import {BuildService} from '../services/build.service';
 import {ServiceService} from '../services/service.service';
 import {LicenseService} from '../services/license.service';
-import {BuildService} from '../services/build.service';
 
 // import {Http} from '@angular/http';
 
@@ -24,7 +22,9 @@ export class ServiceComponent implements OnInit {
 
     builds: Array<Build> = new Array<Build>();
 
-    constructor(private buildService: BuildService, private serviceService: ServiceService, private licenseService: LicenseService) {
+    constructor(private buildService: BuildService,
+        private serviceService: ServiceService,
+        private licenseService: LicenseService) {
     }
 
 

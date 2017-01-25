@@ -6,6 +6,8 @@ import {BaseService} from "./base.service";
 
 import {MarketplaceService} from './marketplace.service';
 
+import {Group} from '../models/group';
+
 @Injectable()
 export class GroupService extends BaseService {
 
@@ -24,4 +26,24 @@ export class GroupService extends BaseService {
         return groups;
     }
 
+    get(id: string) {
+        let platform = this.http.get(this.url() + '/' + id, this.options()).map(res => res.json());
+        return platform;
+    }
+
+
+    create(group: Group) {
+        let obs = this.http.post(this.url(), { 'group': group }, this.options()).map(res => res.json());
+        return obs;
+    }
+
+	update(group: Group) {
+		let obs = this.http.put(this.url() + '/' + group.id, { 'group': group }, this.options()).map(res => res.json());
+        return obs;
+	}
+
+	delete(group: Group) {
+		let obs = this.http.delete(this.url() + '/' + group.id, this.options()).map(res => res.json());
+        return obs;
+	}
 }

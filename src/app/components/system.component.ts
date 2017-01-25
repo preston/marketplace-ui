@@ -1,4 +1,4 @@
-import {Component, Output, Inject} from '@angular/core';
+import {Component, Output, Inject, OnInit} from '@angular/core';
 import {Service} from '../models/service';
 import {License} from '../models/license';
 import {Status} from '../models/status';
@@ -27,7 +27,7 @@ import {Http} from '@angular/http';
     selector: 'system',
     templateUrl: '/system.html'
 })
-export class SystemComponent {
+export class SystemComponent implements OnInit {
 
     // The currently selected service, if any.
     service: Service = null;
@@ -43,18 +43,22 @@ export class SystemComponent {
         private licenseService: LicenseService,
         private identityProviderService: IdentityProviderService,
         private userService: UserService,
-		private toasterService: ToasterService) {
+        private toasterService: ToasterService) {
+    }
+
+    ngOnInit() {
         this.reload();
     }
 
     reload() {
-        // this.loadMarketplaceStatus();
+        this.marketplaceService.status().subscribe(d => {
+            this.status = d;
+        });
         this.identityProviderService.index().subscribe(d => {
             this.identityProviders = d;
         });
         this.licenseService.index().subscribe(d => {
             this.licenses = d;
-            // this.loadInitialServices();
         });
     }
 

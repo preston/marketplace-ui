@@ -5,16 +5,18 @@ import {Routes, RouterModule} from '@angular/router';
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 // import {DragulaModule} from 'ng2-dragula/ng2-dragula';
 
-import { CarouselModule} from 'ng2-bootstrap';
+import {CarouselModule} from 'ng2-bootstrap';
 
 import {AppComponent} from './app/app.component';
 import {HomeComponent} from './app/components/home.component';
 import {AccountComponent} from './app/components/account.component';
 import {ApiComponent} from './app/components/api.component';
 import {ServiceComponent} from './app/components/service.component';
+import {ServicesComponent} from './app/components/services.component';
 import {SystemComponent} from './app/components/system.component';
 import {UsersComponent} from './app/components/users.component';
 import {GroupsComponent} from './app/components/groups.component';
+import {RolesComponent} from './app/components/roles.component';
 import {PlatformsComponent} from './app/components/platforms.component';
 
 import {BuildService} from './app/services/build.service';
@@ -63,9 +65,11 @@ const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
         HomeComponent,
         AccountComponent,
         ServiceComponent,
+        ServicesComponent,
         SystemComponent,
         UsersComponent,
         GroupsComponent,
+        RolesComponent,
         PlatformsComponent
         // CarouselComponent,
         // SlideComponent

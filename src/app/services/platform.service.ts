@@ -40,7 +40,7 @@ export class PlatformService extends BaseService {
     }
 
 	update(user: User, platform: Platform) {
-		let obs = this.http.put(this.url(user), { 'platform': platform }, this.options()).map(res => res.json());
+		let obs = this.http.put(this.url(user) + '/' + platform.id, { 'platform': platform }, this.options()).map(res => res.json());
         return obs;
 	}
 

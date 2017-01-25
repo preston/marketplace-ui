@@ -45,12 +45,17 @@ export class PlatformsComponent implements OnChanges {
         let platform = new Platform();
         platform.name = "My IaaS " + UUID.UUID();
         platform.user_id = this.user.id;
-        // console.log(this.user);
-        // console.log('Creating new platform registration.');
-        // console.log(platform);
         this.platformService.create(this.user, platform).subscribe(d => {
             this.toasterService.pop('success', 'Platform Added', 'Please update the details accordingly!');
             this.platforms.push(d);
+        });
+    }
+
+    update(platform: Platform) {
+        this.platformService.update(this.user, platform).subscribe(d => {
+            this.toasterService.pop('success', 'Platform Updated');
+            let i = this.platforms.indexOf(platform, 0);
+            this.platforms[i] = d;
         });
     }
 
@@ -58,7 +63,7 @@ export class PlatformsComponent implements OnChanges {
         this.platformService.delete(this.user, platform).subscribe(d => {
             this.toasterService.pop('success', 'Platform Unregistered');
             let i = this.platforms.indexOf(platform, 0);
-            if (i > 0) {
+            if (i >= 0) {
                 this.platforms.splice(i, 1);
             }
         });

@@ -1,0 +1,103 @@
+#services.container-fluid
+
+    .row
+        .col-sm-8
+            h1 Service Management
+            .pull-right
+                button.btn.btn-primary("(click)"="create()")
+                    span.glyphicon.glyphicon-plus
+                    |  Declare a service
+            p.text-help Services are collections of users, and are usually used to ease the permissions management. When a role is assigned to a service, the role is automatically applied to all members.
+            .clearfix
+            .row
+                .col-md-4("*ngFor"="let service of services")
+                    a("(click)"="select(service)")
+                        img.logo(src="{{service.url}}/logo/small")
+                        br
+                        |  {{service.name}}
+            hr
+            #builds("*ngIf"="service")
+                h2 Available Builds
+                .pull-right
+                    button.btn.btn-primary("(click)"="createBuild(service)" disabled)
+                        span.glyphicon.glyphicon-plus
+                        |  Register a container build
+                i("*ngIf"="builds.length == 0") No builds have been listed.
+                table.table.table-condensed.table-striped("*ngIf"="builds.length > 0")
+                    thead
+                        tr
+                            th Service Version
+                            th Build
+                            th Container Repository
+                            th Tag
+                            th Validated?
+                            th Published?
+                            th Release Notes
+                            th Actions
+                    tbody
+                        tr("*ngFor"="let b of builds")
+                            td {{b.service_version}}
+                            td {{b.version}}
+                            td {{b.container_repository_url}}
+                            td {{b.container_tag}}
+                            td {{b.validated_at}}
+                            td {{b.published_at}}
+                            td {{b.release_notes}}
+                            td
+                                .btn-group
+                                    button.btn.btn-primary(disabled="true" "(click)"="updateBuild(b)")
+                                        span.glyphicon.glyphicon-cloud-upload
+                                        |  Save
+                                    button.btn.btn-danger(disabled="true" "(click)"="deleteBuild(b)")
+                                        span.glyphicon.glyphicon-trash
+                                        |  Delete
+
+
+
+        .col-sm-4("*ngIf"="service")
+
+            h2
+                | Edit
+                .btn-service.pull-right
+                    button.btn.btn-sm.btn-primary("(click)"="publish(service)" "*ngIf"="!service.published_at")
+                        span.glyphicon.glyphicon-thumbs-up
+                        |  Publish
+                    button.btn.btn-sm.btn-primary("(click)"="unpublish(service)" "*ngIf"="service.published_at")
+                        span.glyphicon.glyphicon-thumbs-down
+                        |  Unpublish
+                    button.btn.btn-sm.btn-primary("(click)"="update(service)")
+                        span.glyphicon.glyphicon-cloud-upload
+                        |  Save
+                    button.btn.btn-sm.btn-danger("(click)"="delete(service)")
+                        span.glyphicon.glyphicon-trash
+                        |  Delete
+
+            p("*ngIf"="service.published_at") Last published at {{service.published_at}}.
+            //- p("*ngIf"="!service.published_at") Not currently published.
+            hr
+            form.form
+                .form-group
+                    label(for="service_name") Name
+                    input.form-control(type="text" name="service_name" "[(ngModel)]"="service.name")
+                    small
+                        i ID: {{service.id}}
+                .form-group
+                    label(for="service_support_url") Support URL
+                    input.form-control(type="text" name="service_support_url" "[(ngModel)]"="service.support_url")
+                .form-group
+                    label(for="service_uri") URI
+                    input.form-control(type="text" name="service_uri" "[(ngModel)]"="service.uri")
+                .form-group
+                    label(for="service_description") Description
+                    textarea.form-control(type="text" name="service_description" "[(ngModel)]"="service.description")
+                .form-group
+                    label(for="service_logo") Logo
+                    input(type="file" name="service_logo" "(change)"="handleLogoSelect($event)")
+            dl
+                dt UUID
+                dd {{service.id}}
+                dt Created
+                dd {{service.created_at}}
+                dt Updated
+                dd {{service.updated_at}}
+            //- a.btn.btn-default.btn-small(href="{{service.url}}.json" target="_blank") JSON
