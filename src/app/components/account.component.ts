@@ -46,7 +46,7 @@ export class AccountComponent {
             });
         });
         this.identityProviderService.index().subscribe(d => {
-            this.identityProviders = d;
+            this.identityProviders = d['results'];
         });
 
     }
