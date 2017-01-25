@@ -60,6 +60,11 @@ module.exports = function(grunt) {
                     src: "*",
                     dest: 'build/fonts/',
                     expand: true
+                },{
+                    cwd: 'node_modules/font-awesome/fonts',
+                    src: "*",
+                    dest: 'build/fonts/',
+                    expand: true
                 }, {
                     cwd: 'src/images/',
                     src: '**/*',
@@ -73,7 +78,8 @@ module.exports = function(grunt) {
             build: {
                 files: [{
                     src: [
-                        "node_modules/bootstrap/dist/css/bootstrap.min.css",
+						"node_modules/bootstrap/dist/css/bootstrap.min.css",
+						"node_modules/font-awesome/css/font-awesome.min.css",
 						"node_modules/angular2-toaster/lib/toaster.css"
                     ],
                     dest: 'build/css/extra.css'

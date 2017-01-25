@@ -9,7 +9,7 @@ br
     .row
         #letter.col-md-6
             h1 Your Marketplace Account.
-            b.lead NOT FULLY IMPLEMENTED
+            //- b.lead NOT FULLY IMPLEMENTED
             h2
                 b Hi {{status.identity?.user?.name}},
             hr
@@ -32,7 +32,7 @@ br
             br
             section.well
                 h4
-                    span.glyphicon.glyphicon-credit-card
+                    span.fa.fa-credit-card
                     |  Your Sign-On Identities
                 hr
                 p You can authenticate to this account using any associated SSO identity listed here.
@@ -52,12 +52,12 @@ br
                             td {{identityProviderFor(identity.identity_provider_id).name}}
                             //- td
                                 //- a.text-danger("(click)"='deleteIdentity(identity)' disabled)
-                                    span.glyphicon.glyphicon-trash
+                                    span.fa.fa-trash
                                         //- |  Delete
 
                 .dropdown("*ngIf"="!status.identity")
                     button#login-menu.btn.btn-sm.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
-                        span.glyphicon.glyphicon-plus
+                        span.fa.fa-plus
                         |  Attach (or Switch to) Another Identity
                         span.caret
                     ul.dropdown-menu(aria-labelledby='login-menu')

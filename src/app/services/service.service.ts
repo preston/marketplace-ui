@@ -6,6 +6,8 @@ import {BaseService} from "./base.service";
 
 import {MarketplaceService} from './marketplace.service';
 import {Service} from '../models/service';
+import {License} from '../models/license';
+import {User} from '../models/user';
 
 @Injectable()
 export class ServiceService extends BaseService {
@@ -41,8 +43,18 @@ export class ServiceService extends BaseService {
     }
 
 
-    index() {
+	index() {
         let services = this.http.get(this.url(), this.options()).map(res => res.json());
+        return services;
+    }
+
+	indexByLicense(license: License) {
+        let services = this.http.get(this.url() + '?license_id=' + license.id , this.options()).map(res => res.json());
+        return services;
+    }
+
+	indexByUser(user: User) {
+        let services = this.http.get(this.url() + '?user_id=' + user.id , this.options()).map(res => res.json());
         return services;
     }
 

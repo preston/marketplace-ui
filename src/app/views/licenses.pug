@@ -1,0 +1,61 @@
+#licenses.container-fluid
+
+    .row
+        .col-sm-8
+            h1 License Types
+            .pull-right
+                button.btn.btn-primary("(click)"="create()")
+                    span.fa.fa-plus
+                    |  Declare a license.
+            p.text-help Every service in the directory must define the primary license under which it is made availaible. This is used for presentational and search filtering purposes, as well as to make it clear to service publishers that only the follow submissions are allowed in the system.
+            .clearfix
+            .row
+                .col-md-4("*ngFor"="let license of licenses")
+                    a("(click)"="select(license)") {{license.name}}
+            hr
+            section("*ngIf"="license")
+                h2 Services Offered
+                table.table.table-condensed.table-striped("*ngIf"="services.length > 0")
+                    thead
+                        tr
+                            th Service
+                            th Description
+                            th Published?
+                    tbody
+                        tr("*ngFor"="let service of services")
+                            td {{service.name}}
+                            td {{service.description}}
+                            td {{service.published_at ? 'Yes' : 'No'}}
+                p("*ngIf"="services.length == 0")
+                    i No services, published or unpublished, are offered under the {{license.name}} license.
+
+        .col-sm-4("*ngIf"="license")
+
+            h2
+                | Edit
+                .btn-group.pull-right
+                    button.btn.btn-sm.btn-primary("(click)"="update(license)")
+                        span.fa.fa-cloud-upload
+                        |  Save
+                    button.btn.btn-sm.btn-danger("(click)"="delete(license)")
+                        span.fa.fa-trash
+                        |  Delete
+            hr
+            form.form
+                .form-group
+                    label(for="license_name") Name
+                    input.form-control(type="text" name="license_name" "[(ngModel)]"="license.name")
+
+                    small
+                        i ID: {{license.id}}
+                .form-group
+                    label(for="license_url") URL
+                    input.form-control(type="text" name="license_url" "[(ngModel)]"="license.url")
+            dl
+                dt UUID
+                dd {{license.id}}
+                dt Created
+                dd {{license.created_at}}
+                dt Updated
+                dd {{license.updated_at}}
+                //- a.btn.btn-default.btn-small(href="{{license.url}}.json" target="_blank") JSON

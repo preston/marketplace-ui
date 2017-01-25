@@ -5,7 +5,7 @@
             h1 Role Management
             .pull-right
                 button.btn.btn-primary("(click)"="create()")
-                    span.glyphicon.glyphicon-plus
+                    span.fa.fa-plus
                     |  Create a role
             p.text-help A role defines a set of permissions, and may be assigned to any number of users and roles by "appointing" it.
             .clearfix
@@ -17,22 +17,22 @@
 
             h2
                 | Edit
-                .btn-role.pull-right
+                .btn-group.pull-right
                     button.btn.btn-sm.btn-primary("(click)"="update(role)")
-                        span.glyphicon.glyphicon-cloud-upload
+                        span.fa.fa-cloud-upload
                         |  Save
                     button.btn.btn-sm.btn-danger("(click)"="delete(role)")
-                        span.glyphicon.glyphicon-trash
+                        span.fa.fa-trash
                         |  Delete
             hr
             form.form
-                .form-role
+                .form-group
                     label(for="role_name") Name
                     input.form-control(type="text" name="role_name" "[(ngModel)]"="role.name")
 
                     small
                         i ID: {{role.id}}
-                .form-role
+                .form-group
                     label(for="role_description") Description
                     textarea.form-control(type="text" name="role_description" "[(ngModel)]"="role.description")
                 .checkbox

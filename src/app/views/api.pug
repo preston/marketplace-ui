@@ -2,7 +2,7 @@
     .row
         .col-sm-3
             h2
-                span.glyphicon.glyphicon-transfer
+                span.fa.fa-transfer
                 |  Developer API
             p
                 a(href='/') Marketplace
@@ -21,7 +21,7 @@
                     a([href]="MarketplaceService.getUrl() + '/services.json'")
                         | {{MarketplaceService.url}}/services.json
                 button.btn.btn-primary(aria-controls='services_result', aria-expanded='false', data-target='#services_result', data-toggle='collapse', type='button')
-                    span.glyphicon.glyphicon-eye-open
+                    span.fa.fa-eye-open
                     |  Show Result
                 pre#services_result.collapse.
                     \n\t\t\t\t\t

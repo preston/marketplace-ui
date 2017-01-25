@@ -53,7 +53,7 @@ export class ServicesComponent implements OnInit {
             this.services = d['results'];
         });
         this.licenseService.index().subscribe(d => {
-            this.licenses = d;
+            this.licenses = d['results'];
         });
     }
 
@@ -143,7 +143,7 @@ export class ServicesComponent implements OnInit {
     updateBuild(build: Build) {
         // TODO
     }
-    
+
     deleteBuild(build: Build) {
         // TODO
     }

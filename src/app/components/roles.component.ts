@@ -1,6 +1,6 @@
 import {Component, Output, Inject} from '@angular/core';
 import {User} from '../models/user';
-import {Role} from '../models/Role';
+import {Role} from '../models/role';
 import {Status} from '../models/status';
 import {Search} from '../models/search';
 import {IdentityProvider} from '../models/identity_provider';

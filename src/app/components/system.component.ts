@@ -55,7 +55,7 @@ export class SystemComponent implements OnInit {
             this.status = d;
         });
         this.identityProviderService.index().subscribe(d => {
-            this.identityProviders = d;
+            this.identityProviders = d['results'];
         });
         this.licenseService.index().subscribe(d => {
             this.licenses = d;

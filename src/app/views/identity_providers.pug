@@ -1,0 +1,81 @@
+#identity_providers.container-fluid
+
+    .row
+        .col-sm-8
+            h1 SSO Identity Providers (IDPs)
+            .pull-right
+                button.btn.btn-primary("(click)"="create()")
+                    span.fa.fa-plus
+                    |  Add an SSO IDP.
+            p.text-danger Here be dragons! Do not mess with this section until/unless you are well versed in the OpenID Connect component of OAuth 2 and understand the ramifications of changes.
+            p An IDP is a 3rd-party service that provides authentication and user profile information. After configuring the IDP to allow user authentication by this system, enter the configuration secrets here. Common cases of needing to change these details is when moving between authentication systems, needing to change a pre-shared encryption secret, or authorizing an additional system to authenticate users.
+            p Note that you almost never want to _remove_ an IDP since complete deletion of an IDP will cascade to all known identities using it, thereby orphaning any user accounts they do not have other known identities.
+            .clearfix
+            .row
+                .col-md-4("*ngFor"="let identity_provider of identityProviders")
+                    a("(click)"="select(identity_provider)") {{identity_provider.name}}
+            hr
+            section("*ngIf"="identity_provider")
+                h2 Services Offered
+                table.table.table-condensed.table-striped("*ngIf"="services.length > 0")
+                    thead
+                        tr
+                            th Service
+                            th Description
+                            th Published?
+                    tbody
+                        tr("*ngFor"="let service of services")
+                            td {{service.name}}
+                            td {{service.description}}
+                            td {{service.published_at ? 'Yes' : 'No'}}
+                p("*ngIf"="services.length == 0")
+                    i No services, published or unpublished, are offered under the {{identity_provider.name}} identity_provider.
+
+        .col-sm-4("*ngIf"="identityProvider")
+
+            h2
+                | Edit
+                .btn-group.pull-right
+                    button.btn.btn-sm.btn-primary("(click)"="enable(identityProvider)" "*ngIf"="!identityProvider.enabled_at")
+                        span.fa.fa-thumbs-up
+                        |  Enable
+                    button.btn.btn-sm.btn-primary("(click)"="disable(identityProvider)" "*ngIf"="identityProvider.enabled_at")
+                        span.fa.fa-thumbs-down
+                        |  Disable
+
+                    button.btn.btn-sm.btn-primary("(click)"="update(identityProvider)")
+                        span.fa.fa-cloud-upload
+                        |  Save
+                    button.btn.btn-sm.btn-danger("(click)"="delete(identityProvider)")
+                        span.fa.fa-trash
+                        |  Delete
+            hr
+            form.form
+                .form-group
+                    label(for="identity_provider_name") Name
+                    input.form-control(type="text" name="identity_provider_name" "[(ngModel)]"="identityProvider.name")
+                    p The human-readable label used for login display purposes.
+                .form-group
+                    label(for="identity_provider_issuer") Issuer
+                    input.form-control(type="text" name="identity_provider_issuer" "[(ngModel)]"="identityProvider.issuer")
+                    p A URL provided by the owner of the SSO system. This is stable over time and may or may not be specific to your organization.
+                .form-group
+                    label(for="identity_provider_client_id") Client ID
+                    input.form-control(type="text" name="identity_provider_client_id" "[(ngModel)]"="identityProvider.client_id")
+                    p An opaque ID issued by the IDP system.
+                .form-group
+                    label(for="identity_provider_client_secret") Client Secret
+                    input.form-control(type="text" name="identity_provider_client_secret" "[(ngModel)]"="identityProvider.client_secret")
+                    p A secret, oopaque string issued by the IDP system. Do not publish this value!
+                .form-group
+                    label(for="identity_provider_alternate_client_id") Alternate Client ID
+                    input.form-control(type="text" name="identity_provider_alternate_client_id" "[(ngModel)]"="identityProvider.alternate_client_id")
+                    p An optional, secondary client ID that is only needed by IDPs that return a different client ID when redirecting back after authentication. If users are able to authenticate but you are receiving errors when returning to the marketplace, you may need to use this field.
+            dl
+                dt UUID
+                dd {{identityProvider.id}}
+                dt Created
+                dd {{identityProvider.created_at}}
+                dt Updated
+                dd {{identityProvider.updated_at}}
+                //- a.btn.btn-default.btn-small(href="{{identity_provider.url}}.json" target="_blank") JSON

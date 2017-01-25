@@ -5,7 +5,7 @@
             h1 Service Management
             .pull-right
                 button.btn.btn-primary("(click)"="create()")
-                    span.glyphicon.glyphicon-plus
+                    span.fa.fa-plus
                     |  Declare a service
             p.text-help Services are collections of users, and are usually used to ease the permissions management. When a role is assigned to a service, the role is automatically applied to all members.
             .clearfix
@@ -20,7 +20,7 @@
                 h2 Available Builds
                 .pull-right
                     button.btn.btn-primary("(click)"="createBuild(service)" disabled)
-                        span.glyphicon.glyphicon-plus
+                        span.fa.fa-plus
                         |  Register a container build
                 i("*ngIf"="builds.length == 0") No builds have been listed.
                 table.table.table-condensed.table-striped("*ngIf"="builds.length > 0")
@@ -46,11 +46,24 @@
                             td
                                 .btn-group
                                     button.btn.btn-primary(disabled="true" "(click)"="updateBuild(b)")
-                                        span.glyphicon.glyphicon-cloud-upload
+                                        span.fa.fa-cloud-upload
                                         |  Save
                                     button.btn.btn-danger(disabled="true" "(click)"="deleteBuild(b)")
-                                        span.glyphicon.glyphicon-trash
+                                        span.fa.fa-trash
                                         |  Delete
+            section("*ngIf"="service")
+                hr
+                h2 Exposed interfaces
+                i Management UI not implemented.
+                hr
+                h2 Required interfaces
+                i Management UI not implemented.
+                hr
+                h2 Screenshots
+                i Management UI not implemented.
+                hr
+                h2 Runtime configurations
+                i Management UI not implemented.
 
 
 
@@ -60,16 +73,16 @@
                 | Edit
                 .btn-service.pull-right
                     button.btn.btn-sm.btn-primary("(click)"="publish(service)" "*ngIf"="!service.published_at")
-                        span.glyphicon.glyphicon-thumbs-up
+                        span.fa.fa-thumbs-up
                         |  Publish
                     button.btn.btn-sm.btn-primary("(click)"="unpublish(service)" "*ngIf"="service.published_at")
-                        span.glyphicon.glyphicon-thumbs-down
+                        span.fa.fa-thumbs-down
                         |  Unpublish
                     button.btn.btn-sm.btn-primary("(click)"="update(service)")
-                        span.glyphicon.glyphicon-cloud-upload
+                        span.fa.fa-cloud-upload
                         |  Save
                     button.btn.btn-sm.btn-danger("(click)"="delete(service)")
-                        span.glyphicon.glyphicon-trash
+                        span.fa.fa-trash
                         |  Delete
 
             p("*ngIf"="service.published_at") Last published at {{service.published_at}}.

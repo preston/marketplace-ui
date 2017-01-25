@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
         this.searchQuery = new Search();
         this.loadMarketplaceStatus();
         this.identityProviderService.index().subscribe(d => {
-            this.identityProviders = d;
+            this.identityProviders = d['results'];
         });
         this.licenseService.index().subscribe(d => {
             this.licenses = d;

@@ -9,23 +9,39 @@ button.btn.btn-default.pull-right("[routerLink]"="['/']")
             ul.nav.nav-tabs(role='tablist')
                 li.active(role='presentation')
                     a(href='#users', aria-controls='users' role='tab', data-toggle='tab')
-                        span.glyphicon.glyphicon-user
+                        span.fa.fa-user
                         |  User Accounts
                 li(role='presentation')
                     a(href='#groups', aria-controls='groups', role='tab', data-toggle='tab')
-                        span.glyphicon.glyphicon-folder-open
-                        span.fa.fa-user
+                        span.fa.fa-users
                         |  Group Management
                 li(role='presentation')
                     a(href='#roles', aria-controls='roles', role='tab', data-toggle='tab')
-                        span.glyphicon.glyphicon-lock
+                        span.fa.fa-lock
                         |  Roles &amp; Permissions
                 li(role='presentation')
                     a(href='#services', aria-controls='services', role='tab', data-toggle='tab')
-                        span.glyphicon.glyphicon-cloud
+                        span.fa.fa-cloud
                         |  Services
+                li(role='presentation')
+                    a(href='#identity_providers', aria-controls='identity_providers', role='tab', data-toggle='tab')
+                        span.fa.fa-id-card
+                        |  Single Sign-On
+                li(role='presentation')
+                    a(href='#licenses', aria-controls='licenses', role='tab', data-toggle='tab')
+                        span.fa.fa-gavel
+                        |  License Types
+                li(role='presentation')
+                    a(href='#interfaces', aria-controls='interfaces', role='tab', data-toggle='tab')
+                        span.fa.fa-cube
+                        |  Service Interfaces
+
+
             .tab-content
                 users#users.tab-pane.active(role='tabpanel')
                 groups#groups.tab-pane(role='tabpanel')
                 roles#roles.tab-pane(role='tabpanel')
-                services#services.tab-pane(role='tabpanel' "[status]"="status")
+                services#services.tab-pane(role='tabpanel')
+                identity_providers#identity_providers.tab-pane(role='tabpanel')
+                licenses#licenses.tab-pane(role='tabpanel')
+                interfaces#interfaces.tab-pane(role='tabpanel')

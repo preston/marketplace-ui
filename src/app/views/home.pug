@@ -1,7 +1,7 @@
 include layout/navigation
 
 button.btn.btn-default.pull-right("*ngIf"="status.permissions?.everything?.manage" "[routerLink]"="['/system']")
-    span.glyphicon.glyphicon-hdd
+    span.fa.fa-cogs
     //- |  System&nbsp;
 
 
@@ -23,20 +23,20 @@ button.btn.btn-default.pull-right("*ngIf"="status.permissions?.everything?.manag
                             a("(click)"="logout()")  log out
                         .dropdown("*ngIf"="!status.identity")
                             button#login-menu.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='true')
-                                span.glyphicon.glyphicon-user
+                                span.fa.fa-user
                                 |  Login&nbsp;
                                 span.caret
                             ul.dropdown-menu(aria-labelledby='login-menu')
                                 li("*ngFor"="let idp of identityProviders")
                                     a("[href]"='idp.redirect_url') {{idp.name}}
                 //- .label(for="search_text")
-                //- span.glyphicon.glyphicon-search
+                //- span.fa.fa-search
                 //- | Search for deployable health services:
                 .input-group
                     input.input-lg.form-control(autofocus="true" type="search" "[(ngModel)]"='searchQuery.text' name="search_text" "(keyup)"="search()" placeholder="web")
                     span.input-group-btn
                         button.btn.btn-lg.btn-primary(type='submit' "[disabled]"="!validSearch()")
-                            span.glyphicon.glyphicon-search
+                            span.fa.fa-search
                             |  Search Marketplace
     .row
         .col-md-4("*ngFor"="let s of services")

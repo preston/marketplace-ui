@@ -1,7 +1,8 @@
-import {Component, Output, Inject} from '@angular/core';
+import {Component, Output, Inject, OnInit} from '@angular/core';
 import {User} from '../models/user';
 import {Identity} from '../models/identity';
 import {Group} from '../models/group';
+import {Service} from '../models/service';
 import {IdentityProvider} from '../models/identity_provider';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
@@ -9,6 +10,7 @@ import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 import {UserService} from '../services/user.service';
 import {GroupService} from '../services/group.service';
 import {IdentityService} from '../services/identity.service';
+import {ServiceService} from '../services/service.service';
 import {IdentityProviderService} from '../services/identity_provider.service';
 import {MarketplaceService} from '../services/marketplace.service';
 
@@ -20,11 +22,12 @@ import {Http} from '@angular/http';
     selector: 'users',
     templateUrl: '/users.html'
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit {
 
     // The current selection, if any.
     user: User = null;
     identities: Array<Identity>;
+    services: Array<Service>;
 
     users: Array<User> = new Array<User>();
     identityProviders: Array<IdentityProvider> = new Array<IdentityProvider>();
@@ -32,18 +35,23 @@ export class UsersComponent {
     constructor(private marketplaceService: MarketplaceService,
         private userService: UserService,
         private identityService: IdentityService,
+        private serviceService: ServiceService,
         private identityProviderService: IdentityProviderService,
         private toasterService: ToasterService) {
+    }
+
+    ngOnInit() {
         this.reload();
     }
 
     reload() {
         this.identities = new Array<Identity>();
+        this.services = new Array<Service>();
         this.userService.index().subscribe(d => {
             this.users = d['results'];
         });
         this.identityProviderService.index().subscribe(d => {
-            this.identityProviders = d;
+            this.identityProviders = d['results'];
         });
 
     }
@@ -58,12 +66,20 @@ export class UsersComponent {
         }
         return match;
     }
-    
+
     select(user: User) {
         this.user = user;
         this.identityService.index(user).subscribe(d => {
             this.identities = d;
         });
+        if (this.user) {
+            this.serviceService.indexByUser(this.user).subscribe(d => {
+                this.services = d['results'];
+            });
+        } else {
+            this.services = new Array<Service>();
+        }
+
     }
 
     deleteIdentity(identity: Identity) {

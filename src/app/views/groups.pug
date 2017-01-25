@@ -5,7 +5,7 @@
             h1 Group Management
             .pull-right
                 button.btn.btn-primary("(click)"="create()")
-                    span.glyphicon.glyphicon-plus
+                    span.fa.fa-plus
                     |  Create a group
             p.text-help Groups are collections of users, and are usually used to ease the permissions management. When a role is assigned to a group, the role is automatically applied to all members.
             .clearfix
@@ -19,10 +19,10 @@
                 | Edit
                 .btn-group.pull-right
                     button.btn.btn-sm.btn-primary("(click)"="update(group)")
-                        span.glyphicon.glyphicon-cloud-upload
+                        span.fa.fa-cloud-upload
                         |  Save
                     button.btn.btn-sm.btn-danger("(click)"="delete(group)")
-                        span.glyphicon.glyphicon-trash
+                        span.fa.fa-trash
                         |  Delete
             hr
             form.form

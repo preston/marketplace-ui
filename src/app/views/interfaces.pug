@@ -1,0 +1,58 @@
+#interfaces.container-fluid
+
+    .row
+        .col-sm-6
+            h1 Supported Interface
+            .pull-right
+                button.btn.btn-primary("(click)"="create()")
+                    span.fa.fa-plus
+                    |  Declare an interface
+            p.text-help An interface is a static declaration of communication method exposed by or consumed from a deployed service. Interface declarations are needed to support automatic service dependency resolution.
+            .clearfix
+            .row
+                .col-md-4("*ngFor"="let interface of interfaces")
+                    a("(click)"="select(interface)") {{interface.name}}
+            hr
+        .col-sm-6("*ngIf"="interface")
+
+            h2
+                | Edit
+                .btn-group.pull-right
+                    button.btn.btn-sm.btn-primary("(click)"="update(interface)")
+                        span.fa.fa-cloud-upload
+                        |  Save
+                    button.btn.btn-sm.btn-danger("(click)"="delete(interface)")
+                        span.fa.fa-trash
+                        |  Delete
+            hr
+            form.form
+                .form-group
+                    label(for="interface_name") Name
+                    input.form-control(type="text" name="interface_name" "[(ngModel)]"="interface.name")
+
+                    small
+                        i ID: {{interface.id}}
+                .form-group
+                    label(for="interface_uri") URI
+                    input.form-control(type="text" name="interface_uri" "[(ngModel)]"="interface.uri")
+                    p This must be a unique value and should be stable over time. Deference version of a given interface should generally be modeled as distinct interfaces.
+                .form-group
+                    label(for="interface_version") Version
+                    input.form-control(type="text" name="interface_version" "[(ngModel)]"="interface.version")
+                    p Human-readable version of this interface. Required, but freeform.
+                //- .form-interface
+                    label(for="interface_description") Description
+                    textarea.form-control(type="text" name="interface_description" "[(ngModel)]"="interface.description")
+                .checkbox
+                    label(for="interface_description")
+                        input(type="checkbox" name="interface_default" "[(ngModel)]"="interface.default")
+                        |  Default?
+                    p When checked, new users will automatically be appointed to this interface. Changing the value does not modify existing interface appointments, or lack thereof.
+            dl
+                dt UUID
+                dd {{interface.id}}
+                dt Created
+                dd {{interface.created_at}}
+                dt Updated
+                dd {{interface.updated_at}}
+                //- a.btn.btn-default.btn-small(href="{{interface.url}}.json" target="_blank") JSON

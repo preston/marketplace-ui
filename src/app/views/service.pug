@@ -15,19 +15,19 @@ div
     ul.nav.nav-tabs(role='tablist')
         li.active(role='presentation')
             a(href='#about', aria-controls='about', role='tab', data-toggle='tab')
-                span.glyphicon.glyphicon-home
+                span.fa.fa-home
                 |  About
         li(role='presentation')
             a(href='#screenshots', aria-controls='screenshots', role='tab', data-toggle='tab')
-                span.glyphicon.glyphicon-picture
+                span.fa.fa-picture
                 |  Screenshots
         li(role='presentation')
             a(href='#runtime', aria-controls='runtime', role='tab', data-toggle='tab')
-                span.glyphicon.glyphicon-cog
+                span.fa.fa-cog
                 |  Runtime configuration
         li(role='presentation')
             a(href='#deployment', aria-controls='deployment', role='tab', data-toggle='tab')
-                span.glyphicon.glyphicon-list
+                span.fa.fa-list
                 |  Deployment Visualization
 
     // Tab panes
@@ -59,7 +59,7 @@ div
                             td
                                 .btn-group
                                     button.btn.btn-primary(disabled="true")
-                                        span.glyphicon.glyphicon-play
+                                        span.fa.fa-play
                                         |  Deploy it!
 
             .col-sm-4
@@ -107,10 +107,10 @@ div
                             | ...
                     |     ...
                 a.left.carousel-control(href='#screenshot_carousel', role='button', data-slide='prev')
-                    span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
+                    span.fa.fa-chevron-left(aria-hidden='true')
                     span.sr-only Previous
                 a.right.carousel-control(href='#screenshot_carousel', role='button', data-slide='next')
-                    span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
+                    span.fa.fa-chevron-right(aria-hidden='true')
                     span.sr-only Next
         #runtime.tab-pane(role='tabpanel')
             .lead TODO This section will contain tunable parameters than may be specific to the infrastructure environment.

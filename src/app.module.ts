@@ -18,6 +18,9 @@ import {UsersComponent} from './app/components/users.component';
 import {GroupsComponent} from './app/components/groups.component';
 import {RolesComponent} from './app/components/roles.component';
 import {PlatformsComponent} from './app/components/platforms.component';
+import {IdentityProvidersComponent} from './app/components/identity_providers.component';
+import {InterfacesComponent} from './app/components/interfaces.component';
+import {LicensesComponent} from './app/components/licenses.component';
 
 import {BuildService} from './app/services/build.service';
 import {LicenseService} from './app/services/license.service';
@@ -30,6 +33,7 @@ import {RoleService} from './app/services/role.service';
 import {PlatformService} from './app/services/platform.service';
 import {IdentityService} from './app/services/identity.service';
 import {IdentityProviderService} from './app/services/identity_provider.service';
+import {InterfaceService} from './app/services/interface.service';
 
 
 enableProdMode();
@@ -70,7 +74,10 @@ const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
         UsersComponent,
         GroupsComponent,
         RolesComponent,
-        PlatformsComponent
+        PlatformsComponent,
+		IdentityProvidersComponent,
+		LicensesComponent,
+		InterfacesComponent
         // CarouselComponent,
         // SlideComponent
     ],   // components and directives
@@ -88,6 +95,7 @@ const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
         IdentityService,
         IdentityProviderService,
         PlatformService,
+		InterfaceService,
         { provide: 'Window', useValue: window }
     ],                    // services
     bootstrap: [AppComponent]     // root component
