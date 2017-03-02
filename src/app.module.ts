@@ -21,6 +21,7 @@ import {PlatformsComponent} from './app/components/platforms.component';
 import {IdentityProvidersComponent} from './app/components/identity_providers.component';
 import {InterfacesComponent} from './app/components/interfaces.component';
 import {LicensesComponent} from './app/components/licenses.component';
+import {ChatComponent} from './app/components/chat.component';
 
 import {BuildService} from './app/services/build.service';
 import {LicenseService} from './app/services/license.service';
@@ -35,6 +36,8 @@ import {IdentityService} from './app/services/identity.service';
 import {IdentityProviderService} from './app/services/identity_provider.service';
 import {InterfaceService} from './app/services/interface.service';
 
+// Server WebSockets
+import { Ng2Cable, Broadcaster } from 'ng2-cable/js/index';
 
 enableProdMode();
 
@@ -77,7 +80,8 @@ const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
         PlatformsComponent,
 		IdentityProvidersComponent,
 		LicensesComponent,
-		InterfacesComponent
+		InterfacesComponent,
+        ChatComponent
         // CarouselComponent,
         // SlideComponent
     ],   // components and directives
@@ -96,6 +100,7 @@ const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
         IdentityProviderService,
         PlatformService,
 		InterfaceService,
+        Ng2Cable, Broadcaster, // ng2-cable
         { provide: 'Window', useValue: window }
     ],                    // services
     bootstrap: [AppComponent]     // root component

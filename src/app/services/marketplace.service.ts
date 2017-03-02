@@ -7,11 +7,15 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class MarketplaceService {
 
-    // public url: string = 'http://localhost:3000';
-    public url: string = 'https://marketplace-server.hspconsortium.org';
+    public url: string = 'http://localhost:3000';
+    // public url: string = 'https://marketplace-server.hspconsortium.org';
+
+    public websocket_url: string = 'ws://localhost:3000';
+    // public url: string = 'ws://marketplace-server.hspconsortium.org';
 
     public static STATUS_PATH: string = '/status';
     public static SESSIONS_PATH: string = '/sessions';
+    public static WEBSOCKET_PATH: string = '/websocket';
     public static REQUEST_OPTIONS = new RequestOptions({ headers: new Headers({ 'Accept': 'application/json' }), withCredentials: true });
 
     constructor(protected http: Http) {
@@ -22,6 +26,9 @@ export class MarketplaceService {
     }
     sessionsUrl(): string {
         return this.url + MarketplaceService.SESSIONS_PATH;
+    }
+    webSocketUrl(): string {
+        return this.websocket_url + MarketplaceService.WEBSOCKET_PATH;
     }
 
     logout() {

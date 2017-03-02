@@ -30,7 +30,7 @@ export class PlatformsComponent implements OnChanges {
 
     reload() {
         this.platformService.index(this.user).subscribe(d => {
-            this.platforms = d;
+            this.platforms = d['results'];
         });
     }
 
