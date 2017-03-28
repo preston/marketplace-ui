@@ -32,6 +32,7 @@ import {UserService} from './app/services/user.service';
 import {GroupService} from './app/services/group.service';
 import {RoleService} from './app/services/role.service';
 import {PlatformService} from './app/services/platform.service';
+import {InstanceService} from './app/services/instance.service';
 import {IdentityService} from './app/services/identity.service';
 import {IdentityProviderService} from './app/services/identity_provider.service';
 import {InterfaceService} from './app/services/interface.service';
@@ -99,6 +100,7 @@ const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
         IdentityService,
         IdentityProviderService,
         PlatformService,
+        InstanceService,
 		InterfaceService,
         Ng2Cable, Broadcaster, // ng2-cable
         { provide: 'Window', useValue: window }

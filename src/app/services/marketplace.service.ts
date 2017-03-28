@@ -11,7 +11,7 @@ export class MarketplaceService {
     public url: string = 'https://marketplace-server.hspconsortium.org';
 
     // public websocket_url: string = 'ws://localhost:3000';
-    public websocket_url: string = 'ws://marketplace-server.hspconsortium.org';
+    public websocket_url: string = 'wss://marketplace-server.hspconsortium.org';
 
     public static STATUS_PATH: string = '/status';
     public static SESSIONS_PATH: string = '/sessions';

@@ -5,7 +5,7 @@ export class Build {
 
 	public id: string = '';
     public release_notes: string = '';
-    public container_respository_url: string = '';
+    public container_repository: string = '';
     public container_tag: string = '';
     public service_version: string = '';
 

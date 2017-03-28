@@ -51,14 +51,31 @@ div
                         tr("*ngFor"="let b of builds")
                             td {{b.service_version}}
                             td {{b.version}}
-                            td {{b.container_repository_url}}
+                            td {{b.container_repository}}
                             td {{b.container_tag}}
                             td {{b.validated_at}}
                             td {{b.published_at}}
                             td {{b.release_notes}}
                             td
-                                .btn-group
-                                    button.btn.btn-primary(disabled="true")
+                                div("*ngIf"="!status['identity']")
+                                    // We're not logged in.
+                                    i Log in and register your platform first!
+                                div("*ngIf"="status['identity']")
+                                    // We're logged in!
+                                    i("*ngIf"="platforms.length == 0")
+                                        | No platforms defined! (See
+                                        a("[routerLink]"="['/account']") account
+                                        |  page)
+                                    div("*ngIf"="platforms.length > 0")
+                                        .dropdown
+                                            button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
+                                                | Deploy to..
+                                                span.caret
+                                            ul.dropdown-menu
+                                                li("*ngFor"="let p of platforms")
+                                                    a.btn("(click)"="createInstance(b, p)") {{p.name}}
+
+                                    //- button.btn.btn-primary(disabled="true")
                                         span.fa.fa-play
                                         |  Deploy it!
 
