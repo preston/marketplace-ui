@@ -46,59 +46,85 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.reload();
+		this.detectJwtLaunch();
     }
 
-    reload() {
-        this.searchQuery = new Search();
-        this.loadMarketplaceStatus();
-        this.identityProviderService.index().subscribe(d => {
-            this.identityProviders = d['results'];
-        });
-        this.licenseService.index().subscribe(d => {
-            this.licenses = d['results'];
-            this.loadInitialServices();
-        });
-    }
+	detectJwtLaunch(): void {
+		let root = (document.URL).split("#")[0];
+		let start = document.URL.indexOf('#');
+		if (start >= 0) {
+			let callbackResponse = document.URL.substring(start + 1)
+			if (callbackResponse) {
+				var responseParameters = (callbackResponse).split("&");
+				var parameterMap = {};
+				for (var i = 0; i < responseParameters.length; i++) {
+					parameterMap[responseParameters[i].split("=")[0]] = responseParameters[i].split("=")[1];
+				}
+				if (parameterMap[MarketplaceService.JWT_LAUNCH_KEY]) {
+					window.localStorage.setItem(MarketplaceService.LOCAL_STORAGE_JWT_KEY, parameterMap['jwt']);
+					window.location.href = root;
+					console.log("Processed JWT in URL.");
+				} else {
+					console.log("No JWT found. Oh well.");
+				}
+			} else {
+				console.log("No JWT found in URL.");
+			}
+		}
+	}
 
-    loadMarketplaceStatus() {
-        this.status = {};
-        this.marketplaceService.status().subscribe(d => {
-            this.status = d;
-            console.log("Server status: ");
-            console.log(this.status);
-        });
-    }
+	reload() {
+		this.searchQuery = new Search();
+		this.loadMarketplaceStatus();
+		this.identityProviderService.index().subscribe(d => {
+			this.identityProviders = d['results'];
+		});
+		this.licenseService.index().subscribe(d => {
+			this.licenses = d['results'];
+			this.loadInitialServices();
+		});
+	}
 
-    loadInitialServices() {
-        this.serviceService.published().subscribe(d => {
-            this.services = d['results'];
-        });
-    }
-    select(service: Service) {
-        this.service = service;
-    }
+	loadMarketplaceStatus() {
+		this.status = {};
+		this.marketplaceService.status().subscribe(d => {
+			this.status = d;
+			console.log("Server status: ");
+			console.log(this.status);
+		});
+	}
 
-    search() {
-        if (this.validSearch()) {
-            this.serviceService.searchPublished(this.searchQuery.text).subscribe(d => {
-                this.services = d['results'];
-            });
-        } else {
-            this.loadInitialServices();
-        }
-    }
+	loadInitialServices() {
+		this.serviceService.published().subscribe(d => {
+			this.services = d['results'];
+		});
+	}
+	select(service: Service) {
+		this.service = service;
+	}
 
-    validSearch() {
-        return this.searchQuery.text.length > 2;
-    }
+	search() {
+		if (this.validSearch()) {
+			this.serviceService.searchPublished(this.searchQuery.text).subscribe(d => {
+				this.services = d['results'];
+			});
+		} else {
+			this.loadInitialServices();
+		}
+	}
 
-    logout() {
-        this.marketplaceService.logout().subscribe(d => {
-            this.loadMarketplaceStatus();
-            console.log("Logout complete.");
-            this.toasterService.pop('success', 'Logged out.', 'See you next time!');
-        });
-    }
+	validSearch() {
+		return this.searchQuery.text.length > 2;
+	}
+
+	logout() {
+		localStorage.removeItem(MarketplaceService.LOCAL_STORAGE_JWT_KEY);
+		// this.marketplaceService.logout().subscribe(d => {
+			this.loadMarketplaceStatus();
+		// 	console.log("Logout complete.");
+			this.toasterService.pop('success', 'Logged out.', 'See you next time!');
+		// });
+	}
 
 
 }

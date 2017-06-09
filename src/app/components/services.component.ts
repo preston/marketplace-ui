@@ -61,7 +61,7 @@ export class ServicesComponent implements OnInit {
         this.service = service;
         if (this.service) {
             this.buildService.index(this.service).subscribe(d => {
-                this.builds = d;
+                this.builds = d['results'];
                 console.log('Loaded ' + this.builds.length + ' builds.');
             });
         } else {

@@ -62,4 +62,8 @@ export class AccountComponent {
         return match;
     }
 
+	readJwt(): string {
+		return localStorage.getItem(MarketplaceService.LOCAL_STORAGE_JWT_KEY);
+	}
+
 }

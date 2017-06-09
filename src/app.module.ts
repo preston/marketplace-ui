@@ -2,6 +2,7 @@ import {ModuleWithProviders, enableProdMode} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 // import {Http} from '@angular/http';
 
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 // import {DragulaModule} from 'ng2-dragula/ng2-dragula';
 
@@ -64,6 +65,7 @@ const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
         routing,
         FormsModule,
         HttpModule,
+		BrowserAnimationsModule, // For Toaster
         ToasterModule,
         CarouselModule
     ],

@@ -13,7 +13,7 @@ export abstract class BaseService {
     }
 
     options(): RequestOptions {
-		return MarketplaceService.REQUEST_OPTIONS;
+		return this.marketplaceService.requestOptions(true);
     }
 
 }

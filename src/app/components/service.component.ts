@@ -43,7 +43,7 @@ export class ServiceComponent implements OnInit {
     reload() {
         console.log('Service component for \'' + this.service.name + '\'. Loading builds...');
         this.buildService.index(this.service).subscribe(d => {
-            this.builds = d;
+            this.builds = d['results'];
             console.log('Loaded ' + this.builds.length + ' builds.');
         });
         if (this.status.identity) {
