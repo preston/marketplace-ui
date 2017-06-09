@@ -80,7 +80,7 @@ module.exports = function(grunt) {
                     src: [
 						"node_modules/bootstrap/dist/css/bootstrap.min.css",
 						"node_modules/font-awesome/css/font-awesome.min.css",
-						"node_modules/angular2-toaster/lib/toaster.css"
+						"node_modules/angular2-toaster/toaster.css"
                     ],
                     dest: 'build/css/extra.css'
                 }]
