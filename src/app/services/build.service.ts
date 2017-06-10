@@ -8,6 +8,7 @@ import {MarketplaceService} from './marketplace.service';
 import {ServiceService} from './service.service';
 
 import {Service} from "../models/service";
+import {Build} from "../models/build";
 
 @Injectable()
 export class BuildService extends BaseService {
@@ -27,4 +28,18 @@ export class BuildService extends BaseService {
         return builds;
     }
 
+	create(service: Service, build: Build) {
+        let obs = this.http.post(this.url(service), { 'build': build }, this.options()).map(res => res.json());
+        return obs;
+	}
+
+	update(service: Service, build: Build) {
+		let obs = this.http.put(this.url(service) + '/' + build.id, { 'build': build }, this.options()).map(res => res.json());
+        return obs;
+	}
+
+	delete(service: Service, build: Build) {
+		let obs = this.http.delete(this.url(service) + '/' + build.id, this.options()).map(res => res.json());
+        return obs;
+	}
 }

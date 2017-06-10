@@ -28,9 +28,9 @@ Then, assuming you've already familiar with [Docker](https://www.docker.com) awe
 
 ## Production Deployment
 
-Extremely easy in your existing Dockerized hosting environment. Just:
+Extremely easy in your existing Dockerized hosting environment by pointing it at your Marketplace Server installation. Just:
 
-	docker run -d -p 9000:80 --restart unless-stopped p3000/hsp-marketplace-ui:latest # or any official tag
+	docker run -d -p 9000:80 --restart unless-stopped -e "MARKETPLACE_SERVER_URL=http://localhost:3000" p3000/hsp-marketplace-ui:latest # or any official tag
 
 And you're done. No environment variables or further configuration are needed. Jedi's may use your existing Kubernetes, Open Shift etc installations as you see fit. :)
 

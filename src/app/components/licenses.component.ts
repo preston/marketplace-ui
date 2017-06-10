@@ -60,6 +60,7 @@ export class LicensesComponent implements OnInit {
     create() {
         let license = new License();
         license.name = "New License " + UUID.UUID();
+		license.url = "https://example.com";
         this.licenseService.create(license).subscribe(d => {
             this.toasterService.pop('success', 'License Created', 'Please update the details accordingly!');
             this.licenses.push(d);

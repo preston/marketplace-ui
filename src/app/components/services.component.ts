@@ -137,14 +137,34 @@ export class ServicesComponent implements OnInit {
     }
 
     createBuild(service: Service) {
-        // TODO
+
+		let build = new Build();
+		build.service_id = this.service.id;
+		build.service_version = UUID.UUID();
+		build.version = UUID.UUID();
+		build.container_repository = 'https://example.com';
+		build.container_tag = UUID.UUID();
+		this.buildService.create(this.service, build).subscribe(d => {
+			this.toasterService.pop('success', 'Build Created', 'Please update the details accordingly!');
+			this.builds.push(d);
+		});
     }
 
     updateBuild(build: Build) {
-        // TODO
+		this.buildService.update(this.service, build).subscribe(d => {
+			this.toasterService.pop('success', 'Build Updated');
+			let i = this.builds.indexOf(build, 0);
+			this.builds[i] = d;
+		});
     }
 
     deleteBuild(build: Build) {
-        // TODO
+		this.buildService.delete(this.service, build).subscribe(d => {
+			this.toasterService.pop('success', 'Build Deleted');
+			let i = this.builds.indexOf(build, 0);
+			if (i >= 0) {
+				this.builds.splice(i, 1);
+			}
+		});
     }
 }

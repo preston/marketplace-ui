@@ -7,6 +7,7 @@ export class Build {
     public release_notes: string = '';
     public container_repository: string = '';
     public container_tag: string = '';
+    public version: string = '';
     public service_version: string = '';
 
 	public validated_at: Date;
