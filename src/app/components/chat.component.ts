@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Ng2Cable, Broadcaster } from 'ng2-cable/js/index';
+import { Ng2Cable, Broadcaster } from 'ng2-cable/dist';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 

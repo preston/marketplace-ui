@@ -14,5 +14,5 @@ import '@angular/platform-browser-dynamic';
 import '@angular/platform-browser';
 import '@angular/router';
 
-import 'ng2-cable/js/index';
+import 'ng2-cable/dist';
 import 'actioncable/lib/assets/compiled/action_cable'

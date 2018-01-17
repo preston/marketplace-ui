@@ -38,9 +38,6 @@ import {IdentityService} from './app/services/identity.service';
 import {IdentityProviderService} from './app/services/identity_provider.service';
 import {InterfaceService} from './app/services/interface.service';
 
-// Server WebSockets
-import { Ng2Cable, Broadcaster } from 'ng2-cable/js/index';
-
 enableProdMode();
 
 
@@ -49,6 +46,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+// Server WebSockets
+import { Ng2CableModule } from 'ng2-cable/dist';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -67,7 +66,8 @@ const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
         HttpModule,
 		BrowserAnimationsModule, // For Toaster
         ToasterModule,
-        CarouselModule
+        CarouselModule,
+		Ng2CableModule
     ],
     declarations: [
         AppComponent,
@@ -104,7 +104,7 @@ const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
         PlatformService,
         InstanceService,
 		InterfaceService,
-        Ng2Cable, Broadcaster, // ng2-cable
+        Ng2CableModule, // ng2-cable
         { provide: 'Window', useValue: window }
     ],                    // services
     bootstrap: [AppComponent]     // root component
