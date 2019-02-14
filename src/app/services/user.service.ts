@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Http} from '@angular/http';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 import {BaseService} from "./base.service";
 
@@ -20,12 +20,12 @@ export class UserService extends BaseService {
     }
 
     index() {
-        let users = this.http.get(this.url() + "?per_page=999", this.options()).map(res => res.json());
+        let users = this.http.get(this.url() + "?per_page=999", this.options()).pipe(map(res => res.json()));
         return users;
     }
 
     get(id: string) {
-        let user = this.http.get(this.url() + '/' + id, this.options()).map(res => res.json());
+        let user = this.http.get(this.url() + '/' + id, this.options()).pipe(map(res => res.json()));
         return user;
     }
 

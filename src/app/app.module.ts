@@ -6,37 +6,37 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 // import {DragulaModule} from 'ng2-dragula/ng2-dragula';
 
-import {CarouselModule} from 'ng2-bootstrap';
+// import {CarouselModule} from 'ng2-bootstrap';
 
-import {AppComponent} from './app/app.component';
-import {HomeComponent} from './app/components/home.component';
-import {AccountComponent} from './app/components/account.component';
-import {ApiComponent} from './app/components/api.component';
-import {ServiceComponent} from './app/components/service.component';
-import {ServicesComponent} from './app/components/services.component';
-import {SystemComponent} from './app/components/system.component';
-import {UsersComponent} from './app/components/users.component';
-import {GroupsComponent} from './app/components/groups.component';
-import {RolesComponent} from './app/components/roles.component';
-import {PlatformsComponent} from './app/components/platforms.component';
-import {IdentityProvidersComponent} from './app/components/identity_providers.component';
-import {InterfacesComponent} from './app/components/interfaces.component';
-import {LicensesComponent} from './app/components/licenses.component';
-import {ChatComponent} from './app/components/chat.component';
+import {AppComponent} from './app.component';
+import {HomeComponent} from './components/home.component';
+import {AccountComponent} from './components/account.component';
+import {ApiComponent} from './components/api.component';
+import {ServiceComponent} from './components/service.component';
+import {ServicesComponent} from './components/services.component';
+import {SystemComponent} from './components/system.component';
+import {UsersComponent} from './components/users.component';
+import {GroupsComponent} from './components/groups.component';
+import {RolesComponent} from './components/roles.component';
+import {PlatformsComponent} from './components/platforms.component';
+import {IdentityProvidersComponent} from './components/identity_providers.component';
+import {InterfacesComponent} from './components/interfaces.component';
+import {LicensesComponent} from './components/licenses.component';
+import {ChatComponent} from './components/chat.component';
 
-import {BuildService} from './app/services/build.service';
-import {LicenseService} from './app/services/license.service';
-import {MarketplaceService} from './app/services/marketplace.service';
-import {ServiceService} from './app/services/service.service';
-import {StatusService} from './app/services/status.service';
-import {UserService} from './app/services/user.service';
-import {GroupService} from './app/services/group.service';
-import {RoleService} from './app/services/role.service';
-import {PlatformService} from './app/services/platform.service';
-import {InstanceService} from './app/services/instance.service';
-import {IdentityService} from './app/services/identity.service';
-import {IdentityProviderService} from './app/services/identity_provider.service';
-import {InterfaceService} from './app/services/interface.service';
+import {BuildService} from './services/build.service';
+import {LicenseService} from './services/license.service';
+import {MarketplaceService} from './services/marketplace.service';
+import {ServiceService} from './services/service.service';
+import {StatusService} from './services/status.service';
+import {UserService} from './services/user.service';
+import {GroupService} from './services/group.service';
+import {RoleService} from './services/role.service';
+import {PlatformService} from './services/platform.service';
+import {InstanceService} from './services/instance.service';
+import {IdentityService} from './services/identity.service';
+import {IdentityProviderService} from './services/identity_provider.service';
+import {InterfaceService} from './services/interface.service';
 
 enableProdMode();
 
@@ -47,7 +47,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 // Server WebSockets
-import { Ng2CableModule } from 'ng2-cable/dist';
+// import { Ng2CableModule } from 'ng2-cable/dist';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -65,9 +65,9 @@ const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
         FormsModule,
         HttpModule,
 		BrowserAnimationsModule, // For Toaster
-        ToasterModule,
-        CarouselModule,
-		Ng2CableModule
+        ToasterModule
+        // CarouselModule,
+		// Ng2CableModule
     ],
     declarations: [
         AppComponent,
@@ -104,7 +104,7 @@ const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
         PlatformService,
         InstanceService,
 		InterfaceService,
-        Ng2CableModule, // ng2-cable
+        // Ng2CableModule, // ng2-cable
         { provide: 'Window', useValue: window }
     ],                    // services
     bootstrap: [AppComponent]     // root component

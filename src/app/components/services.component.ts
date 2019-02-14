@@ -11,7 +11,7 @@ import {UUID} from 'angular2-uuid';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
-import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
+// import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
 import {BuildService} from '../services/build.service';
 import {UserService} from '../services/user.service';
@@ -21,7 +21,7 @@ import {MarketplaceService} from '../services/marketplace.service';
 
 @Component({
     selector: 'services',
-    templateUrl: '/services.html'
+    templateUrl: '../views/services.pug'
 })
 export class ServicesComponent implements OnInit {
 
@@ -79,7 +79,7 @@ export class ServicesComponent implements OnInit {
             reader.onload = () => {
                 // this text is the content of the file
                 // console.log(reader.result);
-                this.service.logo = reader.result;
+                this.service.logo = reader.result.toString();
                 // this.loadFromContentString(reader.result);
             }
             reader.readAsBinaryString(this.logoFile);

@@ -9,7 +9,7 @@ import {UUID} from 'angular2-uuid';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
-import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
+// import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
 import {UserService} from '../services/user.service';
 import {LicenseService} from '../services/license.service';
@@ -18,7 +18,7 @@ import {MarketplaceService} from '../services/marketplace.service';
 
 @Component({
     selector: 'licenses',
-    templateUrl: '/licenses.html'
+    templateUrl: '../views/licenses.pug'
 })
 export class LicensesComponent implements OnInit {
 

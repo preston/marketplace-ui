@@ -8,7 +8,7 @@ import {UUID} from 'angular2-uuid';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
-import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
+// import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
 import {UserService} from '../services/user.service';
 import {IdentityProviderService} from '../services/identity_provider.service';
@@ -16,7 +16,7 @@ import {MarketplaceService} from '../services/marketplace.service';
 
 @Component({
     selector: 'identity_providers',
-    templateUrl: '/identity_providers.html'
+    templateUrl: '../views/identity_providers.pug'
 })
 export class IdentityProvidersComponent {
 

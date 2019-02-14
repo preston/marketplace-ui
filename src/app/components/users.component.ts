@@ -20,7 +20,7 @@ import {Http} from '@angular/http';
 
 @Component({
     selector: 'users',
-    templateUrl: '/users.html'
+    templateUrl: '../views/users.pug'
 })
 export class UsersComponent implements OnInit {
 

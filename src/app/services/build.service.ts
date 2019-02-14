@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Http} from '@angular/http';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 import {BaseService} from "./base.service";
 
@@ -24,22 +24,22 @@ export class BuildService extends BaseService {
     }
 
     index(service: Service) {
-        let builds = this.http.get(this.url(service), this.options()).map(res => res.json());
+        let builds = this.http.get(this.url(service), this.options()).pipe(map(res => res.json()));
         return builds;
     }
 
 	create(service: Service, build: Build) {
-        let obs = this.http.post(this.url(service), { 'build': build }, this.options()).map(res => res.json());
+        let obs = this.http.post(this.url(service), { 'build': build }, this.options()).pipe(map(res => res.json()));
         return obs;
 	}
 
 	update(service: Service, build: Build) {
-		let obs = this.http.put(this.url(service) + '/' + build.id, { 'build': build }, this.options()).map(res => res.json());
+		let obs = this.http.put(this.url(service) + '/' + build.id, { 'build': build }, this.options()).pipe(map(res => res.json()));
         return obs;
 	}
 
 	delete(service: Service, build: Build) {
-		let obs = this.http.delete(this.url(service) + '/' + build.id, this.options()).map(res => res.json());
+		let obs = this.http.delete(this.url(service) + '/' + build.id, this.options()).pipe(map(res => res.json()));
         return obs;
 	}
 }

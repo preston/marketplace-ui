@@ -7,7 +7,7 @@ import {IdentityProvider} from '../models/identity_provider';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
-import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
+// import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
 // import {window} from '@angular/browser';
 
@@ -25,7 +25,7 @@ import {Http} from '@angular/http';
 
 @Component({
     selector: 'system',
-    templateUrl: '/system.html'
+    templateUrl: '../views/system.pug'
 })
 export class SystemComponent implements OnInit {
 

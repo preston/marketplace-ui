@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Http} from '@angular/http';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 import {BaseService} from "./base.service";
 
@@ -24,28 +24,28 @@ export class PlatformService extends BaseService {
     }
 
     index(user: User) {
-        let platforms = this.http.get(this.url(user), this.options()).map(res => res.json());
+        let platforms = this.http.get(this.url(user), this.options()).pipe(map(res => res.json()));
         return platforms;
     }
 
     get(user: User, id: string) {
-        let platform = this.http.get(this.url(user) + '/' + id, this.options()).map(res => res.json());
+        let platform = this.http.get(this.url(user) + '/' + id, this.options()).pipe(map(res => res.json()));
         return platform;
     }
 
 
     create(user: User, platform: Platform) {
-        let obs = this.http.post(this.url(user), { 'platform': platform }, this.options()).map(res => res.json());
+        let obs = this.http.post(this.url(user), { 'platform': platform }, this.options()).pipe(map(res => res.json()));
         return obs;
     }
 
 	update(user: User, platform: Platform) {
-		let obs = this.http.put(this.url(user) + '/' + platform.id, { 'platform': platform }, this.options()).map(res => res.json());
+		let obs = this.http.put(this.url(user) + '/' + platform.id, { 'platform': platform }, this.options()).pipe(map(res => res.json()));
         return obs;
 	}
 
 	delete(user: User, platform: Platform) {
-		let obs = this.http.delete(this.url(user) + '/' + platform.id, this.options()).map(res => res.json());
+		let obs = this.http.delete(this.url(user) + '/' + platform.id, this.options()).pipe(map(res => res.json()));
         return obs;
 	}
 }

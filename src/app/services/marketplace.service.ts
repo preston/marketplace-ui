@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Headers, RequestOptions} from '@angular/http';
 import {Http} from '@angular/http';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 
 @Injectable()
@@ -42,12 +42,12 @@ export class MarketplaceService {
     }
 
     // logout() {
-    //     let status = this.http.delete(this.sessionsUrl(), this.requestOptions(true)).map(res => res.json());
+    //     let status = this.http.delete(this.sessionsUrl(), this.requestOptions(true)).pipe(map(res => res.json());
     //     return status;
     // }
 
     status() {
-        let status = this.http.get(this.statusUrl(), this.requestOptions(true)).map(res => res.json());
+        let status = this.http.get(this.statusUrl(), this.requestOptions(true)).pipe(map(res => res.json()));
         return status;
     }
 }

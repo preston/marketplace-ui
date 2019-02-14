@@ -9,7 +9,7 @@ import {UUID} from 'angular2-uuid';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
-import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
+// import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
 import {UserService} from '../services/user.service';
 import {RoleService} from '../services/role.service';
@@ -17,7 +17,7 @@ import {MarketplaceService} from '../services/marketplace.service';
 
 @Component({
     selector: 'roles',
-    templateUrl: '/roles.html'
+    templateUrl: '../views/roles.pug'
 })
 export class RolesComponent {
 

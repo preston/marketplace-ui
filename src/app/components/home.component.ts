@@ -7,7 +7,7 @@ import {IdentityProvider} from '../models/identity_provider';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
-import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
+// import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
 import {ServiceService} from '../services/service.service';
 import {LicenseService} from '../services/license.service';
@@ -20,8 +20,9 @@ import {Http} from '@angular/http';
 
 @Component({
     selector: 'home',
-    templateUrl: '/home.html',
-    providers: [CarouselModule]
+    templateUrl: '../views/home.pug',
+    // providers: [CarouselModule]
+    providers: []
 
 })
 export class HomeComponent implements OnInit {

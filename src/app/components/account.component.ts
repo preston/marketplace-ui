@@ -16,7 +16,7 @@ import {Http} from '@angular/http';
 
 @Component({
     selector: 'account',
-    templateUrl: '/account.html'
+    templateUrl: '../views/account.pug'
 })
 export class AccountComponent {
 

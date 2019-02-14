@@ -17,7 +17,7 @@ import {Http} from '@angular/http';
 
 @Component({
     selector: 'platforms',
-    templateUrl: '/platforms.html'
+    templateUrl: '../views/platforms.pug'
 })
 export class PlatformsComponent implements OnChanges {
     @Input() user: User;

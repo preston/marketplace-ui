@@ -16,7 +16,7 @@ import {InstanceService} from '../services/instance.service';
 
 @Component({
     selector: 'service',
-    templateUrl: '/service.html'
+    templateUrl: '../views/service.pug'
 })
 export class ServiceComponent implements OnInit {
 

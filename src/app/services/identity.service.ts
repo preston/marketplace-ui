@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Http} from '@angular/http';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 import {User} from '../models/user';
 
@@ -23,13 +23,13 @@ export class IdentityService extends BaseService {
     }
 
     index(user: User) {
-        let identities = this.http.get(this.url(user), this.options()).map(res => res.json());
+        let identities = this.http.get(this.url(user), this.options()).pipe(map(res => res.json()));
         return identities;
     }
 
 
     get(user: User, id: string) {
-        let identity = this.http.get(this.url(user) + '/' + id, this.options()).map(res => res.json());
+        let identity = this.http.get(this.url(user) + '/' + id, this.options()).pipe(map(res => res.json()));
         return identity;
     }
 

@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Http} from '@angular/http';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 import {BaseService} from "./base.service";
 
@@ -23,7 +23,7 @@ export class StatusService extends BaseService {
     }
 
     latest() {
-        let status = this.http.get(this.url(), this.options()).map(res => res.json());
+        let status = this.http.get(this.url(), this.options()).pipe(map(res => res.json()));
         return status;
     }
 
