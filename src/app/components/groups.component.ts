@@ -17,7 +17,7 @@ import {MarketplaceService} from '../services/marketplace.service';
 
 @Component({
     selector: 'groups',
-    templateUrl: '../views/groups.pug'
+    templateUrl: '../views/groups.html'
 })
 export class GroupsComponent {
 

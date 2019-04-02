@@ -1,0 +1,32 @@
+<h4>
+    <div class="pull-right">
+        <button class="btn btn-primary" (click)="create()"><span class="fa fa-plus"></span> Register an infrastructure.</button>
+    </div><span class="fa fa-cloud"></span> Your Platform Environments
+    <div class="clearfix"></div>
+</h4>
+<hr />
+<table class="table table-striped table-condensed">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Public Key</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of platforms">
+            <td>
+                <input class="form-control" type="type" [(ngModel)]="p.name" />
+            </td>
+            <td>
+                <textarea class="form-control" type="type" [(ngModel)]="p.public_key"></textarea>
+            </td>
+            <td>
+                <div class="btn-group">
+                    <button class="btn btn-sm btn-primary" (click)="update(p)"><span class="fa fa-cloud-upload"></span> Save</button>
+                    <button class="btn btn-sm btn-danger" (click)="delete(p)"><span class="fa fa-trash"></span> Delete</button>
+                </div><br /><small><b>Platform ID:</b><br /><small>{{p.id}}</small></small>
+            </td>
+        </tr>
+    </tbody>
+</table>

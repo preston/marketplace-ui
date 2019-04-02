@@ -17,7 +17,7 @@ import {MarketplaceService} from '../services/marketplace.service';
 
 @Component({
     selector: 'interfaces',
-    templateUrl: '../views/interfaces.pug'
+    templateUrl: '../views/interfaces.html'
 })
 export class InterfacesComponent {
 

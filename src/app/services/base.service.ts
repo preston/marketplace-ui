@@ -1,18 +1,18 @@
 import {Injectable} from "@angular/core";
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
-import {Headers, RequestOptions} from '@angular/http';
+import {HttpHeaders} from '@angular/common/http';
 
 import {MarketplaceService} from './marketplace.service';
 
 @Injectable()
 export abstract class BaseService {
 
-    constructor(protected marketplaceService: MarketplaceService, protected http: Http) {
+    constructor(protected marketplaceService: MarketplaceService, protected http: HttpClient) {
     }
 
-    options(): RequestOptions {
+    headers(): HttpHeaders {
 		return this.marketplaceService.requestOptions(true);
     }
 

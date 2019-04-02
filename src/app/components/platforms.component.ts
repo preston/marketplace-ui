@@ -13,11 +13,11 @@ import {MarketplaceService} from '../services/marketplace.service';
 
 import {UUID} from 'angular2-uuid';
 
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
     selector: 'platforms',
-    templateUrl: '../views/platforms.pug'
+    templateUrl: '../views/platforms.html'
 })
 export class PlatformsComponent implements OnChanges {
     @Input() user: User;

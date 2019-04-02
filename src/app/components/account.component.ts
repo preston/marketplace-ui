@@ -12,11 +12,11 @@ import {UserService} from '../services/user.service';
 import {IdentityProviderService} from '../services/identity_provider.service';
 import {MarketplaceService} from '../services/marketplace.service';
 
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
     selector: 'account',
-    templateUrl: '../views/account.pug'
+    templateUrl: '../views/account.html'
 })
 export class AccountComponent {
 

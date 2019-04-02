@@ -18,7 +18,7 @@ import {MarketplaceService} from '../services/marketplace.service';
 
 @Component({
     selector: 'licenses',
-    templateUrl: '../views/licenses.pug'
+    templateUrl: '../views/licenses.html'
 })
 export class LicensesComponent implements OnInit {
 

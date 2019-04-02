@@ -9,9 +9,8 @@ import {MarketplaceService} from '../services/marketplace.service';
 
 @Component({
     selector: 'chat',
-    templateUrl: '../views/chat.pug'
+    templateUrl: '../views/chat.html'
 })
-
 export class ChatComponent {
 
     public messages: Array<Message> = new Array<Message>();

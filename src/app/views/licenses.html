@@ -1,0 +1,63 @@
+<div class="container-fluid" id="licenses">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1>License types</h1>
+            <div class="pull-right">
+                <button class="btn btn-primary" (click)="create()"><span class="fa fa-plus"></span> Declare a license.</button>
+            </div>
+            <p class="text-help">Every service in the directory must define the primary license under which it is made availaible. This is used for presentational and search filtering purposes, as well as to make it clear to service publishers that only the follow submissions are allowed in the system.</p>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-4" *ngFor="let license of licenses"><a (click)="select(license)">{{license.name}}</a></div>
+            </div>
+            <hr />
+            <section *ngIf="license">
+                <h2>Services Offered</h2>
+                <table class="table table-condensed table-striped" *ngIf="services.length &gt; 0">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Description</th>
+                            <th>Published?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let service of services">
+                            <td>{{service.name}}</td>
+                            <td>{{service.description}}</td>
+                            <td>{{service.published_at ? 'Yes' : 'No'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p *ngIf="services.length == 0"><i>No services, published or unpublished, are offered under the {{license.name}} license.</i></p>
+            </section>
+        </div>
+        <div class="col-sm-4" *ngIf="license">
+            <h2>Edit
+                <div class="btn-group pull-right">
+                    <button class="btn btn-sm btn-primary" (click)="update(license)"><span class="fa fa-cloud-upload"></span> Save</button>
+                    <button class="btn btn-sm btn-danger" (click)="delete(license)"><span class="fa fa-trash"></span> Delete</button>
+                </div>
+            </h2>
+            <hr />
+            <form class="form">
+                <div class="form-group">
+                    <label for="license_name">Name</label>
+                    <input class="form-control" type="text" name="license_name" [(ngModel)]="license.name" /><small><i>ID: {{license.id}}</i></small>
+                </div>
+                <div class="form-group">
+                    <label for="license_url">URL</label>
+                    <input class="form-control" type="text" name="license_url" [(ngModel)]="license.url" />
+                </div>
+            </form>
+            <dl>
+                <dt>UUID</dt>
+                <dd>{{license.id}}</dd>
+                <dt>Created</dt>
+                <dd>{{license.created_at}}</dd>
+                <dt>Updated</dt>
+                <dd>{{license.updated_at}}</dd>
+            </dl>
+        </div>
+    </div>
+</div>

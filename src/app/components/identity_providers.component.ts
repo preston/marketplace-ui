@@ -16,7 +16,7 @@ import {MarketplaceService} from '../services/marketplace.service';
 
 @Component({
     selector: 'identity_providers',
-    templateUrl: '../views/identity_providers.pug'
+    templateUrl: '../views/identity_providers.html'
 })
 export class IdentityProvidersComponent {
 

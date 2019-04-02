@@ -1,6 +1,9 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, NO_ERRORS_SCHEMA }      from '@angular/core';
 import {ModuleWithProviders, enableProdMode} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-// import {Http} from '@angular/http';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
@@ -8,10 +11,10 @@ import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
 // import {CarouselModule} from 'ng2-bootstrap';
 
-import {AppComponent} from './app.component';
+import {AppComponent} from './components/app.component';
 import {HomeComponent} from './components/home.component';
 import {AccountComponent} from './components/account.component';
-import {ApiComponent} from './components/api.component';
+// import {ApiComponent} from './components/api.component';
 import {ServiceComponent} from './components/service.component';
 import {ServicesComponent} from './components/services.component';
 import {SystemComponent} from './components/system.component';
@@ -38,13 +41,6 @@ import {IdentityService} from './services/identity.service';
 import {IdentityProviderService} from './services/identity_provider.service';
 import {InterfaceService} from './services/interface.service';
 
-enableProdMode();
-
-
-import { NgModule }      from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 
 // Server WebSockets
 // import { Ng2CableModule } from 'ng2-cable/dist';
@@ -52,26 +48,30 @@ import { HttpModule } from '@angular/http';
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'account', component: AccountComponent },
-    { path: 'system', component: SystemComponent },
-    { path: 'api', component: ApiComponent }
+    { path: 'system', component: SystemComponent }
+    // { path: 'api', component: ApiComponent }
 ]
 const appRoutingProviders: any[] = [];
-const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
+const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes
+	,{ enableTracing: true }
+	);
 
 @NgModule({
     imports: [
         BrowserModule,
         routing,
         FormsModule,
-        HttpModule,
+        HttpClientModule,
 		BrowserAnimationsModule, // For Toaster
         ToasterModule
         // CarouselModule,
 		// Ng2CableModule
-    ],
+	],
+	schemas: [NO_ERRORS_SCHEMA],
+	// exports: [RouterModule],
     declarations: [
         AppComponent,
-        ApiComponent,
+        // ApiComponent,
         HomeComponent,
         AccountComponent,
         ServiceComponent,

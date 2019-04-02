@@ -12,7 +12,7 @@ This is an [AngularJS 2](https://angular.io) project using `grunt` as the build 
 
 To run in development mode, just:
 
-	grunt # to serve the project and automatically recompile on file changes
+	ng serve # to serve the project and automatically recompile on file changes
 
 Visit [http://localhost:9000](http://localhost:9000) and do your thang. :)
 
@@ -20,7 +20,7 @@ Visit [http://localhost:9000](http://localhost:9000) and do your thang. :)
 
 First, build:
 
-	grunt build # to build your local copy with any local changes
+	ng build # to build your local copy with any local changes
 
 Then, assuming you've already familiar with [Docker](https://www.docker.com) awesomeness and have it installed, plop the build into a wicked-fast [nginx](http://nginx.org) web server container using the including Dockerfile with:
 

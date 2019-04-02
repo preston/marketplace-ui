@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import {BaseService} from "./base.service";
@@ -15,7 +15,7 @@ export class BuildService extends BaseService {
 
     public static PATH: string = '/builds';
 
-    constructor(private serviceService: ServiceService, marketplaceService: MarketplaceService, http: Http) {
+    constructor(private serviceService: ServiceService, marketplaceService: MarketplaceService, http: HttpClient) {
         super(marketplaceService, http);
     }
 
@@ -24,22 +24,22 @@ export class BuildService extends BaseService {
     }
 
     index(service: Service) {
-        let builds = this.http.get(this.url(service), this.options()).pipe(map(res => res.json()));
+        let builds = this.http.get<Build>(this.url(service), {headers: this.headers()}).pipe(map(res => res));
         return builds;
     }
 
 	create(service: Service, build: Build) {
-        let obs = this.http.post(this.url(service), { 'build': build }, this.options()).pipe(map(res => res.json()));
+        let obs = this.http.post<Build>(this.url(service), { 'build': build }, {headers: this.headers()}).pipe(map(res => res));
         return obs;
 	}
 
 	update(service: Service, build: Build) {
-		let obs = this.http.put(this.url(service) + '/' + build.id, { 'build': build }, this.options()).pipe(map(res => res.json()));
+		let obs = this.http.put<Build>(this.url(service) + '/' + build.id, { 'build': build }, {headers: this.headers()}).pipe(map(res => res));
         return obs;
 	}
 
 	delete(service: Service, build: Build) {
-		let obs = this.http.delete(this.url(service) + '/' + build.id, this.options()).pipe(map(res => res.json()));
+		let obs = this.http.delete<Build>(this.url(service) + '/' + build.id, {headers: this.headers()}).pipe(map(res => res));
         return obs;
 	}
 }

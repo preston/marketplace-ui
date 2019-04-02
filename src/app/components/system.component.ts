@@ -1,8 +1,6 @@
 import {Component, Output, Inject, OnInit} from '@angular/core';
 import {Service} from '../models/service';
 import {License} from '../models/license';
-import {Status} from '../models/status';
-import {Search} from '../models/search';
 import {IdentityProvider} from '../models/identity_provider';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
@@ -21,11 +19,12 @@ import {MarketplaceService} from '../services/marketplace.service';
 
 // import {XmlExporterService} from '../services/xml_exporter.service';
 
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
+import { Status } from '../models/status';
 
 @Component({
     selector: 'system',
-    templateUrl: '../views/system.pug'
+    templateUrl: '../views/system.html'
 })
 export class SystemComponent implements OnInit {
 
@@ -36,7 +35,7 @@ export class SystemComponent implements OnInit {
     licenses: Array<License> = new Array<License>();
     identityProviders: Array<IdentityProvider> = new Array<IdentityProvider>();
 
-    status: Object;
+    status: Status;
 
     constructor(private marketplaceService: MarketplaceService,
         private serviceService: ServiceService,

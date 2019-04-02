@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import {BaseService} from "./base.service";
@@ -13,7 +13,7 @@ export class RoleService extends BaseService {
 
     public static PATH: string = '/roles';
 
-    constructor(marketplaceService: MarketplaceService, http: Http) {
+    constructor(marketplaceService: MarketplaceService, http: HttpClient) {
         super(marketplaceService, http);
     }
 
@@ -22,28 +22,28 @@ export class RoleService extends BaseService {
     }
 
     index() {
-        let roles = this.http.get(this.url(), this.options()).pipe(map(res => res.json()));
+        let roles = this.http.get<Role[]>(this.url(), {headers: this.headers()}).pipe(map(res => res));
         return roles;
     }
 
     get(id: string) {
-        let platform = this.http.get(this.url() + '/' + id, this.options()).pipe(map(res => res.json()));
+        let platform = this.http.get<Role>(this.url() + '/' + id, {headers: this.headers()}).pipe(map(res => res));
         return platform;
     }
 
 
     create(role: Role) {
-        let obs = this.http.post(this.url(), { 'role': role }, this.options()).pipe(map(res => res.json()));
+        let obs = this.http.post<Role>(this.url(), { 'role': role }, {headers: this.headers()}).pipe(map(res => res));
         return obs;
     }
 
 	update(role: Role) {
-		let obs = this.http.put(this.url() + '/' + role.id, { 'role': role }, this.options()).pipe(map(res => res.json()));
+		let obs = this.http.put<Role>(this.url() + '/' + role.id, { 'role': role }, {headers: this.headers()}).pipe(map(res => res));
         return obs;
 	}
 
 	delete(role: Role) {
-		let obs = this.http.delete(this.url() + '/' + role.id, this.options()).pipe(map(res => res.json()));
+		let obs = this.http.delete<Role>(this.url() + '/' + role.id, {headers: this.headers()}).pipe(map(res => res));
         return obs;
 	}
 }

@@ -17,7 +17,7 @@ import {MarketplaceService} from '../services/marketplace.service';
 
 @Component({
     selector: 'roles',
-    templateUrl: '../views/roles.pug'
+    templateUrl: '../views/roles.html'
 })
 export class RolesComponent {
 

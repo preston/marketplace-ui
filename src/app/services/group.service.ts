@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import {BaseService} from "./base.service";
@@ -13,7 +13,7 @@ export class GroupService extends BaseService {
 
     public static PATH: string = '/groups';
 
-    constructor(marketplaceService: MarketplaceService, http: Http) {
+    constructor(marketplaceService: MarketplaceService, http: HttpClient) {
         super(marketplaceService, http);
     }
 
@@ -22,28 +22,28 @@ export class GroupService extends BaseService {
     }
 
     index() {
-        let groups = this.http.get(this.url(), this.options()).pipe(map(res => res.json()));
+        let groups = this.http.get<Group[]>(this.url(), {headers: this.headers()}).pipe(map(res => res));
         return groups;
     }
 
     get(id: string) {
-        let platform = this.http.get(this.url() + '/' + id, this.options()).pipe(map(res => res.json()));
+        let platform = this.http.get<Group>(this.url() + '/' + id, {headers: this.headers()}).pipe(map(res => res));
         return platform;
     }
 
 
     create(group: Group) {
-        let obs = this.http.post(this.url(), { 'group': group }, this.options()).pipe(map(res => res.json()));
+        let obs = this.http.post<Group>(this.url(), { 'group': group }, {headers: this.headers()}).pipe(map(res => res));
         return obs;
     }
 
 	update(group: Group) {
-		let obs = this.http.put(this.url() + '/' + group.id, { 'group': group }, this.options()).pipe(map(res => res.json()));
+		let obs = this.http.put<Group>(this.url() + '/' + group.id, { 'group': group }, {headers: this.headers()}).pipe(map(res => res));
         return obs;
 	}
 
 	delete(group: Group) {
-		let obs = this.http.delete(this.url() + '/' + group.id, this.options()).pipe(map(res => res.json()));
+		let obs = this.http.delete<Group>(this.url() + '/' + group.id, {headers: this.headers()}).pipe(map(res => res));
         return obs;
 	}
 }

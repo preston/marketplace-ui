@@ -1,0 +1,84 @@
+<div class="container-fluid" id="identity_providers">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1>SSO identity providers (IDPs)</h1>
+            <div class="pull-right">
+                <button class="btn btn-primary" (click)="create()"><span class="fa fa-plus"></span> Add an SSO IDP.</button>
+            </div>
+            <p class="text-danger">Here be dragons! Do not mess with this section until/unless you are well versed in the OpenID Connect component of OAuth 2 and understand the ramifications of changes.</p>
+            <p>An IDP is a 3rd-party service that provides authentication and user profile information. After configuring the IDP to allow user authentication by this system, enter the configuration secrets here. Common cases of needing to change these details is when moving between authentication systems, needing to change a pre-shared encryption secret, or authorizing an additional system to authenticate users.</p>
+            <p>Note that you almost never want to _remove_ an IDP since complete deletion of an IDP will cascade to all known identities using it, thereby orphaning any user accounts they do not have other known identities.</p>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-4" *ngFor="let identity_provider of identityProviders"><a (click)="select(identity_provider)">{{identity_provider.name}}</a></div>
+            </div>
+            <hr />
+            <section *ngIf="identity_provider">
+                <h2>Services Offered</h2>
+                <table class="table table-condensed table-striped" *ngIf="services.length &gt; 0">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Description</th>
+                            <th>Published?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let service of services">
+                            <td>{{service.name}}</td>
+                            <td>{{service.description}}</td>
+                            <td>{{service.published_at ? 'Yes' : 'No'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p *ngIf="services.length == 0"><i>No services, published or unpublished, are offered under the {{identity_provider.name}} identity_provider.</i></p>
+            </section>
+        </div>
+        <div class="col-sm-4" *ngIf="identityProvider">
+            <h2>Edit
+                <div class="btn-group pull-right">
+                    <button class="btn btn-sm btn-primary" (click)="enable(identityProvider)" *ngIf="!identityProvider.enabled_at"><span class="fa fa-thumbs-up"></span> Enable</button>
+                    <button class="btn btn-sm btn-primary" (click)="disable(identityProvider)" *ngIf="identityProvider.enabled_at"><span class="fa fa-thumbs-down"></span> Disable</button>
+                    <button class="btn btn-sm btn-primary" (click)="update(identityProvider)"><span class="fa fa-cloud-upload"></span> Save</button>
+                    <button class="btn btn-sm btn-danger" (click)="delete(identityProvider)"><span class="fa fa-trash"></span> Delete</button>
+                </div>
+            </h2>
+            <hr />
+            <form class="form">
+                <div class="form-group">
+                    <label for="identity_provider_name">Name</label>
+                    <input class="form-control" type="text" name="identity_provider_name" [(ngModel)]="identityProvider.name" />
+                    <p>The human-readable label used for login display purposes.</p>
+                </div>
+                <div class="form-group">
+                    <label for="identity_provider_issuer">Issuer</label>
+                    <input class="form-control" type="text" name="identity_provider_issuer" [(ngModel)]="identityProvider.issuer" />
+                    <p>A URL provided by the owner of the SSO system. This is stable over time and may or may not be specific to your organization.</p>
+                </div>
+                <div class="form-group">
+                    <label for="identity_provider_client_id">Client ID</label>
+                    <input class="form-control" type="text" name="identity_provider_client_id" [(ngModel)]="identityProvider.client_id" />
+                    <p>An opaque ID issued by the IDP system.</p>
+                </div>
+                <div class="form-group">
+                    <label for="identity_provider_client_secret">Client Secret</label>
+                    <input class="form-control" type="text" name="identity_provider_client_secret" [(ngModel)]="identityProvider.client_secret" />
+                    <p>A secret, oopaque string issued by the IDP system. Do not publish this value!</p>
+                </div>
+                <div class="form-group">
+                    <label for="identity_provider_alternate_client_id">Alternate Client ID</label>
+                    <input class="form-control" type="text" name="identity_provider_alternate_client_id" [(ngModel)]="identityProvider.alternate_client_id" />
+                    <p>An optional, secondary client ID that is only needed by IDPs that return a different client ID when redirecting back after authentication. If users are able to authenticate but you are receiving errors when returning to the marketplace, you may need to use this field.</p>
+                </div>
+            </form>
+            <dl>
+                <dt>UUID</dt>
+                <dd>{{identityProvider.id}}</dd>
+                <dt>Created</dt>
+                <dd>{{identityProvider.created_at}}</dd>
+                <dt>Updated</dt>
+                <dd>{{identityProvider.updated_at}}</dd>
+            </dl>
+        </div>
+    </div>
+</div>

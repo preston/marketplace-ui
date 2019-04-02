@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import {BaseService} from "./base.service";
@@ -13,7 +13,7 @@ export class LicenseService extends BaseService {
 
     public static PATH: string = '/licenses';
 
-    constructor(marketplaceService: MarketplaceService, http: Http) {
+    constructor(marketplaceService: MarketplaceService, http: HttpClient) {
         super(marketplaceService, http);
     }
 
@@ -22,28 +22,28 @@ export class LicenseService extends BaseService {
     }
 
     index() {
-        let licenses = this.http.get(this.url(), this.options()).pipe(map(res => res.json()));
+        let licenses = this.http.get<License[]>(this.url(), {headers: this.headers()}).pipe(map(res => res));
         return licenses;
     }
 
     get(id: string) {
-        let platform = this.http.get(this.url() + '/' + id, this.options()).pipe(map(res => res.json()));
+        let platform = this.http.get<License>(this.url() + '/' + id, {headers: this.headers()}).pipe(map(res => res));
         return platform;
     }
 
 
     create(license: License) {
-        let obs = this.http.post(this.url(), { 'license': license }, this.options()).pipe(map(res => res.json()));
+        let obs = this.http.post<License>(this.url(), { 'license': license }, {headers: this.headers()}).pipe(map(res => res));
         return obs;
     }
 
     update(license: License) {
-        let obs = this.http.put(this.url() + '/' + license.id, { 'license': license }, this.options()).pipe(map(res => res.json()));
+        let obs = this.http.put<License>(this.url() + '/' + license.id, { 'license': license }, {headers: this.headers()}).pipe(map(res => res));
         return obs;
     }
 
     delete(license: License) {
-        let obs = this.http.delete(this.url() + '/' + license.id, this.options()).pipe(map(res => res.json()));
+        let obs = this.http.delete<License>(this.url() + '/' + license.id, {headers: this.headers()}).pipe(map(res => res));
         return obs;
     }
 }

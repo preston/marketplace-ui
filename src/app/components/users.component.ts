@@ -16,11 +16,11 @@ import {MarketplaceService} from '../services/marketplace.service';
 
 // import {XmlExporterService} from '../services/xml_exporter.service';
 
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
     selector: 'users',
-    templateUrl: '../views/users.pug'
+    templateUrl: '../views/users.html'
 })
 export class UsersComponent implements OnInit {
 

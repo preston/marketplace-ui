@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
-import {Headers, RequestOptions} from '@angular/http';
-import {Http} from '@angular/http';
+import {HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Status } from "../models/status";
 
 
 @Injectable()
@@ -20,15 +21,16 @@ export class MarketplaceService {
 	public static JWT_LAUNCH_KEY: string = 'jwt';
 	public static LOCAL_STORAGE_JWT_KEY: string = 'jwt';
 
-    constructor(protected http: Http) {
+    constructor(protected http: HttpClient) {
     }
 
-	public requestOptions(includeBearerToken: boolean): RequestOptions {
-		let headers = new Headers({ 'Accept': 'application/json' });
+	public requestOptions(includeBearerToken: boolean): HttpHeaders {
+		let headers = new HttpHeaders({ 'Accept': 'application/json' });
 		if (includeBearerToken) {
 			headers.append('Authorization', 'Bearer ' + localStorage.getItem(MarketplaceService.LOCAL_STORAGE_JWT_KEY));
 		}
-		return new RequestOptions({ headers: headers, withCredentials: true });
+		return headers;
+		// return new RequestOptions({ headers: headers, withCredentials: true });
 	}
 
     statusUrl(): string {
@@ -42,12 +44,12 @@ export class MarketplaceService {
     }
 
     // logout() {
-    //     let status = this.http.delete(this.sessionsUrl(), this.requestOptions(true)).pipe(map(res => res.json());
+    //     let status = this.http.delete(this.sessionsUrl(), this.requestOptions(true)).pipe(map(res => res);
     //     return status;
     // }
 
     status() {
-        let status = this.http.get(this.statusUrl(), this.requestOptions(true)).pipe(map(res => res.json()));
+        let status = this.http.get<Status>(this.statusUrl(), {headers: this.requestOptions(true)}).pipe(map(res => res));
         return status;
     }
 }

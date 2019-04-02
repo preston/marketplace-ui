@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import {BaseService} from "./base.service";
@@ -14,7 +14,7 @@ export class StatusService extends BaseService {
 
     public static PATH: string = '/status';
 
-    constructor(private serviceService: ServiceService, marketplaceService: MarketplaceService, http: Http) {
+    constructor(private serviceService: ServiceService, marketplaceService: MarketplaceService, http: HttpClient) {
         super(marketplaceService, http);
     }
 
@@ -23,7 +23,7 @@ export class StatusService extends BaseService {
     }
 
     latest() {
-        let status = this.http.get(this.url(), this.options()).pipe(map(res => res.json()));
+        let status = this.http.get(this.url(), {headers: this.headers()}).pipe(map(res => res));
         return status;
     }
 

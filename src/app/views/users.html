@@ -1,0 +1,81 @@
+<div class="container-fluid" id="users">
+		<div class="row">
+			<div class="col-sm-8">
+				<h1>Account management</h1>
+				<p class="text-help">User accounts work a bit differently than you may expect due to the nature of single sign-on. Every user corresponds to at least one remote identity that is authoritative for names, emails, and other fields. Most of these fields must be updated in the SSO system. When updated, they will be updated the next time the user logs in.</p>
+				<div class="row">
+					<div class="col-md-4" *ngFor="let user of users"><a (click)="select(user)">{{user.name}}</a></div>
+				</div>
+				<hr />
+				<h2>What can't I create a user account?</h2>
+				<p>This UI doesn't provide a way to add user accounts because they are created automatically as part of the single sign-on (SSO) process, and it generally isn't possible to know the details of a 3rd-party identity record until the user logs in for the first time using said identity. Creating a user account without any accompanying identity(ies) essentially creates an orphaned account that cannot be logged into.</p>
+				<p>If you know what you're doing and know the SSO "subject" identifiers for your new users' identities, the API allows for both user and user identity records to be created at your discretion.</p>
+				<section *ngIf="user">
+					<hr />
+					<h2>Services submitted by {{user.name}}</h2>
+					<table class="table table-condensed table-striped" *ngIf="services.length &gt; 0">
+						<thead>
+							<tr>
+								<th>Service</th>
+								<th>Description</th>
+								<th>Published?</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let service of services">
+								<td>{{service.name}}</td>
+								<td>{{service.description}}</td>
+								<td>{{service.published_at ? 'Yes' : 'No'}}</td>
+							</tr>
+						</tbody>
+					</table>
+					<p *ngIf="services.length == 0"><i>No services, published or unpublished, have been submitted by {{user.name}}.</i></p>
+				</section>
+			</div>
+			<div class="col-sm-4" *ngIf="user">
+				<h2>{{user.name}}</h2><br />
+				<section class="well">
+					<h4><span class="fa fa-credit-card"></span> Identities</h4>
+					<hr />
+					<p>Every user can authenticate using any of their SSO identities, which you may view and disassociate them here. Deleting all of a user's identities will effectly orphan the account!</p><span *ngIf="identities.length == 0"><i>None found.</i></span>
+					<table class="table table-condensed" *ngIf="identities.length &gt; 0">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>SSO</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let identity of identities">
+								<td>
+									{{identity.name}}
+									{{identity.email}}
+								</td>
+								<td>{{identityProviderFor(identity.identity_provider_id).name}}</td>
+								<td><a class="text-danger" (click)="deleteIdentity(identity)" disabled="disabled"><span class="fa fa-trash"></span></a></td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+				<section class="well">
+					<h4><span class="fa fa-certificate"></span> Roles</h4>
+					<hr />
+					<p>Users receive permissions through any number of role appointments.</p><i>(Not yet implemented)</i>
+				</section>
+				<section class="well">
+					<h4><span class="fa fa-chevron-right"></span> API</h4>
+					<hr /><a class="btn btn-default" href="{{user.url}}.json" target="_blank">JSON</a>
+				</section>
+				<section class="well">
+					<dl>
+						<dt>UUID</dt>
+						<dd>{{user.id}}</dd>
+						<dt>Created</dt>
+						<dd>{{user.created_at}}</dd>
+						<dt>Updated</dt>
+						<dd>{{user.updated_at}}</dd>
+					</dl>
+				</section>
+			</div>
+		</div>
+	</div>

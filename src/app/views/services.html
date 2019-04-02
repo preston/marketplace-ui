@@ -1,0 +1,118 @@
+<div class="container-fluid" id="services">
+		<div class="row">
+			<div class="col-sm-8">
+				<h1>Catalog management</h1>
+				<div class="pull-right">
+					<button class="btn btn-primary" (click)="create()"><span class="fa fa-plus"></span> Declare a service</button>
+				</div>
+				<p class="text-help">Services are collections of users, and are usually used to ease the permissions management. When a role is assigned to a service, the role is automatically applied to all members.</p>
+				<div class="clearfix"></div>
+				<div class="row">
+					<div class="col-md-4" *ngFor="let service of services"><a (click)="select(service)"><img class="logo" src="{{service.url}}/logo/small" /><br /> {{service.name}}</a></div>
+				</div>
+				<hr />
+				<div id="builds" *ngIf="service">
+					<h2>
+						<div class="pull-right">
+							<button class="btn btn-primary" (click)="createBuild(service)"><span class="fa fa-plus"></span> Register a container build of {{service.name}}</button>
+						</div>Available Builds
+					</h2>
+					<hr /><i *ngIf="builds.length == 0">No builds have been listed.</i>
+					<div *ngFor="let b of builds">
+						<div class="row well">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label for="service_version">Service Version</label>
+									<input class="form-control" type="text" [(value)]="b.service_version" />
+								</div>
+								<div class="form-group">
+									<label for="version">Version</label>
+									<input class="form-control" type="text" [(value)]="b.version" />
+								</div>
+								<div class="form-group">
+									<label for="container_repository">Container Repository</label>
+									<input class="form-control" type="text" [(value)]="b.container_repository" />
+								</div>
+								<div class="form-group">
+									<label for="container_tag">Container Tag</label>
+									<input class="form-control" type="text" [(value)]="b.container_tag" />
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label for="validated_at">Validated At</label>
+									<input class="form-control" type="text" [(value)]="b.validated_at" />
+								</div>
+								<div class="form-group">
+									<label for="published_at">Published At</label>
+									<input class="form-control" type="text" [(value)]="b.published_at" />
+								</div>
+								<div class="form-group">
+									<label for="release_notes">Release Notes</label>
+									<textarea class="form-control" type="text" [(value)]="b.release_notes"></textarea>
+								</div>
+								<div class="form-group">
+									<div class="btn-group">
+										<button class="btn btn-primary" (click)="updateBuild(b)"><span class="fa fa-cloud-upload"></span> Save Build</button>
+										<button class="btn btn-danger" (click)="deleteBuild(b)"><span class="fa fa-trash"></span> Delete Build</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<section *ngIf="service">
+					<hr />
+					<h2>Exposed interfaces</h2><i>Management UI not implemented.</i>
+					<hr />
+					<h2>Required interfaces</h2><i>Management UI not implemented.</i>
+					<hr />
+					<h2>Screenshots</h2><i>Management UI not implemented.</i>
+					<hr />
+					<h2>Runtime configurations</h2><i>Management UI not implemented.</i>
+				</section>
+			</div>
+			<div class="col-sm-4" *ngIf="service">
+				<h2>{{service.name}}
+					<div class="btn-group">
+						<button class="btn btn-sm btn-primary" (click)="publish(service)" *ngIf="!service.published_at"><span class="fa fa-thumbs-up"></span> Publish</button>
+						<button class="btn btn-sm btn-primary" (click)="unpublish(service)" *ngIf="service.published_at"><span class="fa fa-thumbs-down"></span> Unpublish</button>
+						<button class="btn btn-sm btn-primary" (click)="update(service)"><span class="fa fa-cloud-upload"></span> Save</button>
+						<button class="btn btn-sm btn-danger" (click)="delete(service)"><span class="fa fa-trash"></span> Delete</button>
+					</div>
+				</h2>
+				<p *ngIf="service.published_at">Last published at {{service.published_at}}.</p>
+				<hr />
+				<form class="form">
+					<div class="form-group">
+						<label for="service_name">Name</label>
+						<input class="form-control" type="text" name="service_name" [(ngModel)]="service.name" /><small><i>ID: {{service.id}}</i></small>
+					</div>
+					<div class="form-group">
+						<label for="service_support_url">Support URL</label>
+						<input class="form-control" type="text" name="service_support_url" [(ngModel)]="service.support_url" />
+					</div>
+					<div class="form-group">
+						<label for="service_uri">URI</label>
+						<input class="form-control" type="text" name="service_uri" [(ngModel)]="service.uri" />
+					</div>
+					<div class="form-group">
+						<label for="service_description">Description</label>
+						<textarea class="form-control" type="text" name="service_description" [(ngModel)]="service.description"></textarea>
+					</div>
+					<div class="form-group">
+						<label for="service_logo">Logo</label>
+						<input type="file" name="service_logo" (change)="handleLogoSelect($event)" />
+					</div>
+				</form>
+				<dl>
+					<dt>UUID</dt>
+					<dd>{{service.id}}</dd>
+					<dt>Created</dt>
+					<dd>{{service.created_at}}</dd>
+					<dt>Updated</dt>
+					<dd>{{service.updated_at}}</dd>
+				</dl>
+			</div>
+		</div>
+	</div>

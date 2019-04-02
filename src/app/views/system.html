@@ -1,0 +1,25 @@
+<button class="btn btn-default pull-right" [routerLink]="['/']"> Close&nbsp;</button>
+<div class="container-fluid" id="system">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active" role="presentation"><a href="#users" aria-controls="users" role="tab" data-toggle="tab"><span class="fa fa-user"></span> User Accounts</a></li>
+                <li role="presentation"><a href="#groups" aria-controls="groups" role="tab" data-toggle="tab"><span class="fa fa-users"></span> Group Management</a></li>
+                <li role="presentation"><a href="#roles" aria-controls="roles" role="tab" data-toggle="tab"><span class="fa fa-lock"></span> Roles &amp; Permissions</a></li>
+                <li role="presentation"><a href="#services" aria-controls="services" role="tab" data-toggle="tab"><span class="fa fa-cloud"></span> Service Catalog</a></li>
+                <li role="presentation"><a href="#identity_providers" aria-controls="identity_providers" role="tab" data-toggle="tab"><span class="fa fa-id-card"></span> Single Sign-On</a></li>
+                <li role="presentation"><a href="#licenses" aria-controls="licenses" role="tab" data-toggle="tab"><span class="fa fa-gavel"></span> License Types</a></li>
+                <li role="presentation"><a href="#interfaces" aria-controls="interfaces" role="tab" data-toggle="tab"><span class="fa fa-cube"></span> Service Interfaces</a></li>
+            </ul>
+            <div class="tab-content">
+                <users class="tab-pane active" id="users" role="tabpanel"></users>
+                <groups class="tab-pane" id="groups" role="tabpanel"></groups>
+                <roles class="tab-pane" id="roles" role="tabpanel"></roles>
+                <services class="tab-pane" id="services" role="tabpanel" [status]="status"></services>
+                <identity_providers class="tab-pane" id="identity_providers" role="tabpanel"></identity_providers>
+                <licenses class="tab-pane" id="licenses" role="tabpanel"></licenses>
+                <interfaces class="tab-pane" id="interfaces" role="tabpanel"></interfaces>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import {BaseService} from "./base.service";
@@ -13,7 +13,7 @@ export class InterfaceService extends BaseService {
 
     public static PATH: string = '/interfaces';
 
-    constructor(marketplaceService: MarketplaceService, http: Http) {
+    constructor(marketplaceService: MarketplaceService, http: HttpClient) {
         super(marketplaceService, http);
     }
 
@@ -22,28 +22,28 @@ export class InterfaceService extends BaseService {
     }
 
     index() {
-        let interfaces = this.http.get(this.url(), this.options()).pipe(map(res => res.json()));
+        let interfaces = this.http.get<Interface[]>(this.url(), {headers: this.headers()}).pipe(map(res => res));
         return interfaces;
     }
 
     get(id: string) {
-        let platform = this.http.get(this.url() + '/' + id, this.options()).pipe(map(res => res.json()));
+        let platform = this.http.get<Interface>(this.url() + '/' + id, {headers: this.headers()}).pipe(map(res => res));
         return platform;
     }
 
 
     create(iface: Interface) {
-        let obs = this.http.post(this.url(), { 'interface': iface }, this.options()).pipe(map(res => res.json()));
+        let obs = this.http.post<Interface>(this.url(), { 'interface': iface }, {headers: this.headers()}).pipe(map(res => res));
         return obs;
     }
 
     update(iface: Interface) {
-        let obs = this.http.put(this.url() + '/' + iface.id, { 'interface': iface }, this.options()).pipe(map(res => res.json()));
+        let obs = this.http.put<Interface>(this.url() + '/' + iface.id, { 'interface': iface }, {headers: this.headers()}).pipe(map(res => res));
         return obs;
     }
 
     delete(iface: Interface) {
-        let obs = this.http.delete(this.url() + '/' + iface.id, this.options()).pipe(map(res => res.json()));
+        let obs = this.http.delete<Interface>(this.url() + '/' + iface.id, {headers: this.headers()}).pipe(map(res => res));
         return obs;
     }
 }

@@ -1,0 +1,55 @@
+<div class="container-fluid" id="interfaces">
+		<div class="row">
+			<div class="col-sm-6">
+				<h1>Supported service interfaces</h1>
+				<div class="pull-right">
+					<button class="btn btn-primary" (click)="create()"><span class="fa fa-plus"></span> Declare an interface</button>
+				</div>
+				<p class="text-help">An interface is a static declaration of communication method exposed by or consumed from a deployed service. Interface declarations are needed to support automatic service dependency resolution.</p>
+				<div class="clearfix"></div>
+				<div class="row">
+					<div class="col-md-4" *ngFor="let interface of interfaces"><a (click)="select(interface)">{{interface.name}}</a></div>
+				</div>
+				<hr />
+			</div>
+			<div class="col-sm-6" *ngIf="interface">
+				<h2>Edit
+					<div class="btn-group pull-right">
+						<button class="btn btn-sm btn-primary" (click)="update(interface)"><span class="fa fa-cloud-upload"></span> Save</button>
+						<button class="btn btn-sm btn-danger" (click)="delete(interface)"><span class="fa fa-trash"></span> Delete</button>
+					</div>
+				</h2>
+				<hr />
+				<form class="form">
+					<div class="form-group">
+						<label for="interface_name">Name</label>
+						<input class="form-control" type="text" name="interface_name" [(ngModel)]="interface.name" /><small><i>ID: {{interface.id}}</i></small>
+					</div>
+					<div class="form-group">
+						<label for="interface_uri">URI</label>
+						<input class="form-control" type="text" name="interface_uri" [(ngModel)]="interface.uri" />
+						<p>This must be a unique value and should be stable over time. Deference version of a given interface should generally be modeled as distinct interfaces.</p>
+					</div>
+					<div class="form-group">
+						<label for="interface_version">Version</label>
+						<input class="form-control" type="text" name="interface_version" [(ngModel)]="interface.version" />
+						<p>Human-readable version of this interface. Required, but freeform.</p>
+					</div>
+					<div class="checkbox">
+						<label for="interface_description">
+							<input type="checkbox" name="interface_default" [(ngModel)]="interface.default" /> Default?
+						</label>
+						<p>When checked, new users will automatically be appointed to this interface. Changing the value does not modify existing interface appointments, or lack thereof.</p>
+					</div>
+				</form>
+				<dl>
+					<dt>UUID</dt>
+					<dd>{{interface.id}}</dd>
+					<dt>Created</dt>
+					<dd>{{interface.created_at}}</dd>
+					<dt>Updated</dt>
+					<dd>{{interface.updated_at}}</dd>
+				</dl>
+			</div>
+		</div>
+	</div>

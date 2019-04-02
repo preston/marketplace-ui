@@ -1,0 +1,49 @@
+<div class="container-fluid" id="roles">
+		<div class="row">
+			<div class="col-sm-8">
+				<h1>Role management</h1>
+				<div class="pull-right">
+					<button class="btn btn-primary" (click)="create()"><span class="fa fa-plus"></span> Create a role</button>
+				</div>
+				<p class="text-help">A role defines a set of permissions, and may be assigned to any number of users and roles by "appointing" it.</p>
+				<div class="clearfix"></div>
+				<div class="row">
+					<div class="col-md-4" *ngFor="let role of roles"><a (click)="select(role)">{{role.name}}</a></div>
+				</div>
+				<hr />
+			</div>
+			<div class="col-sm-4" *ngIf="role">
+				<h2>Edit
+					<div class="btn-group pull-right">
+						<button class="btn btn-sm btn-primary" (click)="update(role)"><span class="fa fa-cloud-upload"></span> Save</button>
+						<button class="btn btn-sm btn-danger" (click)="delete(role)"><span class="fa fa-trash"></span> Delete</button>
+					</div>
+				</h2>
+				<hr />
+				<form class="form">
+					<div class="form-group">
+						<label for="role_name">Name</label>
+						<input class="form-control" type="text" name="role_name" [(ngModel)]="role.name" /><small><i>ID: {{role.id}}</i></small>
+					</div>
+					<div class="form-group">
+						<label for="role_description">Description</label>
+						<textarea class="form-control" type="text" name="role_description" [(ngModel)]="role.description"></textarea>
+					</div>
+					<div class="checkbox">
+						<label for="role_description">
+							<input type="checkbox" name="role_default" [(ngModel)]="role.default" /> Default?
+						</label>
+						<p>When checked, new users will automatically be appointed to this role. Changing the value does not modify existing role appointments, or lack thereof.</p>
+					</div>
+				</form>
+				<dl>
+					<dt>UUID</dt>
+					<dd>{{role.id}}</dd>
+					<dt>Created</dt>
+					<dd>{{role.created_at}}</dd>
+					<dt>Updated</dt>
+					<dd>{{role.updated_at}}</dd>
+				</dl>
+			</div>
+		</div>
+	</div>

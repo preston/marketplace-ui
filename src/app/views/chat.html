@@ -1,0 +1,6 @@
+<div id="messages" *ngIf="visible">
+  <h2>Chat</h2>
+  <div class="message" *ngFor="let m of messages" [id]="m.id">
+    <p>{{m.text}}</p><i>From {{m.from_id}}</i>
+  </div>
+</div>
