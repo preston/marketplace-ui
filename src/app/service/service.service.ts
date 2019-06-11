@@ -2,12 +2,12 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
-import {BaseService} from "./base.service";
+import {BaseService} from "../base/base.service";
 
-import {MarketplaceService} from './marketplace.service';
-import {Service} from '../models/service';
-import {License} from '../models/license';
-import {User} from '../models/user';
+import {BackendService} from '../backend/backend.service';
+import {Service} from '../service/service';
+import {License} from '../license/license';
+import {User} from '../user/user';
 
 @Injectable()
 export class ServiceService extends BaseService {
@@ -15,16 +15,16 @@ export class ServiceService extends BaseService {
     public static PATH: string = '/services';
     public static SEARCH_PATH: string = '/services/search';
 
-    constructor(marketplaceService: MarketplaceService, http: HttpClient) {
-        super(marketplaceService, http);
+    constructor(backendService: BackendService, http: HttpClient) {
+        super(backendService, http);
     }
 
     url(): string {
-        return this.marketplaceService.url + ServiceService.PATH;
+        return this.backendService.url + ServiceService.PATH;
     }
 
     searchUrl(): string {
-        return this.marketplaceService.url + ServiceService.SEARCH_PATH;
+        return this.backendService.url + ServiceService.SEARCH_PATH;
     }
 
     search(text: string) {

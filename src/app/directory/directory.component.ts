@@ -1,30 +1,31 @@
+
 import {Component, Output, Inject, OnInit} from '@angular/core';
-import {Service} from '../models/service';
-import {License} from '../models/license';
-import {Status} from '../models/status';
-import {Search} from '../models/search';
-import {IdentityProvider} from '../models/identity_provider';
+import {Service} from '../service/service';
+import {License} from '../license/license';
+import {Status} from '../status/status';
+import {Search} from '../search/search';
+import {IdentityProvider} from '../identity_provider/identity_provider';
 
 import {ToasterService} from 'angular2-toaster/angular2-toaster';
 
 // import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
-import {ServiceService} from '../services/service.service';
-import {LicenseService} from '../services/license.service';
-import {IdentityProviderService} from '../services/identity_provider.service';
-import {MarketplaceService} from '../services/marketplace.service';
+import {ServiceService} from '../service/service.service';
+import {LicenseService} from '../license/license.service';
+import {IdentityProviderService} from '../identity_provider/identity_provider.service';
+import {BackendService} from '../backend/backend.service';
 
 // import {XmlExporterService} from '../services/xml_exporter.service';
 
 import {HttpClient} from '@angular/common/http';
 
 @Component({
-    selector: 'home',
-    templateUrl: '../views/home.html',
+    selector: 'directory',
+    templateUrl: 'directory.component.html',
     // providers: [CarouselModule]
 	providers: []
 })
-export class HomeComponent implements OnInit {
+export class DirectoryComponent implements OnInit {
 
     // The currently selected service, if any.
     service: Service = null;
@@ -36,7 +37,7 @@ export class HomeComponent implements OnInit {
     searchQuery: Search;
     status: Object;
 
-    constructor(private marketplaceService: MarketplaceService,
+    constructor(private backendService: BackendService,
         private serviceService: ServiceService,
         private licenseService: LicenseService,
         private identityProviderService: IdentityProviderService,
@@ -60,8 +61,8 @@ export class HomeComponent implements OnInit {
 				for (var i = 0; i < responseParameters.length; i++) {
 					parameterMap[responseParameters[i].split("=")[0]] = responseParameters[i].split("=")[1];
 				}
-				if (parameterMap[MarketplaceService.JWT_LAUNCH_KEY]) {
-					window.localStorage.setItem(MarketplaceService.LOCAL_STORAGE_JWT_KEY, parameterMap['jwt']);
+				if (parameterMap[BackendService.JWT_LAUNCH_KEY]) {
+					window.localStorage.setItem(BackendService.LOCAL_STORAGE_JWT_KEY, parameterMap['jwt']);
 					window.location.href = root;
 					console.log("Processed JWT in URL.");
 				} else {
@@ -88,10 +89,11 @@ export class HomeComponent implements OnInit {
 
 	loadMarketplaceStatus() {
 		this.status = {};
-		this.marketplaceService.status().subscribe(d => {
+		this.backendService.status().subscribe(d => {
 			this.status = d;
 			console.log("Server status: ");
 			console.log(this.status);
+			this.toasterService.pop('success', "Hi");
 		});
 	}
 
@@ -119,8 +121,8 @@ export class HomeComponent implements OnInit {
 	}
 
 	logout() {
-		localStorage.removeItem(MarketplaceService.LOCAL_STORAGE_JWT_KEY);
-		// this.marketplaceService.logout().subscribe(d => {
+		localStorage.removeItem(BackendService.LOCAL_STORAGE_JWT_KEY);
+		// this.backendService.logout().subscribe(d => {
 			this.loadMarketplaceStatus();
 		// 	console.log("Logout complete.");
 			this.toasterService.pop('success', 'Logged out.', 'See you next time!');

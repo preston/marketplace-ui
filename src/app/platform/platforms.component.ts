@@ -1,15 +1,15 @@
 import {Component, Output, Inject, Input, OnChanges} from '@angular/core';
-import {Identity} from '../models/identity';
-import {User} from '../models/user';
-import {Status} from '../models/status';
-import {Platform} from '../models/platform';
-import {IdentityProvider} from '../models/identity_provider';
+import {Identity} from '../identity/identity';
+import {User} from '../user/user';
+import {Status} from '../status/status';
+import {Platform} from '../platform/platform';
+import {IdentityProvider} from '../identity_provider/identity_provider';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
-import {PlatformService} from '../services/platform.service';
-import {UserService} from '../services/user.service';
-import {MarketplaceService} from '../services/marketplace.service';
+import {PlatformService} from '../platform/platform.service';
+import {UserService} from '../user/user.service';
+import {BackendService} from '../backend/backend.service';
 
 import {UUID} from 'angular2-uuid';
 
@@ -17,13 +17,13 @@ import {HttpClient} from '@angular/common/http';
 
 @Component({
     selector: 'platforms',
-    templateUrl: '../views/platforms.html'
+    templateUrl: 'platforms.component.html'
 })
 export class PlatformsComponent implements OnChanges {
     @Input() user: User;
     platforms: Array<Platform>;
 
-    constructor(private marketplaceService: MarketplaceService,
+    constructor(private backendService: BackendService,
         private platformService: PlatformService,
         private toasterService: ToasterService) {
     }

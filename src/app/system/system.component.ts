@@ -1,7 +1,7 @@
 import {Component, Output, Inject, OnInit} from '@angular/core';
-import {Service} from '../models/service';
-import {License} from '../models/license';
-import {IdentityProvider} from '../models/identity_provider';
+import {Service} from '../service/service';
+import {License} from '../license/license';
+import {IdentityProvider} from '../identity_provider/identity_provider';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
@@ -9,22 +9,22 @@ import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
 // import {window} from '@angular/browser';
 
-import {ServiceService} from '../services/service.service';
-import {LicenseService} from '../services/license.service';
-import {UserService} from '../services/user.service';
-import {GroupService} from '../services/group.service';
-import {IdentityService} from '../services/identity.service';
-import {IdentityProviderService} from '../services/identity_provider.service';
-import {MarketplaceService} from '../services/marketplace.service';
+import {ServiceService} from '../service/service.service';
+import {LicenseService} from '../license/license.service';
+import {UserService} from '../user/user.service';
+import {GroupService} from '../group/group.service';
+import {IdentityService} from '../identity/identity.service';
+import {IdentityProviderService} from '../identity_provider/identity_provider.service';
+import {BackendService} from '../backend/backend.service';
 
 // import {XmlExporterService} from '../services/xml_exporter.service';
 
 import {HttpClient} from '@angular/common/http';
-import { Status } from '../models/status';
+import { Status } from '../status/status';
 
 @Component({
     selector: 'system',
-    templateUrl: '../views/system.html'
+    templateUrl: 'system.component.html'
 })
 export class SystemComponent implements OnInit {
 
@@ -37,7 +37,7 @@ export class SystemComponent implements OnInit {
 
     status: Status;
 
-    constructor(private marketplaceService: MarketplaceService,
+    constructor(private backendService: BackendService,
         private serviceService: ServiceService,
         private licenseService: LicenseService,
         private identityProviderService: IdentityProviderService,
@@ -50,7 +50,7 @@ export class SystemComponent implements OnInit {
     }
 
     reload() {
-        this.marketplaceService.status().subscribe(d => {
+        this.backendService.status().subscribe(d => {
             this.status = d;
         });
         this.identityProviderService.index().subscribe(d => {

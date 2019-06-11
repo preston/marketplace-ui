@@ -1,22 +1,20 @@
 import {Component, Output, Inject} from '@angular/core';
-import {User} from '../models/user';
-import {IdentityProvider} from '../models/identity_provider';
-import {Status} from '../models/status';
-import {Search} from '../models/search';
 
 import {UUID} from 'angular2-uuid';
+
+import {IdentityProvider} from '../identity_provider/identity_provider';
+
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
 // import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
-import {UserService} from '../services/user.service';
-import {IdentityProviderService} from '../services/identity_provider.service';
-import {MarketplaceService} from '../services/marketplace.service';
+import {IdentityProviderService} from './identity_provider.service';
+import {BackendService} from '../backend/backend.service';
 
 @Component({
     selector: 'identity_providers',
-    templateUrl: '../views/identity_providers.html'
+    templateUrl: 'identity_providers.component.html'
 })
 export class IdentityProvidersComponent {
 
@@ -24,7 +22,7 @@ export class IdentityProvidersComponent {
     identityProvider: IdentityProvider;
     identityProviders: Array<IdentityProvider>;
 
-    constructor(private marketplaceService: MarketplaceService,
+    constructor(private backendService: BackendService,
         private identityProviderService: IdentityProviderService,
         private toasterService: ToasterService) {
         this.reload();

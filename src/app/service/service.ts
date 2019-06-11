@@ -1,6 +1,6 @@
-import {User} from './user';
-import {License} from './license';
-import {Build} from './build';
+import {User} from '../user/user';
+import {License} from '../license/license';
+import {Build} from '../build/build';
 
 export class Service {
 

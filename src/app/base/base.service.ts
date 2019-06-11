@@ -4,16 +4,16 @@ import { map } from 'rxjs/operators';
 
 import {HttpHeaders} from '@angular/common/http';
 
-import {MarketplaceService} from './marketplace.service';
+import {BackendService} from '../backend/backend.service';
 
 @Injectable()
 export abstract class BaseService {
 
-    constructor(protected marketplaceService: MarketplaceService, protected http: HttpClient) {
+    constructor(protected backendService: BackendService, protected http: HttpClient) {
     }
 
     headers(): HttpHeaders {
-		return this.marketplaceService.requestOptions(true);
+		return this.backendService.requestOptions(true);
     }
 
 }

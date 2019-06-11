@@ -2,23 +2,23 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
-import {BaseService} from "./base.service";
+import {BaseService} from "../base/base.service";
 
-import {MarketplaceService} from './marketplace.service';
+import {BackendService} from '../backend/backend.service';
 
-import {Interface} from '../models/interface';
+import {Interface} from '../interface/interface';
 
 @Injectable()
 export class InterfaceService extends BaseService {
 
     public static PATH: string = '/interfaces';
 
-    constructor(marketplaceService: MarketplaceService, http: HttpClient) {
-        super(marketplaceService, http);
+    constructor(backendService: BackendService, http: HttpClient) {
+        super(backendService, http);
     }
 
     url(): string {
-        return this.marketplaceService.url + InterfaceService.PATH;
+        return this.backendService.url + InterfaceService.PATH;
     }
 
     index() {

@@ -1,23 +1,20 @@
 import {Component, Output, Inject} from '@angular/core';
-import {User} from '../models/user';
-import {Interface} from '../models/interface';
-import {Status} from '../models/status';
-import {Search} from '../models/search';
-import {IdentityProvider} from '../models/identity_provider';
 
 import {UUID} from 'angular2-uuid';
+
+import {Interface} from '../interface/interface';
+
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
 // import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
-import {UserService} from '../services/user.service';
-import {InterfaceService} from '../services/interface.service';
-import {MarketplaceService} from '../services/marketplace.service';
+import {InterfaceService} from '../interface/interface.service';
+import {BackendService} from '../backend/backend.service';
 
 @Component({
     selector: 'interfaces',
-    templateUrl: '../views/interfaces.html'
+    templateUrl: 'interfaces.component.html'
 })
 export class InterfacesComponent {
 
@@ -25,7 +22,7 @@ export class InterfacesComponent {
     interface: Interface;
     interfaces: Array<Interface>;
 
-    constructor(private marketplaceService: MarketplaceService,
+    constructor(private backendService: BackendService,
         private interfaceService: InterfaceService,
         private toasterService: ToasterService) {
         this.reload();

@@ -2,11 +2,11 @@ import {Injectable} from "@angular/core";
 import {HttpHeaders} from '@angular/common/http';
 import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Status } from "../models/status";
+import { Status } from "../status/status";
 
 
 @Injectable()
-export class MarketplaceService {
+export class BackendService {
 
     public url: string = 'http://localhost:3000';
     // public url: string = 'https://marketplace-server.hspconsortium.org';
@@ -27,20 +27,20 @@ export class MarketplaceService {
 	public requestOptions(includeBearerToken: boolean): HttpHeaders {
 		let headers = new HttpHeaders({ 'Accept': 'application/json' });
 		if (includeBearerToken) {
-			headers.append('Authorization', 'Bearer ' + localStorage.getItem(MarketplaceService.LOCAL_STORAGE_JWT_KEY));
+			headers.append('Authorization', 'Bearer ' + localStorage.getItem(BackendService.LOCAL_STORAGE_JWT_KEY));
 		}
 		return headers;
 		// return new RequestOptions({ headers: headers, withCredentials: true });
 	}
 
     statusUrl(): string {
-        return this.url + MarketplaceService.STATUS_PATH;
+        return this.url + BackendService.STATUS_PATH;
     }
     sessionsUrl(): string {
-        return this.url + MarketplaceService.SESSIONS_PATH;
+        return this.url + BackendService.SESSIONS_PATH;
     }
     webSocketUrl(): string {
-        return this.websocket_url + MarketplaceService.WEBSOCKET_PATH;
+        return this.websocket_url + BackendService.WEBSOCKET_PATH;
     }
 
     // logout() {

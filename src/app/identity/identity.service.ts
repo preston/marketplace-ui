@@ -2,13 +2,13 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
-import {User} from '../models/user';
+import {User} from '../user/user';
 
-import {BaseService} from "./base.service";
-import {UserService} from "./user.service";
+import {BaseService} from "../base/base.service";
+import {UserService} from "../user/user.service";
 
-import {MarketplaceService} from './marketplace.service';
-import { Identity } from "../models/identity";
+import {BackendService} from '../backend/backend.service';
+import { Identity } from "../identity/identity";
 import { Observable } from "rxjs";
 
 @Injectable()
@@ -16,8 +16,8 @@ export class IdentityService extends BaseService {
 
     public static PATH: string = '/identities';
 
-    constructor(private userService: UserService, marketplaceService: MarketplaceService, http: HttpClient) {
-        super(marketplaceService, http);
+    constructor(private userService: UserService, backendService: BackendService, http: HttpClient) {
+        super(backendService, http);
     }
 
     url(user: User): string {

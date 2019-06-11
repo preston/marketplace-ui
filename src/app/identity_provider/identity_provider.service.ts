@@ -2,23 +2,23 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
-import {BaseService} from "./base.service";
+import {BaseService} from "../base/base.service";
 
-import {MarketplaceService} from './marketplace.service';
+import {BackendService} from '../backend/backend.service';
 
-import {IdentityProvider} from '../models/identity_provider';
+import {IdentityProvider} from '../identity_provider/identity_provider';
 
 @Injectable()
 export class IdentityProviderService extends BaseService {
 
     public static PATH: string = '/identity_providers';
 
-    constructor(marketplaceService: MarketplaceService, http: HttpClient) {
-        super(marketplaceService, http);
+    constructor(backendService: BackendService, http: HttpClient) {
+        super(backendService, http);
     }
 
     url(): string {
-        return this.marketplaceService.url + IdentityProviderService.PATH;
+        return this.backendService.url + IdentityProviderService.PATH;
     }
 
     index() {

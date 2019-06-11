@@ -1,22 +1,21 @@
 import {Component, Output, Inject} from '@angular/core';
-import {Identity} from '../models/identity';
-import {User} from '../models/user';
-import {Status} from '../models/status';
-import {Search} from '../models/search';
-import {IdentityProvider} from '../models/identity_provider';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
-import {IdentityService} from '../services/identity.service';
-import {UserService} from '../services/user.service';
-import {IdentityProviderService} from '../services/identity_provider.service';
-import {MarketplaceService} from '../services/marketplace.service';
+import {Identity} from '../identity/identity';
+import {User} from '../user/user';
+import {IdentityProvider} from '../identity_provider/identity_provider';
 
-import {HttpClient} from '@angular/common/http';
+
+import {IdentityService} from '../identity/identity.service';
+import {UserService} from '../user/user.service';
+import {IdentityProviderService} from '../identity_provider/identity_provider.service';
+import {BackendService} from '../backend/backend.service';
+
 
 @Component({
     selector: 'account',
-    templateUrl: '../views/account.html'
+    templateUrl: 'account.component.html'
 })
 export class AccountComponent {
 
@@ -26,7 +25,7 @@ export class AccountComponent {
     identities: Array<Identity>;
     user: User;
 
-    constructor(private marketplaceService: MarketplaceService,
+    constructor(private backendService: BackendService,
         private userService: UserService,
         private identityService: IdentityService,
         private identityProviderService: IdentityProviderService) {
@@ -36,7 +35,7 @@ export class AccountComponent {
     reload() {
         this.status = {};
         this.identities = new Array<Identity>();
-        this.marketplaceService.status().subscribe(d => {
+        this.backendService.status().subscribe(d => {
             this.status = d;
             this.userService.get(this.status['identity']['user_id']).subscribe(d => {
                 this.user = d as User;
@@ -63,7 +62,7 @@ export class AccountComponent {
     }
 
 	readJwt(): string {
-		return localStorage.getItem(MarketplaceService.LOCAL_STORAGE_JWT_KEY);
+		return localStorage.getItem(BackendService.LOCAL_STORAGE_JWT_KEY);
 	}
 
 }

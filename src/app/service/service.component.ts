@@ -1,22 +1,22 @@
 import {Component, Output, Input, OnInit} from '@angular/core';
-import {Service} from '../models/service';
-import {License} from '../models/license';
-import {Status} from '../models/status';
-import {Build} from '../models/build';
-import {User} from '../models/user';
-import {Platform} from '../models/platform';
-import {Instance} from '../models/instance';
+import {Service} from '../service/service';
+import {License} from '../license/license';
+import {Status} from '../status/status';
+import {Build} from '../build/build';
+import {User} from '../user/user';
+import {Platform} from '../platform/platform';
+import {Instance} from '../instance/instance';
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
-import {BuildService} from '../services/build.service';
-import {ServiceService} from '../services/service.service';
-import {LicenseService} from '../services/license.service';
-import {PlatformService} from '../services/platform.service';
-import {InstanceService} from '../services/instance.service';
+import {BuildService} from '../build/build.service';
+import {ServiceService} from '../service/service.service';
+import {LicenseService} from '../license/license.service';
+import {PlatformService} from '../platform/platform.service';
+import {InstanceService} from '../instance/instance.service';
 
 @Component({
     selector: 'service',
-    templateUrl: '../views/service.html'
+    templateUrl: 'service.component.html'
 })
 export class ServiceComponent implements OnInit {
 

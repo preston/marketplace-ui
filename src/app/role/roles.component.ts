@@ -1,23 +1,19 @@
 import {Component, Output, Inject} from '@angular/core';
-import {User} from '../models/user';
-import {Role} from '../models/role';
-import {Status} from '../models/status';
-import {Search} from '../models/search';
-import {IdentityProvider} from '../models/identity_provider';
 
 import {UUID} from 'angular2-uuid';
+
+import {Role} from './role';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
 // import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
-import {UserService} from '../services/user.service';
-import {RoleService} from '../services/role.service';
-import {MarketplaceService} from '../services/marketplace.service';
+import {RoleService} from './role.service';
+import {BackendService} from '../backend/backend.service';
 
 @Component({
     selector: 'roles',
-    templateUrl: '../views/roles.html'
+    templateUrl: 'roles.component.html'
 })
 export class RolesComponent {
 
@@ -25,7 +21,7 @@ export class RolesComponent {
     role: Role;
     roles: Array<Role>;
 
-    constructor(private marketplaceService: MarketplaceService,
+    constructor(private backendService: BackendService,
         private roleService: RoleService,
         private toasterService: ToasterService) {
         this.reload();

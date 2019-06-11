@@ -1,27 +1,26 @@
 import {Component, Output, Inject, Input, OnInit} from '@angular/core';
-import {User} from '../models/user';
-import {Service} from '../models/service';
-import {License} from '../models/license';
-import {Status} from '../models/status';
-import {Search} from '../models/search';
-import {Build} from '../models/build';
-import {IdentityProvider} from '../models/identity_provider';
-
 import {UUID} from 'angular2-uuid';
+
+import {User} from '../user/user';
+import {Service} from '../service/service';
+import {License} from '../license/license';
+import {Status} from '../status/status';
+import {Search} from '../search/search';
+import {Build} from '../build/build';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
 // import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
-import {BuildService} from '../services/build.service';
-import {UserService} from '../services/user.service';
-import {LicenseService} from '../services/license.service';
-import {ServiceService} from '../services/service.service';
-import {MarketplaceService} from '../services/marketplace.service';
+import {BuildService} from '../build/build.service';
+import {UserService} from '../user/user.service';
+import {LicenseService} from '../license/license.service';
+import {ServiceService} from '../service/service.service';
+import {BackendService} from '../backend/backend.service';
 
 @Component({
     selector: 'services',
-    templateUrl: '../views/services.html'
+    templateUrl: 'services.component.html'
 })
 export class ServicesComponent implements OnInit {
 
@@ -36,7 +35,7 @@ export class ServicesComponent implements OnInit {
     licenses: Array<License> = new Array<License>();
     builds: Array<Build> = new Array<Build>();
 
-    constructor(private marketplaceService: MarketplaceService,
+    constructor(private backendService: BackendService,
         private serviceService: ServiceService,
         private buildService: BuildService,
         private licenseService: LicenseService,

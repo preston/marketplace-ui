@@ -1,9 +1,6 @@
 import {Component, Output, Inject} from '@angular/core';
-import {User} from '../models/user';
-import {Group} from '../models/group';
-import {Status} from '../models/status';
-import {Search} from '../models/search';
-import {IdentityProvider} from '../models/identity_provider';
+
+import {Group} from './group';
 
 import {UUID} from 'angular2-uuid';
 
@@ -11,13 +8,12 @@ import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
 // import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
-import {UserService} from '../services/user.service';
-import {GroupService} from '../services/group.service';
-import {MarketplaceService} from '../services/marketplace.service';
+import {GroupService} from './group.service';
+import {BackendService} from '../backend/backend.service';
 
 @Component({
     selector: 'groups',
-    templateUrl: '../views/groups.html'
+    templateUrl: 'groups.component.html'
 })
 export class GroupsComponent {
 
@@ -25,7 +21,7 @@ export class GroupsComponent {
     group: Group;
     groups: Array<Group>;
 
-    constructor(private marketplaceService: MarketplaceService,
+    constructor(private backendService: BackendService,
         private groupService: GroupService,
         private toasterService: ToasterService) {
         this.reload();

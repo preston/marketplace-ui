@@ -2,23 +2,23 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
-import {BaseService} from "./base.service";
+import {BaseService} from "../base/base.service";
 
-import {MarketplaceService} from './marketplace.service';
+import {BackendService} from '../backend/backend.service';
 
-import {License} from '../models/license';
+import {License} from '../license/license';
 
 @Injectable()
 export class LicenseService extends BaseService {
 
     public static PATH: string = '/licenses';
 
-    constructor(marketplaceService: MarketplaceService, http: HttpClient) {
-        super(marketplaceService, http);
+    constructor(backendService: BackendService, http: HttpClient) {
+        super(backendService, http);
     }
 
     url(): string {
-        return this.marketplaceService.url + LicenseService.PATH;
+        return this.backendService.url + LicenseService.PATH;
     }
 
     index() {

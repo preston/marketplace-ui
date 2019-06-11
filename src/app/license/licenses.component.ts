@@ -1,9 +1,7 @@
 import {Component, Output, Inject, OnInit} from '@angular/core';
-import {User} from '../models/user';
-import {License} from '../models/license';
-import {Status} from '../models/status';
-import {Service} from '../models/service';
-import {IdentityProvider} from '../models/identity_provider';
+
+import {License} from '../license/license';
+import {Service} from '../service/service';
 
 import {UUID} from 'angular2-uuid';
 
@@ -11,14 +9,14 @@ import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
 // import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
-import {UserService} from '../services/user.service';
-import {LicenseService} from '../services/license.service';
-import {ServiceService} from '../services/service.service';
-import {MarketplaceService} from '../services/marketplace.service';
+import {UserService} from '../user/user.service';
+import {LicenseService} from '../license/license.service';
+import {ServiceService} from '../service/service.service';
+import {BackendService} from '../backend/backend.service';
 
 @Component({
     selector: 'licenses',
-    templateUrl: '../views/licenses.html'
+    templateUrl: 'licenses.component.html'
 })
 export class LicensesComponent implements OnInit {
 
@@ -28,7 +26,7 @@ export class LicensesComponent implements OnInit {
     license: License;
     services: Array<Service>;
 
-    constructor(private marketplaceService: MarketplaceService,
+    constructor(private backendService: BackendService,
         private licenseService: LicenseService,
         private serviceService: ServiceService,
         private toasterService: ToasterService) {

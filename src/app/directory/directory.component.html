@@ -1,4 +1,12 @@
-<button class="btn btn-default pull-right" *ngIf="status.permissions?.everything?.manage" [routerLink]="['/system']"><span class="fa fa-cogs"></span></button>
+<app-header></app-header>
+<toaster-container></toaster-container>
+
+
+<div class="input-group">
+	<input class="input-lg form-control" autofocus="true" type="search" [(ngModel)]="searchQuery.text" name="search_text" (keyup)="search()" placeholder="web" /><span class="input-group-btn">
+		<button class="btn btn-lg btn-primary" type="submit" [disabled]="!validSearch()"><span class="fa fa-search"></span> Search Marketplace</button></span>
+</div>
+
 <div class="container-fluid" id="home">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -18,13 +26,6 @@
                         </div>
                     </div>
 				</h2>
-				<p *ngFor="let idp of identityProviders">
-					<a [href]="idp.redirect_url">{{idp.name}}</a>
-				</p>
-                <div class="input-group">
-                    <input class="input-lg form-control" autofocus="true" type="search" [(ngModel)]="searchQuery.text" name="search_text" (keyup)="search()" placeholder="web" /><span class="input-group-btn">
-                        <button class="btn btn-lg btn-primary" type="submit" [disabled]="!validSearch()"><span class="fa fa-search"></span> Search Marketplace</button></span>
-                </div>
             </div>
         </div>
     </div>
@@ -47,3 +48,5 @@
     <button class="btn btn-default" id="close-service-button" *ngIf="service" (click)="select(null)">Close</button>
     <service *ngIf="service" [service]="service" [licenses]="licenses" [status]="status"></service>
 </div>
+
+<app-footer></app-footer>

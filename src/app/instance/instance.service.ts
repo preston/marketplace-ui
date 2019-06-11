@@ -2,21 +2,21 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
-import {BaseService} from "./base.service";
+import {BaseService} from "../base/base.service";
 
-import {MarketplaceService} from './marketplace.service';
-import {PlatformService} from './platform.service';
+import {BackendService} from '../backend/backend.service';
+import {PlatformService} from '../platform/platform.service';
 
-import {User} from "../models/user";
-import {Platform} from "../models/platform";
-import {Instance} from "../models/instance";
+import {User} from "../user/user";
+import {Platform} from "../platform/platform";
+import {Instance} from "../instance/instance";
 
 @Injectable()
 export class InstanceService extends BaseService {
 
     public static PATH: string = '/instances';
 
-    constructor(private platformService: PlatformService, marketplacePlatform: MarketplaceService, http: HttpClient) {
+    constructor(private platformService: PlatformService, marketplacePlatform: BackendService, http: HttpClient) {
         super(marketplacePlatform, http);
     }
 

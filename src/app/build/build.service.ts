@@ -2,21 +2,21 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
-import {BaseService} from "./base.service";
+import {BaseService} from "../base/base.service";
 
-import {MarketplaceService} from './marketplace.service';
-import {ServiceService} from './service.service';
+import {BackendService} from '../backend/backend.service';
+import {ServiceService} from '../service/service.service';
 
-import {Service} from "../models/service";
-import {Build} from "../models/build";
+import {Service} from "../service/service";
+import {Build} from "../build/build";
 
 @Injectable()
 export class BuildService extends BaseService {
 
     public static PATH: string = '/builds';
 
-    constructor(private serviceService: ServiceService, marketplaceService: MarketplaceService, http: HttpClient) {
-        super(marketplaceService, http);
+    constructor(private serviceService: ServiceService, backendService: BackendService, http: HttpClient) {
+        super(backendService, http);
     }
 
     url(service: Service): string {

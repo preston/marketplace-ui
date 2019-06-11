@@ -3,13 +3,14 @@ import { Component } from '@angular/core';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
-import {Message} from '../models/message';
+import {Message} from '../message/message';
 
-import {MarketplaceService} from '../services/marketplace.service';
+import {BackendService} from '../backend/backend.service';
 
 @Component({
     selector: 'chat',
-    templateUrl: '../views/chat.html'
+	templateUrl: 'chat.component.html',
+	styleUrls : ['chat.component.scss']
 })
 export class ChatComponent {
 
@@ -19,9 +20,9 @@ export class ChatComponent {
     constructor(
 		// private ng2cable: Ng2Cable,
         // private broadcaster: Broadcaster,
-        private marketplaceService: MarketplaceService,
+        private backendService: BackendService,
         private toasterService: ToasterService) {
-        // this.ng2cable.subscribe(this.marketplaceService.webSocketUrl(), 'ChatChannel');
+        // this.ng2cable.subscribe(this.backendService.webSocketUrl(), 'ChatChannel');
         //By default the event name is 'channel name'. But you can pass from backend field { action: 'MyEventName'}
 
         // this.broadcaster.on<Message>('ChatChannel').subscribe(

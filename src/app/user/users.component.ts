@@ -1,18 +1,17 @@
 import {Component, Output, Inject, OnInit} from '@angular/core';
-import {User} from '../models/user';
-import {Identity} from '../models/identity';
-import {Group} from '../models/group';
-import {Service} from '../models/service';
-import {IdentityProvider} from '../models/identity_provider';
+import {User} from './user';
+import {Identity} from '../identity/identity';
+import {Service} from '../service/service';
+import {IdentityProvider} from '../identity_provider/identity_provider';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
-import {UserService} from '../services/user.service';
-import {GroupService} from '../services/group.service';
-import {IdentityService} from '../services/identity.service';
-import {ServiceService} from '../services/service.service';
-import {IdentityProviderService} from '../services/identity_provider.service';
-import {MarketplaceService} from '../services/marketplace.service';
+import {UserService} from './user.service';
+import {GroupService} from '../group/group.service';
+import {IdentityService} from '../identity/identity.service';
+import {ServiceService} from '../service/service.service';
+import {IdentityProviderService} from '../identity_provider/identity_provider.service';
+import {BackendService} from '../backend/backend.service';
 
 // import {XmlExporterService} from '../services/xml_exporter.service';
 
@@ -20,7 +19,7 @@ import {HttpClient} from '@angular/common/http';
 
 @Component({
     selector: 'users',
-    templateUrl: '../views/users.html'
+    templateUrl: 'users.component.html'
 })
 export class UsersComponent implements OnInit {
 
@@ -32,7 +31,7 @@ export class UsersComponent implements OnInit {
     users: Array<User> = new Array<User>();
     identityProviders: Array<IdentityProvider> = new Array<IdentityProvider>();
 
-    constructor(private marketplaceService: MarketplaceService,
+    constructor(private backendService: BackendService,
         private userService: UserService,
         private identityService: IdentityService,
         private serviceService: ServiceService,
