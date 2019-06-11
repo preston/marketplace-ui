@@ -4,19 +4,26 @@ The Marketplace UI is web-based frontend for Marketplace Server, and requires an
 
 ## Developer Quick Start
 
-This is an [AngularJS 2](https://angular.io) project using `grunt` as the build system, [pug](https://pugjs.org/api/getting-started.html) for HTML templates, [SASS](http://sass-lang.com) for CSS and [Bootstrap](http://getbootstrap.com/) for layout. `npm` is the package manager. Assuming you already have node installed via `brew install node` or similar:
+This is an [Angular](https://angular.io) project using `ng` [@angular/cli](https://cli.angular.io/) as the build system, [pug](https://pugjs.org/api/getting-started.html) for HTML templates, [SCSS](http://sass-lang.com) for CSS and [Bootstrap](http://getbootstrap.com/) for layout. `npm` is the package manager. Assuming you already have node installed via [`nvm`](https://github.com/nvm-sh/nvm) or similar, run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-	npm install -g grunt typings
-	npm install # to install project development dependencies
-	typings install # to install TypeScript declarations
+## Code scaffolding
 
-To run in development mode, just:
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-	ng serve # to serve the project and automatically recompile on file changes
+## Build
 
-Visit [http://localhost:9000](http://localhost:9000) and do your thang. :)
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Building for Production
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+
+# Building for Production
 
 First, build:
 
