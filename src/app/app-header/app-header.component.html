@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	<a class="navbar-brand" href="#">
+	<a class="navbar-brand" [routerLink]="['/']">
 		<i class="fa fa-stethoscope"></i>
 		Logica Marketplace</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -23,31 +23,49 @@
 				</a>
 				<div class="dropdown-menu" aria-labelledby="developerDropdown">
 					<a class="dropdown-item" [routerLink]="['/documentation']">
-						<i class="fa fa-book"></i>Server API Documentation</a>
+						<i class="fa fa-server"></i>
+						Server API Documentation</a>
 					<a class="dropdown-item" href="#">
+						<i class="fa fa-book"></i>
 						HL7 Marketplace Specification</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="https://github.com/preston/hsp-marketplace-server">
-						<i class="fa fa-github"></i>Server Source Code</a>
+						<i class="fa fa-github"></i>
+						Server Source Code</a>
 					<a class="dropdown-item" href="https://github.com/preston/hsp-marketplace-ui">
-						<i class="fa fa-github"></i>Web UI Source Code</a>
+						<i class="fa fa-window-maximize"></i>
+						Web UI Source Code</a>
 				</div>
 			</li>
 		</ul>
-		<ul class="navbar-nav ml-auto mx-2">
+		<ul class="navbar-nav ml-auto mx-2" *ngIf="!status?.identity">
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="developerDropdown" role="button" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false">
-					<i class="fa fa-user"></i> Login
+					<i class="fa fa-sign-in"></i>
+					Login
 				</a>
-
 				<div class="dropdown-menu" aria-labelledby="developerDropdown">
 					<a *ngFor="let idp of identityProviders" class="dropdown-item"
 						[href]="idp.redirect_url">{{idp.name}}</a>
 				</div>
 			</li>
+		</ul>
+		<ul class="navbar-nav ml-auto" *ngIf="status?.identity">
+			<li class="nav-item" *ngIf="status?.permissions?.everything?.manage">
+				<a class="nav-link" [routerLink]="'/system'">
+					<i class="fa fa-cogs"></i>
+					System</a>
+			</li>
 			<li class="nav-item">
-				<span *ngIf="status?.identity"><a [routerLink]="['/account']">manage</a> or<a (click)="logout()"> log out</a></span>
+				<a class="nav-link" [routerLink]="['/account']">
+					<i class="fa fa-user"></i>
+					Account</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" (click)="logout()">
+					<i class="fa fa-sign-out"></i>
+					Logoff</a>
 			</li>
 		</ul>
 		<!-- <form class="form-inline my-2 my-lg-0">
@@ -56,6 +74,3 @@
 	  </form> -->
 	</div>
 </nav>
-
-<button class="button pull-right" *ngIf="status?.permissions?.everything?.manage" [routerLink]="['/system']"><span
-		class="fa fa-cogs"></span></button>

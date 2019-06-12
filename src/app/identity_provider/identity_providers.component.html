@@ -10,7 +10,7 @@
             <p>Note that you almost never want to _remove_ an IDP since complete deletion of an IDP will cascade to all known identities using it, thereby orphaning any user accounts they do not have other known identities.</p>
             <div class="clearfix"></div>
             <div class="row">
-                <div class="col-md-4" *ngFor="let identity_provider of identityProviders"><a (click)="select(identity_provider)">{{identity_provider.name}}</a></div>
+                <div class="col-md-4" *ngFor="let identity_provider of identityProviders"><a class="btn btn-primary" (click)="select(identity_provider)">{{identity_provider.name}}</a></div>
             </div>
             <hr />
             <section *ngIf="identity_provider">

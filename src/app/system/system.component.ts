@@ -21,6 +21,7 @@ import {BackendService} from '../backend/backend.service';
 
 import {HttpClient} from '@angular/common/http';
 import { Status } from '../status/status';
+import { ToasterConfigurationService } from '../toaster/toaster.configuration.service';
 
 @Component({
     selector: 'system',
@@ -35,7 +36,9 @@ export class SystemComponent implements OnInit {
     licenses: Array<License> = new Array<License>();
     identityProviders: Array<IdentityProvider> = new Array<IdentityProvider>();
 
-    status: Status;
+	status: Status;
+
+	public toasterConfig = ToasterConfigurationService.TOASTER_CONFIG
 
     constructor(private backendService: BackendService,
         private serviceService: ServiceService,

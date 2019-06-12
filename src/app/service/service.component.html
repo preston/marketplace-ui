@@ -1,100 +1,140 @@
 <div class="row">
-		<div class="col-md-6">
-			<h1>{{service.name}}</h1>
-			<p class="lead">{{service.description}}</p>
+	<div class="col-md-6">
+		<h1>{{service.name}}</h1>
+		<p class="lead">{{service.description}}</p>
+	</div>
+	<div class="col-md-6">
+
+		<div id="carouselServiceScreenshotIndicators" class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-target="#carouselServiceScreenshotIndicators" [attr.data-slide-to]="i"
+					*ngFor="let ss of service.screenshots; let i = index" [class]="i == 0 ? 'active' : ''"></li>
+				<!-- <li data-target="#carouselServiceScreenshotIndicators" data-slide-to="1"></li>
+				<li data-target="#carouselServiceScreenshotIndicators" data-slide-to="2"></li> -->
+			</ol>
+			<div class="carousel-inner">
+				<div [class]="i == 0 ? 'carousel-item active' : 'carousel-item'"
+					*ngFor="let ss of service.screenshots; let i = index">
+					<img class="d-block w-100" src="{{ss.url}}/small" alt="{{ss.caption}}">
+				</div>
+			</div>
+			<a class="carousel-control-prev" href="#carouselServiceScreenshotIndicators" role="button"
+				data-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="carousel-control-next" href="#carouselServiceScreenshotIndicators" role="button"
+				data-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
 		</div>
-		<div class="col-md-6">
-			<div class="row">
+
+
+		<!-- <div class="row">
 				<div class="col-sm-4" href="#" *ngFor="let ss of service.screenshots">
 					<div class="thumbnail"><img src="{{ss.url}}/small" [alt]="ss.caption" /></div>
 				</div>
-			</div>
-		</div>
+			</div> -->
 	</div>
-	<div>
-		<!-- Nav tabs-->
-		<ul class="nav nav-tabs" role="tablist">
-			<li class="active" role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab"><span class="fa fa-home"></span> About</a></li>
-			<li role="presentation"><a href="#screenshots" aria-controls="screenshots" role="tab" data-toggle="tab"><span class="fa fa-picture"></span> Screenshots</a></li>
-			<li role="presentation"><a href="#runtime" aria-controls="runtime" role="tab" data-toggle="tab"><span class="fa fa-cog"></span> Runtime configuration</a></li>
-			<li role="presentation"><a href="#deployment" aria-controls="deployment" role="tab" data-toggle="tab"><span class="fa fa-list"></span> Deployment Visualization</a></li>
-		</ul>
-		<!-- Tab panes-->
-		<div class="tab-content">
-			<div class="tab-pane active row" id="about" role="tabpanel">
-				<div class="col-sm-8">
-					<h2>Published Builds</h2><i *ngIf="builds.length == 0">None have been published.</i>
-					<table class="table table-condensed table-striped" *ngIf="builds.length &gt; 0">
-						<thead>
-							<tr>
-								<th>Service Version</th>
-								<th>Build</th>
-								<th>Container Repository</th>
-								<th>Tag</th>
-								<th>Validated?</th>
-								<th>Published?</th>
-								<th>Release Notes</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr *ngFor="let b of builds">
-								<td>{{b.service_version}}</td>
-								<td>{{b.version}}</td>
-								<td>{{b.container_repository}}</td>
-								<td>{{b.container_tag}}</td>
-								<td>{{b.validated_at}}</td>
-								<td>{{b.published_at}}</td>
-								<td>{{b.release_notes}}</td>
-								<td>
-									<div *ngIf="!status['identity']">
-										<!-- We're not logged in.--><i>Log in and register your platform first!</i>
-									</div>
-									<div *ngIf="status['identity']">
-										<!-- We're logged in!--><i *ngIf="platforms.length == 0">No platforms defined! (See<a [routerLink]="['/account']">account</a> page)</i>
-										<div *ngIf="platforms.length &gt; 0">
-											<div class="dropdown">
-												<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Deploy to..<span class="caret"></span></button>
-												<ul class="dropdown-menu">
-													<li *ngFor="let p of platforms"><a class="btn" (click)="createInstance(b, p)">{{p.name}}</a></li>
-												</ul>
-											</div>
+</div>
+<div>
+	<!-- Nav tabs-->
+	<ul class="nav nav-tabs" role="tablist">
+		<li class="active" role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab"><span
+					class="fa fa-home"></span> About</a></li>
+		<li role="presentation"><a href="#screenshots" aria-controls="screenshots" role="tab" data-toggle="tab"><span
+					class="fa fa-picture"></span> Screenshots</a></li>
+		<li role="presentation"><a href="#runtime" aria-controls="runtime" role="tab" data-toggle="tab"><span
+					class="fa fa-cog"></span> Runtime configuration</a></li>
+		<li role="presentation"><a href="#deployment" aria-controls="deployment" role="tab" data-toggle="tab"><span
+					class="fa fa-list"></span> Deployment Visualization</a></li>
+	</ul>
+	<!-- Tab panes-->
+	<div class="tab-content">
+		<div class="tab-pane active row" id="about" role="tabpanel">
+			<div class="col-sm-8">
+				<h2>Published Builds</h2><i *ngIf="builds.length == 0">None have been published.</i>
+				<table class="table table-condensed table-striped" *ngIf="builds.length &gt; 0">
+					<thead>
+						<tr>
+							<th>Service Version</th>
+							<th>Build</th>
+							<th>Container Repository</th>
+							<th>Tag</th>
+							<th>Validated?</th>
+							<th>Published?</th>
+							<th>Release Notes</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let b of builds">
+							<td>{{b.service_version}}</td>
+							<td>{{b.version}}</td>
+							<td>{{b.container_repository}}</td>
+							<td>{{b.container_tag}}</td>
+							<td>{{b.validated_at}}</td>
+							<td>{{b.published_at}}</td>
+							<td>{{b.release_notes}}</td>
+							<td>
+								<div *ngIf="!status['identity']">
+									<!-- We're not logged in.--><i>Log in and register your platform first!</i>
+								</div>
+								<div *ngIf="status['identity']">
+									<!-- We're logged in!--><i *ngIf="platforms.length == 0">No platforms defined!
+										(See<a [routerLink]="['/account']">account</a> page)</i>
+									<div *ngIf="platforms.length &gt; 0">
+										<div class="dropdown">
+											<button class="btn btn-default dropdown-toggle" type="button"
+												data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Deploy
+												to..<span class="caret"></span></button>
+											<ul class="dropdown-menu">
+												<li *ngFor="let p of platforms"><a class="btn"
+														(click)="createInstance(b, p)">{{p.name}}</a></li>
+											</ul>
 										</div>
 									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="col-sm-4">
-					<div class="row"><img class="thumbnail col-sm-12" src="{{service.url}}/logo/large" />
-						<div class="col-sm-12">
-							<dl>
-								<dt>Support</dt>
-								<dd><a *ngIf="service.support_url" href="{{service.support_url}}">{{service.support_url}}</a></dd>
-								<dt>URI</dt>
-								<dd>{{service.uri}}</dd>
-								<dt>License</dt>
-								<dd><a href="{{licenseFor(service.license_id).url}}" target="_blank">{{licenseFor(service.license_id).name}}</a></dd>
-								<dt>Last Updated</dt>
-								<dd>{{service.updated_at}}</dd>
-							</dl>
-						</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-sm-4">
+				<div class="row"><img class="thumbnail col-sm-12" src="{{service.url}}/logo/large" />
+					<div class="col-sm-12">
+						<dl>
+							<dt>Support</dt>
+							<dd><a *ngIf="service.support_url"
+									href="{{service.support_url}}">{{service.support_url}}</a></dd>
+							<dt>URI</dt>
+							<dd>{{service.uri}}</dd>
+							<dt>License</dt>
+							<dd><a href="{{licenseFor(service.license_id).url}}"
+									target="_blank">{{licenseFor(service.license_id).name}}</a></dd>
+							<dt>Last Updated</dt>
+							<dd>{{service.updated_at}}</dd>
+						</dl>
 					</div>
 				</div>
-			</div>
-			<div class="tab-pane" id="screenshots" role="tabpanel">
-				<div class="thumbnail" *ngFor="let ss of service.screenshots"><img src="{{ss.url}}/medium" [alt]="ss.caption" />
-					<div class="caption">
-						<h4>{{ss.caption}}</h4>
-					</div>
-				</div>
-			</div>
-			<div class="tab-pane" id="runtime" role="tabpanel">
-				<div class="lead">TODO This section will contain tunable parameters than may be specific to the infrastructure environment.</div>
-			</div>
-			<div class="tab-pane" id="deployment" role="tabpanel">
-				<div class="lead">TODO This section will provide deployment artifacts and details on auto-wired dependency resolution specific to the environment reported by your locally-running orchestration agent.</div>
 			</div>
 		</div>
+		<div class="tab-pane" id="screenshots" role="tabpanel">
+			<div class="thumbnail" *ngFor="let ss of service.screenshots"><img src="{{ss.url}}/medium"
+					[alt]="ss.caption" />
+				<div class="caption">
+					<h4>{{ss.caption}}</h4>
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane" id="runtime" role="tabpanel">
+			<div class="lead">TODO This section will contain tunable parameters than may be specific to the
+				infrastructure environment.</div>
+		</div>
+		<div class="tab-pane" id="deployment" role="tabpanel">
+			<div class="lead">TODO This section will provide deployment artifacts and details on auto-wired dependency
+				resolution specific to the environment reported by your locally-running orchestration agent.</div>
+		</div>
 	</div>
+</div>

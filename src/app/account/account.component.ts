@@ -11,6 +11,7 @@ import {IdentityService} from '../identity/identity.service';
 import {UserService} from '../user/user.service';
 import {IdentityProviderService} from '../identity_provider/identity_provider.service';
 import {BackendService} from '../backend/backend.service';
+import { ToasterConfigurationService } from '../toaster/toaster.configuration.service';
 
 
 @Component({
@@ -24,6 +25,8 @@ export class AccountComponent {
     identityProviders: Array<IdentityProvider>; // = new Array<IdentityProvider>();
     identities: Array<Identity>;
     user: User;
+
+	public toasterConfig = ToasterConfigurationService.TOASTER_CONFIG
 
     constructor(private backendService: BackendService,
         private userService: UserService,

@@ -5,11 +5,12 @@ import {Service} from '../service/service';
 import {License} from '../license/license';
 import {Search} from '../search/search';
 
-import {ToasterService} from 'angular2-toaster/angular2-toaster';
+import {ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
 
 import {ServiceService} from '../service/service.service';
 import {LicenseService} from '../license/license.service';
 import {BackendService} from '../backend/backend.service';
+import {ToasterConfigurationService} from '../toaster/toaster.configuration.service';
 
 import {HttpClient} from '@angular/common/http';
 
@@ -28,7 +29,9 @@ export class DirectoryComponent implements OnInit {
     licenses: Array<License> = new Array<License>();
 
     searchQuery: Search;
-    status: Object;
+	status: Object;
+
+	public toasterConfig = ToasterConfigurationService.TOASTER_CONFIG
 
     constructor(private backendService: BackendService,
         private serviceService: ServiceService,
@@ -47,6 +50,9 @@ export class DirectoryComponent implements OnInit {
 		this.licenseService.index().subscribe(d => {
 			this.licenses = d['results'];
 			this.loadInitialServices();
+		});
+		this.backendService.status().subscribe(d => {
+			this.status = d;
 		});
 	}
 

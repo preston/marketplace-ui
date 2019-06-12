@@ -34,6 +34,7 @@ import {InstanceService} from './instance/instance.service';
 import {IdentityService} from './identity/identity.service';
 import {IdentityProviderService} from './identity_provider/identity_provider.service';
 import {InterfaceService} from './interface/interface.service';
+import {ToasterConfigurationService} from './toaster/toaster.configuration.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppHeaderComponent } from './app-header/app-header.component';
 import { AppFooterComponent } from './app-footer/app-footer.component';
@@ -94,6 +95,7 @@ import { DocumentationComponent } from './documentation/documentation.component'
         PlatformService,
         InstanceService,
 		InterfaceService,
+		ToasterConfigurationService,
         // Ng2CableModule, // ng2-cable
         { provide: 'Window', useValue: window }
     ],                    // services

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { IdentityProviderService } from '../identity_provider/identity_provider.service';
 import { IdentityProvider } from '../identity_provider/identity_provider';
-import { ToasterService } from 'angular2-toaster';
+import { ToasterService, ToasterConfig } from 'angular2-toaster';
 import { BackendService } from '../backend/backend.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-header',
@@ -10,11 +11,14 @@ import { BackendService } from '../backend/backend.service';
 	styleUrls: ['./app-header.component.scss']
 })
 export class AppHeaderComponent implements OnInit {
+
 	status: Object;
 	identityProviders: Array<IdentityProvider> = new Array<IdentityProvider>();
 
 	constructor(private backendService: BackendService,
-		private identityProviderService: IdentityProviderService, private toasterService: ToasterService) {
+		private identityProviderService: IdentityProviderService,
+		private toasterService: ToasterService,
+		private router: Router) {
 
 	}
 
@@ -36,7 +40,7 @@ export class AppHeaderComponent implements OnInit {
 			this.status = d;
 			console.log("Server status: ");
 			console.log(this.status);
-			this.toasterService.pop('success', "Hi");
+			this.toasterService.pop('success', "Hi", "This is a work in progress for demo purposes, and is not a production system. Thanks for playing!");
 		});
 	}
 
@@ -44,8 +48,9 @@ export class AppHeaderComponent implements OnInit {
 		localStorage.removeItem(BackendService.LOCAL_STORAGE_JWT_KEY);
 		// this.backendService.logout().subscribe(d => {
 		this.loadMarketplaceStatus();
-		// 	console.log("Logout complete.");
+		console.log("Logout complete.");
 		this.toasterService.pop('success', 'Logged out.', 'See you next time!');
+		this.router.navigateByUrl('/');
 		// });
 	}
 
