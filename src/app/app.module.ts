@@ -6,12 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
-// import {CarouselModule} from 'ng2-bootstrap';
-
 import {AppComponent} from './app.component';
 import {DirectoryComponent} from './directory/directory.component';
 import {AccountComponent} from './account/account.component';
-// import {ApiComponent} from './components/api.component';
 import {ServiceComponent} from './service/service.component';
 import {ServicesComponent} from './service/services.component';
 import {SystemComponent} from './system/system.component';
@@ -40,6 +37,7 @@ import {InterfaceService} from './interface/interface.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppHeaderComponent } from './app-header/app-header.component';
 import { AppFooterComponent } from './app-footer/app-footer.component';
+import { DocumentationComponent } from './documentation/documentation.component';
 
 
 // Server WebSockets
@@ -76,7 +74,8 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
 		InterfacesComponent,
         ChatComponent,
         AppHeaderComponent,
-        AppFooterComponent
+		AppFooterComponent,
+		DocumentationComponent
         // CarouselComponent,
         // SlideComponent
     ],   // components and directives

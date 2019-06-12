@@ -11,20 +11,19 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="form-group text-center">
-                <h2>Find and deploy a health service<span *ngIf="status.identity">, {{status.identity.user.first_name}}.</span>
-                    <div class="btn-group pull-right"><span *ngIf="status.identity"><a [routerLink]="['/account']">manage</a> or<a (click)="logout()"> log out</a></span>
+                <h2>Find and deploy a health service<span *ngIf="status?.identity">, {{status.identity.user.first_name}}.</span>
+                    <!-- <div class="btn-group pull-right"><span *ngIf="status?.identity"><a [routerLink]="['/account']">manage</a> or<a (click)="logout()"> log out</a></span>
                         <div class="dropdown" *ngIf="!status.identity">
                             <button class="btn btn-secondary dropdown-toggle" id="login-menu" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fa fa-user"></i> Login
 							</button>
                             <div class="dropdown-menu" aria-labelledby="login-menu">
                                 <button *ngFor="let idp of identityProviders" class="dropdown-item" type="button">
-									<!-- {{idp.name}} -->
 									<a [href]="idp.redirect_url">{{idp.name}}</a>
 								</button>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 				</h2>
             </div>
         </div>

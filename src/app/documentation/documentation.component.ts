@@ -1,10 +1,10 @@
 import {Component} from '@angular/core';
 
 @Component({
-    selector: 'api',
-    templateUrl: '../views/api.html'
+    selector: 'documentation',
+    templateUrl: 'documentation.component.html'
 })
-export class ApiComponent {
+export class DocumentationComponent {
 
     verses: Object[] = [];
 

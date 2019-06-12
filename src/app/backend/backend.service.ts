@@ -27,7 +27,10 @@ export class BackendService {
 	public requestOptions(includeBearerToken: boolean): HttpHeaders {
 		let headers = new HttpHeaders({ 'Accept': 'application/json' });
 		if (includeBearerToken) {
-			headers.append('Authorization', 'Bearer ' + localStorage.getItem(BackendService.LOCAL_STORAGE_JWT_KEY));
+			let jwt = localStorage.getItem(BackendService.LOCAL_STORAGE_JWT_KEY);
+			if(jwt) {
+				headers.set('Authorization', 'Bearer ' + jwt);
+			}
 		}
 		return headers;
 		// return new RequestOptions({ headers: headers, withCredentials: true });
