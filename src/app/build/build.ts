@@ -1,4 +1,4 @@
-import {Service} from '../service/service';
+import {Product} from '../product/product';
 
 
 export class Build {
@@ -8,14 +8,14 @@ export class Build {
     public container_repository: string = '';
     public container_tag: string = '';
     public version: string = '';
-    public service_version: string = '';
+    public product_version: string = '';
 
 	public validated_at: Date;
 	public published_at: Date;
 	public created_at: Date;
 	public updated_at: Date;
 
-    public service_id: string = '';
-    public service: Service;
+    public product_id: string = '';
+    public product: Product;
 
 }

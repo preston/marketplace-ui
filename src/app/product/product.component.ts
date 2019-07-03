@@ -1,5 +1,5 @@
 import {Component, Output, Input, OnInit} from '@angular/core';
-import {Service} from '../service/service';
+import {Product} from '../product/product';
 import {License} from '../license/license';
 import {Status} from '../status/status';
 import {Build} from '../build/build';
@@ -9,27 +9,31 @@ import {Instance} from '../instance/instance';
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
 import {BuildService} from '../build/build.service';
-import {ServiceService} from '../service/service.service';
+import {ProductService} from '../product/product.service';
 import {LicenseService} from '../license/license.service';
 import {PlatformService} from '../platform/platform.service';
 import {InstanceService} from '../instance/instance.service';
+import { ProductLicenseService } from '../product_license/product_license.service';
+import { ProductLicense } from '../product_license/product_license';
 
 @Component({
-    selector: 'service',
-    templateUrl: 'service.component.html'
+    selector: 'product',
+    templateUrl: 'product.component.html'
 })
-export class ServiceComponent implements OnInit {
+export class ProductComponent implements OnInit {
 
-    @Input() service: Service;
+    @Input() product: Product;
     @Input() licenses: Array<License>;
+    @Input() productLicenses: Array<ProductLicense>;
     @Input() status: Status;
 
     builds: Array<Build> = new Array<Build>();
     platforms: Array<Platform> = new Array<Platform>();
 
     constructor(private buildService: BuildService,
-        private serviceService: ServiceService,
+        private productService: ProductService,
         private licenseService: LicenseService,
+        private productLicenseService: ProductLicenseService,
         private platformService: PlatformService,
         private instanceService: InstanceService,
         private toasterService: ToasterService) {
@@ -41,8 +45,12 @@ export class ServiceComponent implements OnInit {
     }
 
     reload() {
-        console.log('Service component for \'' + this.service.name + '\'. Loading builds...');
-        this.buildService.index(this.service).subscribe(d => {
+        console.log('Service component for \'' + this.product.name + '\'. Loading builds...');
+        this.productLicenseService.index(this.product).subscribe(d => {
+            this.productLicenses = d['results'];
+            console.log('Loaded ' + this.productLicenses.length + ' productLicenses.');
+        });
+        this.buildService.index(this.product).subscribe(d => {
             this.builds = d['results'];
             console.log('Loaded ' + this.builds.length + ' builds.');
         });

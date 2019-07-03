@@ -2,7 +2,7 @@ import {Component, Output, Inject, Input, OnInit} from '@angular/core';
 import {UUID} from 'angular2-uuid';
 
 import {User} from '../user/user';
-import {Service} from '../service/service';
+import {Product} from '../product/product';
 import {License} from '../license/license';
 import {Status} from '../status/status';
 import {Search} from '../search/search';
@@ -15,28 +15,28 @@ import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 import {BuildService} from '../build/build.service';
 import {UserService} from '../user/user.service';
 import {LicenseService} from '../license/license.service';
-import {ServiceService} from '../service/service.service';
+import {ProductService} from '../product/product.service';
 import {BackendService} from '../backend/backend.service';
 
 @Component({
-    selector: 'services',
-    templateUrl: 'services.component.html'
+    selector: 'products',
+    templateUrl: 'products.component.html'
 })
-export class ServicesComponent implements OnInit {
+export class ProductsComponent implements OnInit {
 
 
     @Input() status: Object;
 
     // The current selection, if any.
-    service: Service;
-    services: Array<Service>;
+    product: Product;
+    products: Array<Product>;
     logoFile: File;
 
     licenses: Array<License> = new Array<License>();
     builds: Array<Build> = new Array<Build>();
 
     constructor(private backendService: BackendService,
-        private serviceService: ServiceService,
+        private productService: ProductService,
         private buildService: BuildService,
         private licenseService: LicenseService,
         private toasterService: ToasterService) {
@@ -47,19 +47,19 @@ export class ServicesComponent implements OnInit {
     }
 
     reload() {
-        this.services = new Array<Service>();
-        this.serviceService.index().subscribe(d => {
-            this.services = d['results'];
+        this.products = new Array<Product>();
+        this.productService.index().subscribe(d => {
+            this.products = d['results'];
         });
         this.licenseService.index().subscribe(d => {
             this.licenses = d['results'];
         });
     }
 
-    select(service: Service) {
-        this.service = service;
-        if (this.service) {
-            this.buildService.index(this.service).subscribe(d => {
+    select(product: Product) {
+        this.product = product;
+        if (this.product) {
+            this.buildService.index(this.product).subscribe(d => {
                 this.builds = d['results'];
                 console.log('Loaded ' + this.builds.length + ' builds.');
             });
@@ -78,7 +78,7 @@ export class ServicesComponent implements OnInit {
             reader.onload = () => {
                 // this text is the content of the file
                 // console.log(reader.result);
-                this.service.logo = reader.result.toString();
+                this.product.logo = reader.result.toString();
                 // this.loadFromContentString(reader.result);
             }
             reader.readAsBinaryString(this.logoFile);
@@ -86,71 +86,71 @@ export class ServicesComponent implements OnInit {
     }
 
     create() {
-        let service = new Service();
-        service.name = "New Service " + UUID.UUID();
-        service.user_id = this.status['identity']['user_id'];
+        let product = new Product();
+        product.name = "New Product " + UUID.UUID();
+        product.user_id = this.status['identity']['user_id'];
         if (this.licenses.length == 0) {
-            this.toasterService.pop('error', 'No License Types', 'Please establish a license type prior to declared services.');
+            this.toasterService.pop('error', 'No License Types', 'Please establish a license type prior to declared products.');
         } else {
-            service.license_id = this.licenses[0].id;
-            this.serviceService.create(service).subscribe(d => {
+            product.license_id = this.licenses[0].id;
+            this.productService.create(product).subscribe(d => {
                 this.toasterService.pop('success', 'Service Created', 'Please update the details accordingly!');
-                this.services.push(d);
+                this.products.push(d);
                 this.select(d);
             });
         }
     }
-    update(service: Service) {
-        this.serviceService.update(service).subscribe(d => {
+    update(product: Product) {
+        this.productService.update(product).subscribe(d => {
             this.toasterService.pop('success', 'Service Updated');
-            let i = this.services.indexOf(service, 0);
-            this.services[i] = d;
+            let i = this.products.indexOf(product, 0);
+            this.products[i] = d;
         });
     }
-    delete(service: Service) {
-        this.serviceService.delete(service).subscribe(d => {
+    delete(product: Product) {
+        this.productService.delete(product).subscribe(d => {
             this.toasterService.pop('success', 'Service Deleted');
-            let i = this.services.indexOf(service, 0);
+            let i = this.products.indexOf(product, 0);
             if (i >= 0) {
-                this.services.splice(i, 1);
+                this.products.splice(i, 1);
             }
             this.select(null);
         });
     }
 
-    publish(service: Service) {
-        this.serviceService.publish(service).subscribe(d => {
+    publish(product: Product) {
+        this.productService.publish(product).subscribe(d => {
             this.toasterService.pop('success', 'Service Published!');
-            let i = this.services.indexOf(service, 0);
-            this.services[i] = d;
-            this.service = d;
+            let i = this.products.indexOf(product, 0);
+            this.products[i] = d;
+            this.product = d;
         });
     }
-    unpublish(service: Service) {
-        this.serviceService.unpublish(service).subscribe(d => {
+    unpublish(product: Product) {
+        this.productService.unpublish(product).subscribe(d => {
             this.toasterService.pop('success', 'Service Unpublished');
-            let i = this.services.indexOf(service, 0);
-            this.services[i] = d;
-            this.service = d;
+            let i = this.products.indexOf(product, 0);
+            this.products[i] = d;
+            this.product = d;
         });
     }
 
-    createBuild(service: Service) {
+    createBuild(product: Product) {
 
 		let build = new Build();
-		build.service_id = this.service.id;
-		build.service_version = UUID.UUID();
+		build.product_id = this.product.id;
+		build.product_version = UUID.UUID();
 		build.version = UUID.UUID();
 		build.container_repository = 'https://example.com';
 		build.container_tag = UUID.UUID();
-		this.buildService.create(this.service, build).subscribe(d => {
+		this.buildService.create(this.product, build).subscribe(d => {
 			this.toasterService.pop('success', 'Build Created', 'Please update the details accordingly!');
 			this.builds.push(d);
 		});
     }
 
     updateBuild(build: Build) {
-		this.buildService.update(this.service, build).subscribe(d => {
+		this.buildService.update(this.product, build).subscribe(d => {
 			this.toasterService.pop('success', 'Build Updated');
 			let i = this.builds.indexOf(build, 0);
 			this.builds[i] = d;
@@ -158,7 +158,7 @@ export class ServicesComponent implements OnInit {
     }
 
     deleteBuild(build: Build) {
-		this.buildService.delete(this.service, build).subscribe(d => {
+		this.buildService.delete(this.product, build).subscribe(d => {
 			this.toasterService.pop('success', 'Build Deleted');
 			let i = this.builds.indexOf(build, 0);
 			if (i >= 0) {

@@ -9,8 +9,8 @@ import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 import {AppComponent} from './app.component';
 import {DirectoryComponent} from './directory/directory.component';
 import {AccountComponent} from './account/account.component';
-import {ServiceComponent} from './service/service.component';
-import {ServicesComponent} from './service/services.component';
+import {ProductComponent} from './product/product.component';
+import {ProductsComponent} from './product/products.component';
 import {SystemComponent} from './system/system.component';
 import {UsersComponent} from './user/users.component';
 import {GroupsComponent} from './group/groups.component';
@@ -24,7 +24,7 @@ import {ChatComponent} from './chat/chat.component';
 import {BuildService} from './build/build.service';
 import {LicenseService} from './license/license.service';
 import {BackendService} from './backend/backend.service';
-import {ServiceService} from './service/service.service';
+import {ProductService} from './product/product.service';
 import {StatusService} from './status/status.service';
 import {UserService} from './user/user.service';
 import {GroupService} from './group/group.service';
@@ -39,6 +39,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppHeaderComponent } from './app-header/app-header.component';
 import { AppFooterComponent } from './app-footer/app-footer.component';
 import { DocumentationComponent } from './documentation/documentation.component';
+import { ProductLicenseComponent } from './product_license/product_license.component';
+import { ProductLicenseService } from './product_license/product_license.service';
 
 
 // Server WebSockets
@@ -63,8 +65,8 @@ import { DocumentationComponent } from './documentation/documentation.component'
         // ApiComponent,
         DirectoryComponent,
         AccountComponent,
-        ServiceComponent,
-        ServicesComponent,
+        ProductComponent,
+        ProductsComponent,
         SystemComponent,
         UsersComponent,
         GroupsComponent,
@@ -72,6 +74,7 @@ import { DocumentationComponent } from './documentation/documentation.component'
         PlatformsComponent,
 		IdentityProvidersComponent,
 		LicensesComponent,
+		ProductLicenseComponent,
 		InterfacesComponent,
         ChatComponent,
         AppHeaderComponent,
@@ -85,7 +88,8 @@ import { DocumentationComponent } from './documentation/documentation.component'
         BuildService,
         LicenseService,
         BackendService,
-        ServiceService,
+        ProductService,
+        ProductLicenseService,
         StatusService,
         UserService,
         GroupService,
@@ -98,7 +102,7 @@ import { DocumentationComponent } from './documentation/documentation.component'
 		ToasterConfigurationService,
         // Ng2CableModule, // ng2-cable
         { provide: 'Window', useValue: window }
-    ],                    // services
+    ],                    // products
     bootstrap: [AppComponent]     // root component
 })
 export class AppModule {

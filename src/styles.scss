@@ -19,7 +19,7 @@ body {
 	background-size: cover;
 }
 
-#home .service {
+#home .product {
 	margin-top: 20px;
 	// padding: 100px 10px 0 10px;
 	background: #eeeeee;
@@ -43,14 +43,14 @@ body {
 	}
 }
 
-#close-service-button {
+#close-product-button {
 	position: absolute;
 	z-index: 20;
 	top: 90px;
 	right: 60px;
 }
 
-service {
+product {
 	position: absolute;
 	z-index: 10;
 	top: 100px;
@@ -85,13 +85,13 @@ service {
 #identity_providers,
 #licenses,
 #interfaces,
-#services {
+#products {
 	a:hover {
 		cursor: pointer;
 	}
 }
 
-#services {
+#products {
 	.logo {
 		max-height: 100px;
 		max-width: 100px;

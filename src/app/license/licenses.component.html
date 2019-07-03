@@ -12,24 +12,24 @@
             </div>
             <hr />
             <section *ngIf="license">
-                <h2>Services Offered</h2>
-                <table class="table table-condensed table-striped" *ngIf="services.length &gt; 0">
+                <h2>Products Offered</h2>
+                <table class="table table-condensed table-striped" *ngIf="products.length &gt; 0">
                     <thead>
                         <tr>
-                            <th>Service</th>
+                            <th>Product</th>
                             <th>Description</th>
                             <th>Published?</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let service of services">
-                            <td>{{service.name}}</td>
-                            <td>{{service.description}}</td>
-                            <td>{{service.published_at ? 'Yes' : 'No'}}</td>
+                        <tr *ngFor="let service of products">
+                            <td>{{product.name}}</td>
+                            <td>{{product.description}}</td>
+                            <td>{{product.published_at ? 'Yes' : 'No'}}</td>
                         </tr>
                     </tbody>
                 </table>
-                <p *ngIf="services.length == 0"><i>No services, published or unpublished, are offered under the {{license.name}} license.</i></p>
+                <p *ngIf="products.length == 0"><i>No products, published or unpublished, are offered under the {{license.name}} license.</i></p>
             </section>
         </div>
         <div class="col-sm-4" *ngIf="license">

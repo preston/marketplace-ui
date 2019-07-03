@@ -29,14 +29,14 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="card ml-auto mr-auto my-2 service" style="width: 24rem;" *ngFor="let s of services" (click)="select(s)">
+		<div class="card ml-auto mr-auto my-2 product" style="width: 24rem;" *ngFor="let s of products" (click)="select(s)">
 			<!-- <img class="card-img-top" src="{{s.url}}/logo/medium" alt="{{s.name}}">
 			<div class="card-body">
 				<h5 class="card-title">{{s.name}}</h5>
 				<p class="card-text">{{s.description}}</p>
 				<a href="#" class="btn btn-primary">Go somewhere</a>
 			</div> -->
-			<!-- <div class="service" > -->
+			<!-- <div class="product" > -->
 				<div class="row">
 					<div class="col-sm-6"><img class="logo" src="{{s.url}}/logo/medium" /></div>
 					<div class="col-sm-6">
@@ -50,9 +50,9 @@
 			</div>
 		</div>
 	</div>
-	<button class="button" id="close-service-button" *ngIf="service" (click)="select(null)">
+	<button class="button" id="close-product-button" *ngIf="product" (click)="select(null)">
 		<i class="fa fa-close"></i> Close</button>
-	<service *ngIf="service" [service]="service" [licenses]="licenses" [status]="status"></service>
+	<product *ngIf="product" [product]="product" [licenses]="licenses" [status]="status"></product>
 </div>
 
 <app-footer></app-footer>

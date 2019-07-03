@@ -1,13 +1,13 @@
 
 import {Component, Output, Inject, OnInit} from '@angular/core';
 
-import {Service} from '../service/service';
+import {Product} from '../product/product';
 import {License} from '../license/license';
 import {Search} from '../search/search';
 
 import {ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
 
-import {ServiceService} from '../service/service.service';
+import {ProductService} from '../product/product.service';
 import {LicenseService} from '../license/license.service';
 import {BackendService} from '../backend/backend.service';
 import {ToasterConfigurationService} from '../toaster/toaster.configuration.service';
@@ -23,9 +23,9 @@ import {HttpClient} from '@angular/common/http';
 export class DirectoryComponent implements OnInit {
 
     // The currently selected service, if any.
-    service: Service = null;
+    product: Product = null;
 
-    services: Array<Service> = new Array<Service>();
+    products: Array<Product> = new Array<Product>();
     licenses: Array<License> = new Array<License>();
 
     searchQuery: Search;
@@ -34,7 +34,7 @@ export class DirectoryComponent implements OnInit {
 	public toasterConfig = ToasterConfigurationService.TOASTER_CONFIG
 
     constructor(private backendService: BackendService,
-        private serviceService: ServiceService,
+        private productService: ProductService,
         private licenseService: LicenseService,
         private toasterService: ToasterService,
         @Inject('Window') private window: Window) {
@@ -49,29 +49,29 @@ export class DirectoryComponent implements OnInit {
 		this.searchQuery = new Search();
 		this.licenseService.index().subscribe(d => {
 			this.licenses = d['results'];
-			this.loadInitialServices();
+			this.loadInitialProducts();
 		});
 		this.backendService.status().subscribe(d => {
 			this.status = d;
 		});
 	}
 
-	loadInitialServices() {
-		this.serviceService.published().subscribe(d => {
-			this.services = d['results'];
+	loadInitialProducts() {
+		this.productService.published().subscribe(d => {
+			this.products = d['results'];
 		});
 	}
-	select(service: Service) {
-		this.service = service;
+	select(product: Product) {
+		this.product = product;
 	}
 
 	search() {
 		if (this.validSearch()) {
-			this.serviceService.searchPublished(this.searchQuery.text).subscribe(d => {
-				this.services = d['results'];
+			this.productService.searchPublished(this.searchQuery.text).subscribe(d => {
+				this.products = d['results'];
 			});
 		} else {
-			this.loadInitialServices();
+			this.loadInitialProducts();
 		}
 	}
 

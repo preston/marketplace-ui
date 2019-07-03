@@ -12,24 +12,24 @@
 				<p>If you know what you're doing and know the SSO "subject" identifiers for your new users' identities, the API allows for both user and user identity records to be created at your discretion.</p>
 				<section *ngIf="user">
 					<hr />
-					<h2>Services submitted by {{user.name}}</h2>
-					<table class="table table-condensed table-striped" *ngIf="services.length &gt; 0">
+					<h2>Products submitted by {{user.name}}</h2>
+					<table class="table table-condensed table-striped" *ngIf="products.length &gt; 0">
 						<thead>
 							<tr>
-								<th>Service</th>
+								<th>Product</th>
 								<th>Description</th>
 								<th>Published?</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr *ngFor="let service of services">
-								<td>{{service.name}}</td>
-								<td>{{service.description}}</td>
-								<td>{{service.published_at ? 'Yes' : 'No'}}</td>
+							<tr *ngFor="let service of products">
+								<td>{{product.name}}</td>
+								<td>{{product.description}}</td>
+								<td>{{product.published_at ? 'Yes' : 'No'}}</td>
 							</tr>
 						</tbody>
 					</table>
-					<p *ngIf="services.length == 0"><i>No services, published or unpublished, have been submitted by {{user.name}}.</i></p>
+					<p *ngIf="products.length == 0"><i>No products, published or unpublished, have been submitted by {{user.name}}.</i></p>
 				</section>
 			</div>
 			<div class="col-sm-4" *ngIf="user">

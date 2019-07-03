@@ -5,9 +5,9 @@ import { map } from 'rxjs/operators';
 import {BaseService} from "../base/base.service";
 
 import {BackendService} from '../backend/backend.service';
-import {ServiceService} from '../service/service.service';
+import {ProductService} from '../product/product.service';
 
-import {Service} from "../service/service";
+import {Product} from "../product/product";
 import {Build} from "../build/build";
 
 @Injectable()
@@ -15,31 +15,31 @@ export class BuildService extends BaseService {
 
     public static PATH: string = '/builds';
 
-    constructor(private serviceService: ServiceService, backendService: BackendService, http: HttpClient) {
+    constructor(private productService: ProductService, backendService: BackendService, http: HttpClient) {
         super(backendService, http);
     }
 
-    url(service: Service): string {
-        return this.serviceService.url() + '/' + service.id + BuildService.PATH;
+    url(product: Product): string {
+        return this.productService.url() + '/' + product.id + BuildService.PATH;
     }
 
-    index(service: Service) {
-        let builds = this.http.get<Build>(this.url(service), {headers: this.headers()}).pipe(map(res => res));
+    index(product: Product) {
+        let builds = this.http.get<Build>(this.url(product), {headers: this.headers()}).pipe(map(res => res));
         return builds;
     }
 
-	create(service: Service, build: Build) {
-        let obs = this.http.post<Build>(this.url(service), { 'build': build }, {headers: this.headers()}).pipe(map(res => res));
+	create(product: Product, build: Build) {
+        let obs = this.http.post<Build>(this.url(product), { 'build': build }, {headers: this.headers()}).pipe(map(res => res));
         return obs;
 	}
 
-	update(service: Service, build: Build) {
-		let obs = this.http.put<Build>(this.url(service) + '/' + build.id, { 'build': build }, {headers: this.headers()}).pipe(map(res => res));
+	update(product: Product, build: Build) {
+		let obs = this.http.put<Build>(this.url(product) + '/' + build.id, { 'build': build }, {headers: this.headers()}).pipe(map(res => res));
         return obs;
 	}
 
-	delete(service: Service, build: Build) {
-		let obs = this.http.delete<Build>(this.url(service) + '/' + build.id, {headers: this.headers()}).pipe(map(res => res));
+	delete(product: Product, build: Build) {
+		let obs = this.http.delete<Build>(this.url(product) + '/' + build.id, {headers: this.headers()}).pipe(map(res => res));
         return obs;
 	}
 }

@@ -2,7 +2,7 @@ import {User} from '../user/user';
 import {License} from '../license/license';
 import {Build} from '../build/build';
 
-export class Service {
+export class Product {
 
     public id: string = '';
     public name: string = '';

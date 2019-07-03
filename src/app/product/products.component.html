@@ -1,20 +1,20 @@
-<div class="container-fluid" id="services">
+<div class="container-fluid" id="products">
 		<div class="row">
 			<div class="col-sm-8">
 				<h1>Catalog management</h1>
 				<div class="pull-right">
 					<button class="btn btn-primary" (click)="create()"><span class="fa fa-plus"></span> Declare a service</button>
 				</div>
-				<p class="text-help">Services are collections of users, and are usually used to ease the permissions management. When a role is assigned to a service, the role is automatically applied to all members.</p>
+				<p class="text-help">Products are collections of users, and are usually used to ease the permissions management. When a role is assigned to a service, the role is automatically applied to all members.</p>
 				<div class="clearfix"></div>
 				<div class="row">
-					<div class="col-md-4" *ngFor="let service of services"><a (click)="select(service)"><img class="logo" src="{{service.url}}/logo/small" /><br /> {{service.name}}</a></div>
+					<div class="col-md-4" *ngFor="let service of products"><a (click)="select(service)"><img class="logo" src="{{product.url}}/logo/small" /><br /> {{product.name}}</a></div>
 				</div>
 				<hr />
 				<div id="builds" *ngIf="service">
 					<h2>
 						<div class="pull-right">
-							<button class="btn btn-primary" (click)="createBuild(service)"><span class="fa fa-plus"></span> Register a container build of {{service.name}}</button>
+							<button class="btn btn-primary" (click)="createBuild(service)"><span class="fa fa-plus"></span> Register a container build of {{product.name}}</button>
 						</div>Available Builds
 					</h2>
 					<hr /><i *ngIf="builds.length == 0">No builds have been listed.</i>
@@ -22,8 +22,8 @@
 						<div class="row well">
 							<div class="col-sm-6">
 								<div class="form-group">
-									<label for="service_version">Service Version</label>
-									<input class="form-control" type="text" [(value)]="b.service_version" />
+									<label for="product_version">Product Version</label>
+									<input class="form-control" type="text" [(value)]="b.product_version" />
 								</div>
 								<div class="form-group">
 									<label for="version">Version</label>
@@ -73,32 +73,32 @@
 				</section>
 			</div>
 			<div class="col-sm-4" *ngIf="service">
-				<h2>{{service.name}}
+				<h2>{{product.name}}
 					<div class="btn-group">
-						<button class="btn btn-sm btn-primary" (click)="publish(service)" *ngIf="!service.published_at"><span class="fa fa-thumbs-up"></span> Publish</button>
-						<button class="btn btn-sm btn-primary" (click)="unpublish(service)" *ngIf="service.published_at"><span class="fa fa-thumbs-down"></span> Unpublish</button>
+						<button class="btn btn-sm btn-primary" (click)="publish(service)" *ngIf="!product.published_at"><span class="fa fa-thumbs-up"></span> Publish</button>
+						<button class="btn btn-sm btn-primary" (click)="unpublish(service)" *ngIf="product.published_at"><span class="fa fa-thumbs-down"></span> Unpublish</button>
 						<button class="btn btn-sm btn-primary" (click)="update(service)"><span class="fa fa-cloud-upload"></span> Save</button>
 						<button class="btn btn-sm btn-danger" (click)="delete(service)"><span class="fa fa-trash"></span> Delete</button>
 					</div>
 				</h2>
-				<p *ngIf="service.published_at">Last published at {{service.published_at}}.</p>
+				<p *ngIf="product.published_at">Last published at {{product.published_at}}.</p>
 				<hr />
 				<form class="form">
 					<div class="form-group">
 						<label for="service_name">Name</label>
-						<input class="form-control" type="text" name="service_name" [(ngModel)]="service.name" /><small><i>ID: {{service.id}}</i></small>
+						<input class="form-control" type="text" name="service_name" [(ngModel)]="product.name" /><small><i>ID: {{product.id}}</i></small>
 					</div>
 					<div class="form-group">
 						<label for="service_support_url">Support URL</label>
-						<input class="form-control" type="text" name="service_support_url" [(ngModel)]="service.support_url" />
+						<input class="form-control" type="text" name="service_support_url" [(ngModel)]="product.support_url" />
 					</div>
 					<div class="form-group">
 						<label for="service_uri">URI</label>
-						<input class="form-control" type="text" name="service_uri" [(ngModel)]="service.uri" />
+						<input class="form-control" type="text" name="service_uri" [(ngModel)]="product.uri" />
 					</div>
 					<div class="form-group">
 						<label for="service_description">Description</label>
-						<textarea class="form-control" type="text" name="service_description" [(ngModel)]="service.description"></textarea>
+						<textarea class="form-control" type="text" name="service_description" [(ngModel)]="product.description"></textarea>
 					</div>
 					<div class="form-group">
 						<label for="service_logo">Logo</label>
@@ -107,11 +107,11 @@
 				</form>
 				<dl>
 					<dt>UUID</dt>
-					<dd>{{service.id}}</dd>
+					<dd>{{product.id}}</dd>
 					<dt>Created</dt>
-					<dd>{{service.created_at}}</dd>
+					<dd>{{product.created_at}}</dd>
 					<dt>Updated</dt>
-					<dd>{{service.updated_at}}</dd>
+					<dd>{{product.updated_at}}</dd>
 				</dl>
 			</div>
 		</div>

@@ -1,7 +1,7 @@
 import {Component, Output, Inject, OnInit} from '@angular/core';
 
 import {License} from '../license/license';
-import {Service} from '../service/service';
+import {Product} from '../product/product';
 
 import {UUID} from 'angular2-uuid';
 
@@ -11,7 +11,7 @@ import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
 import {UserService} from '../user/user.service';
 import {LicenseService} from '../license/license.service';
-import {ServiceService} from '../service/service.service';
+import {ProductService} from '../product/product.service';
 import {BackendService} from '../backend/backend.service';
 
 @Component({
@@ -24,11 +24,11 @@ export class LicensesComponent implements OnInit {
 
     // The current selection, if any.
     license: License;
-    services: Array<Service>;
+    products: Array<Product>;
 
     constructor(private backendService: BackendService,
         private licenseService: LicenseService,
-        private serviceService: ServiceService,
+        private productService: ProductService,
         private toasterService: ToasterService) {
     }
 
@@ -38,7 +38,7 @@ export class LicensesComponent implements OnInit {
 
     reload() {
         this.licenses = new Array<License>();
-        this.services = new Array<Service>();
+        this.products = new Array<Product>();
         this.licenseService.index().subscribe(d => {
             this.licenses = d['results'];
         });
@@ -47,8 +47,8 @@ export class LicensesComponent implements OnInit {
     select(license: License) {
         this.license = license;
         if (license) {
-            this.serviceService.indexByLicense(this.license).subscribe(d => {
-                this.services = d['results'];
+            this.productService.indexByLicense(this.license).subscribe(d => {
+                this.products = d['results'];
             });
         } else {
             this.licenses = new Array<License>();

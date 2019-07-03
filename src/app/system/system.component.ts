@@ -1,5 +1,5 @@
 import {Component, Output, Inject, OnInit} from '@angular/core';
-import {Service} from '../service/service';
+import {Product} from '../product/product';
 import {License} from '../license/license';
 import {IdentityProvider} from '../identity_provider/identity_provider';
 
@@ -9,7 +9,7 @@ import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 
 // import {window} from '@angular/browser';
 
-import {ServiceService} from '../service/service.service';
+import {ProductService} from '../product/product.service';
 import {LicenseService} from '../license/license.service';
 import {UserService} from '../user/user.service';
 import {GroupService} from '../group/group.service';
@@ -17,7 +17,7 @@ import {IdentityService} from '../identity/identity.service';
 import {IdentityProviderService} from '../identity_provider/identity_provider.service';
 import {BackendService} from '../backend/backend.service';
 
-// import {XmlExporterService} from '../services/xml_exporter.service';
+// import {XmlExporterService} from '../products/xml_exporter.service';
 
 import {HttpClient} from '@angular/common/http';
 import { Status } from '../status/status';
@@ -30,9 +30,9 @@ import { ToasterConfigurationService } from '../toaster/toaster.configuration.se
 export class SystemComponent implements OnInit {
 
     // The currently selected service, if any.
-    service: Service = null;
+    product: Product = null;
 
-    services: Array<Service> = new Array<Service>();
+    products: Array<Product> = new Array<Product>();
     licenses: Array<License> = new Array<License>();
     identityProviders: Array<IdentityProvider> = new Array<IdentityProvider>();
 
@@ -41,7 +41,7 @@ export class SystemComponent implements OnInit {
 	public toasterConfig = ToasterConfigurationService.TOASTER_CONFIG
 
     constructor(private backendService: BackendService,
-        private serviceService: ServiceService,
+        private productService: ProductService,
         private licenseService: LicenseService,
         private identityProviderService: IdentityProviderService,
         private userService: UserService,

@@ -1,7 +1,7 @@
 import {Component, Output, Inject, OnInit} from '@angular/core';
 import {User} from './user';
 import {Identity} from '../identity/identity';
-import {Service} from '../service/service';
+import {Product} from '../product/product';
 import {IdentityProvider} from '../identity_provider/identity_provider';
 
 import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
@@ -9,11 +9,11 @@ import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
 import {UserService} from './user.service';
 import {GroupService} from '../group/group.service';
 import {IdentityService} from '../identity/identity.service';
-import {ServiceService} from '../service/service.service';
+import {ProductService} from '../product/product.service';
 import {IdentityProviderService} from '../identity_provider/identity_provider.service';
 import {BackendService} from '../backend/backend.service';
 
-// import {XmlExporterService} from '../services/xml_exporter.service';
+// import {XmlExporterService} from '../products/xml_exporter.service';
 
 import {HttpClient} from '@angular/common/http';
 
@@ -26,7 +26,7 @@ export class UsersComponent implements OnInit {
     // The current selection, if any.
     user: User = null;
     identities: Array<Identity>;
-    services: Array<Service>;
+    products: Array<Product>;
 
     users: Array<User> = new Array<User>();
     identityProviders: Array<IdentityProvider> = new Array<IdentityProvider>();
@@ -34,7 +34,7 @@ export class UsersComponent implements OnInit {
     constructor(private backendService: BackendService,
         private userService: UserService,
         private identityService: IdentityService,
-        private serviceService: ServiceService,
+        private productService: ProductService,
         private identityProviderService: IdentityProviderService,
         private toasterService: ToasterService) {
     }
@@ -45,7 +45,7 @@ export class UsersComponent implements OnInit {
 
     reload() {
         this.identities = new Array<Identity>();
-        this.services = new Array<Service>();
+        this.products = new Array<Product>();
         this.userService.index().subscribe(d => {
             this.users = d['results'];
         });
@@ -72,11 +72,11 @@ export class UsersComponent implements OnInit {
             this.identities = d;
         });
         if (this.user) {
-            this.serviceService.indexByUser(this.user).subscribe(d => {
-                this.services = d['results'];
+            this.productService.indexByUser(this.user).subscribe(d => {
+                this.products = d['results'];
             });
         } else {
-            this.services = new Array<Service>();
+            this.products = new Array<Product>();
         }
 
     }
