@@ -4,54 +4,132 @@
 
 
 
-<div class="container-fluid" id="home">
+<div class="container-fluid" id="directory">
 	<div class="row">
 		<div class="col-md-10 offset-md-1">
-			<div class="text-center">
+			<div>
 				<br />
-				<h2>Find and deploy a health service<span *ngIf="status?.identity">,
+				<h2>Find and deploy a health product<span *ngIf="status?.identity">,
 						{{status.identity.user.first_name}}.</span></h2>
-				<form class="inline-form">
-					<div class="input-group input-group-lg">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="inputGroup-sizing-lg">
-								<i class="fa fa-search"></i>
-							</span>
-						</div>
-						<input class="form-control form-control-lg" type="text" autofocus="true" type="search"
-							[(ngModel)]="searchQuery.text" name="search_text" (keyup)="search()" />
-						<!-- <span class="input-group-btn">
+				<form>
+					<div class="row">
+						<div class="col-sm-6 input-group input-group-lg">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputGroup-sizing-lg">
+									<i class="fa fa-search"></i>
+								</span>
+							</div>
+							<input class="form-control form-control-lg" type="text" autofocus="true" type="search"
+								[(ngModel)]="searchQuery.text" name="search_text" (keyup)="search()" />
+							<!-- <span class="input-group-btn">
 							<button class="form-control form-control-lg" type="submit" [disabled]="!validSearch()"><span
 											class="fa fa-search"></span> Search Marketplace</button></span> -->
+						</div>
+					</div>
+					<div class="row">
+						<fieldset class="col-sm-3 form-group">
+							<p>Clinical Models</p>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1"
+									value="application/fhir+xml" checked>
+								<label class="form-check-label" for="gridRadios1">
+									FHIR XML
+								</label>
+							</div>
+							<div class="form-check disabled">
+								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2"
+									value="application/x-cem+txt">
+								<label class="form-check-label" for="gridRadios2">
+									Cliincal Element Model (CEM) XML
+								</label>
+							</div>
+						</fieldset>
+						<fieldset class="col-sm-3 form-group">
+							<small>Terminologies</small>
+							<div class="form-check disabled">
+								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2"
+									value="application/x-rf2+zip">
+								<label class="form-check-label" for="gridRadios2">
+									RF2 Package
+								</label>
+							</div>
+						</fieldset>
+						<fieldset class="col-sm-3 form-group">
+							<small>Function Library</small>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
+									value="application/x-cql+zip" disabled>
+								<label class="form-check-label" for="gridRadios3">
+									CQL (Clinical Quality Language)
+								</label>
+							</div>
+						</fieldset>
+						<fieldset class="col-sm-3 form-group">
+							<small>Computable Knowledge</small>
+							<div class="form-check disabled">
+								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
+									value="application/x-arden" disabled>
+								<label class="form-check-label" for="gridRadios3">
+									Arden
+								</label>
+							</div>
+							<div class="form-check disabled">
+								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
+									value="application/x-arden" disabled>
+								<label class="form-check-label" for="gridRadios3">
+									CDS KNART
+								</label>
+							</div>
+							<div class="form-check disabled">
+								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
+									value="application/x-bpm" disabled>
+								<label class="form-check-label" for="gridRadios3">
+									BPM+
+								</label>
+							</div>
+						</fieldset>
+						<fieldset class="col-sm-3 form-group">
+							<small>Executables (Container Images)</small>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
+									value="application/vnd.docker+fhir" disabled>
+								<label class="form-check-label" for="gridRadios3">
+									FHIR Resource Server
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
+									value="application/vnd.docker+smart" disabled>
+								<label class="form-check-label" for="gridRadios3">
+									SMART Application
+								</label>
+							</div>
+							<div class="form-check disabled">
+								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
+									value="application/x-cds-hooks" disabled>
+								<label class="form-check-label" for="gridRadios3">
+									CDS Hooks Service
+								</label>
+							</div>
+						</fieldset>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="card ml-auto mr-auto my-2 product" style="width: 24rem;" *ngFor="let s of products" (click)="select(s)">
-			<!-- <img class="card-img-top" src="{{s.url}}/logo/medium" alt="{{s.name}}">
-			<div class="card-body">
-				<h5 class="card-title">{{s.name}}</h5>
-				<p class="card-text">{{s.description}}</p>
-				<a href="#" class="btn btn-primary">Go somewhere</a>
-			</div> -->
-			<!-- <div class="product" > -->
-				<div class="row">
-					<div class="col-sm-6"><img class="logo" src="{{s.url}}/logo/medium" /></div>
-					<div class="col-sm-6">
-						<h2>{{s.name}}</h2>
-					</div>
-					<div class="col-sm-12">
-						<hr />
-						<p>{{s.description}}</p>
-					</div>
-				<!-- </div> -->
-			</div>
+	<div class="">
+		<!-- <div class="card ml-auto mr-auto my-2 product" style="width: 24rem;" *ngFor="let s of products" (click)="select(s)"> -->
+		<div class="product" *ngFor="let s of products"
+			(click)="select(s)">
+			<img class="logo" src="{{s.url}}/logo/medium" />
+			<p class="name">{{s.name}}</p>
+			<!-- <p class="description">{{s.description}}</p> -->
 		</div>
 	</div>
-	<button class="button" id="close-product-button" *ngIf="product" (click)="select(null)">
-		<i class="fa fa-close"></i> Close</button>
+	<button class="button" class="btn btn-default btn-lg" id="close-product-button" *ngIf="product" (click)="select(null)">
+		<!-- <i class="fa fa-close"></i> -->
+		&lt; Back
+	</button>
 	<product *ngIf="product" [product]="product" [licenses]="licenses" [status]="status"></product>
 </div>
 

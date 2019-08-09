@@ -1,6 +1,111 @@
 <app-header></app-header>
 <toaster-container></toaster-container>
 
-<p>todo API documentation</p>
+<div id="documentation" class="container">
+	<div class="row">
+		<div class="col-md-7">
+			<section>
+				<h1>Quick Start</h1>
+				<p><i>Let's be brief.</i> If you've even submitted an app to the Apple App Store or Google Play, you're
+					basically looking at the Open Source equivalent with a juicy healthcare twang. The business use
+					cases
+					are
+					very similar to what you're used to. Our focus isn't, however, trying to lock you into a specific
+					vendor
+					ecosystem or cloud provider. The driving values are unapologetic focus on interoperability
+					standards,
+					vendor
+					neutrality, full stack automation, and fair digital rights management.</p>
+				<p></p>
+
+				<p><b>This system is an implementation of the HL7/Logica Health Services Platform Marketplace 2
+						specification</b>: a
+					REST API for submission, curation, publication, and automated distrution of computable health
+					products.
+					Ultimately, the aim is to create an networked <i>ecosystem</i> of API-compatible marketplaces, like
+					this
+					one,
+					such that
+					providers and independant developers may freely exchange curated assets without the "walled garden"
+					issues
+					that plague the computing world. And while standards-compliant, plug-and-play health products are
+					great,
+					closed-source assets are just as well. (But they still must meet the same baseline set of packaging
+					and
+					validation requirements as F/OSS products.)
+				</p>
+				<p>
+					The API is designed for <i>ease of adoption</i> using present-day web and mobile technologies. All
+					resource
+					types
+					are easy to consume using modern webapp frameworks such as Angular and React, and just as easy with
+					Ruby,
+					Python, Swift, Objective-C, Kotlin, Groovy, and anything with decent HTTP/REST support.</p>
+			</section>
+			<section>
+				<h2>Client Developer Overview</h2>
+				<p>This system is not a fluffy academic thought experiment in abstract meta-frameworks for developing
+					conceptual
+					whatevers. It addresses
+					a multitude of provoking HIT ecosystem challenges in a specific way, but isn't a kitchen sink.
+					Grokingly, it
+					is:</p>
+				<ul>
+					<li><b>REST only</b>. No SOAP. HATEOAS principles somewhat apply.</li>
+					<li><b>Not FHIR endpoints</b>. We support publishing your FHIR app servers, CDS Hooks services, and
+						even
+						raw
+						resource data all day long, but <b>the API itself is not a
+							FHIR
+							thing</b>. </li>
+					<li><b>JSON only</b>. No XML.. not even HTML. No YML nor CSVs. For all practical purposes it is
+						completely
+						unnecessary to support XML, and it's surprisingly annoying to work with it in complex webapps.
+					</li>
+					<li><b>Paginated for all indexes</b>, because you have to for high-volume transactional systems.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>Open Source infrastructure</h2>
+				<p>The software powering this system is full open source and unencumbered for worldwide adoption and
+					adaptation.
+					The products listed within it are a different story, but the system itself is completely free to use
+					for
+					your own purposes.</p>
+			</section>
+			<section>
+				<h2>Standardized from the ground up.</h2>
+				<p>Pretty much everything you see in this system is an implementation of the HL7 Marketplace 2
+					specification,
+					jointly developed by Logica Health and derivative of prior works by Dr. Preston Lee.</p>
+			</section>
+		</div>
+		<div class="col-md-5">
+				<section>
+						<h4>External Links</h4>
+						<p>In a perfect world, endpoint documentation would be perfectly sync'd with the specification,
+							available
+							as:
+						</p>
+						<ul>
+							<li><a href="https://marketplace-documentation.logicahealth.org">Human-readable specification</a>
+								and
+								other materials as balloted by HL7: the predominant standards developing organization (SDO) in
+								healthcare. You'll definitely want to read at least the first few chapters to understand the
+								core
+								model concepts and semantic relationships.</li>
+								<li><a href="https://marketplace-documentation.logicahealth.org">OpenAPI 3 file</a> for whatever editor and/or client generator you prefer. (Swagger is great if you haven't use it.)</li>
+						</ul>
+						<p>released in powering this system is full open source and unencumbered for worldwide adoption and
+							adaptation.
+							The products listed within it are a different story, but the system itself is completely free to use
+							for
+							your own purposes.</p>
+					</section>
+		</div>
+	</div>
+</div>
 
 <app-footer></app-footer>

@@ -8,6 +8,7 @@ import { Status } from "../status/status";
 @Injectable()
 export class BackendService {
 
+	// FIXME Hardcoded URLs
 	public url: string = 'http://localhost:3000';
 	// public url: string = 'https://marketplace-server.logicahealth.org';
 

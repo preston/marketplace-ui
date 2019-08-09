@@ -1,6 +1,7 @@
 import {User} from '../user/user';
 import {License} from '../license/license';
 import {Build} from '../build/build';
+import { ProductLicense } from '../product_license/product_license';
 
 export class Product {
 
@@ -10,8 +11,7 @@ export class Product {
     public user_id: string = '';
     public uri: string = '';
     public support_url: string = '';
-	public license_id: string = '';
-    public logo: string;
+	public product_licenses: Array<ProductLicense> = [];
 
 	public license: License;
 	public user: User;

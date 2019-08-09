@@ -8,8 +8,7 @@ export class Build {
     public container_repository: string = '';
     public container_tag: string = '';
     public version: string = '';
-    public product_version: string = '';
-
+	public asset: boolean;
 	public validated_at: Date;
 	public published_at: Date;
 	public created_at: Date;

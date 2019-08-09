@@ -139,7 +139,6 @@ export class ProductsComponent implements OnInit {
 
 		let build = new Build();
 		build.product_id = this.product.id;
-		build.product_version = UUID.UUID();
 		build.version = UUID.UUID();
 		build.container_repository = 'https://example.com';
 		build.container_tag = UUID.UUID();

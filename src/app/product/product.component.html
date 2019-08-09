@@ -1,10 +1,25 @@
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-8">
+		<img class="logo" src="{{product.url}}/logo/small" />
 		<h1>{{product.name}}</h1>
 		<p class="lead">{{product.description}}</p>
+		<b>Support</b>: <a *ngIf="product.support_url" href="{{product.support_url}}" target="_blank">{{product.support_url}}</a>
+		<br />
+		<b>URI</b>: <a *ngIf="product.uri" href="{{product.uri}}" target="_blank">{{product.uri}}</a>
+		<br />
+		<b>Licensing</b>:
+		<div *ngIf="product.product_licenses.length > 0">
+			<a *ngFor="let pl of product.product_licenses" href="{{licenseFor(pl.license_id).url}}"
+				target="_blank">{{licenseFor(pl.license_id).name}}</a>
+		</div>
+		<div *ngIf="product.product_licenses.length == 0">
+			This product is not configured to be directly licensable, but may only be licenesd through a higher
+			level product bundle.
+		</div>
+		<br />
+		<!-- <b>Last Updated</b>: {{product.updated_at}} -->
 	</div>
-	<div class="col-md-6">
-
+	<div class="col-md-4">
 		<div id="carouselProductScreenshotIndicators" class="carousel slide" data-ride="carousel">
 			<ol class="carousel-indicators">
 				<li data-target="#carouselProductScreenshotIndicators" [attr.data-slide-to]="i"
@@ -42,11 +57,11 @@
 	<!-- Nav tabs-->
 	<ul class="nav nav-tabs" role="tablist">
 		<li class="nav-item ">
-			<a class="nav-link active" href="#about" aria-controls="about" role="tab" data-toggle="tab"><span
-					class="fa fa-home"></span> About</a></li>
-		<li class="nav-item">
+			<a class="nav-link active" href="#builds" aria-controls="builds" role="tab" data-toggle="tab"><span
+					class="fa fa-home"></span> Builds</a></li>
+		<!-- <li class="nav-item">
 			<a class="nav-link" href="#screenshots" aria-controls="screenshots" role="tab" data-toggle="tab"><span
-					class="fa fa-image"></span> Screenshots</a></li>
+					class="fa fa-image"></span> Screenshots</a></li> -->
 		<li class="nav-item">
 			<a class="nav-link" href="#runtime" aria-controls="runtime" role="tab" data-toggle="tab"><span
 					class="fa fa-cog"></span> Runtime configuration</a></li>
@@ -56,89 +71,90 @@
 	</ul>
 	<!-- Tab panes-->
 	<div class="tab-content">
-		<div class="tab-pane active row" id="about" role="tabpanel">
-			<div class="col-sm-8">
-				<h2>Published Builds</h2><i *ngIf="builds.length == 0">None have been published.</i>
-				<table class="table table-condensed table-striped" *ngIf="builds.length &gt; 0">
-					<thead>
-						<tr>
-							<th>Product Version</th>
-							<th>Build</th>
-							<th>Container Repository</th>
-							<th>Tag</th>
-							<th>Validated?</th>
-							<th>Published?</th>
-							<th>Release Notes</th>
-							<th>Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr *ngFor="let b of builds">
-							<td>{{b.product_version}}</td>
-							<td>{{b.version}}</td>
-							<td>{{b.container_repository}}</td>
-							<td>{{b.container_tag}}</td>
-							<td>{{b.validated_at}}</td>
-							<td>{{b.published_at}}</td>
-							<td>{{b.release_notes}}</td>
-							<td>
-								<div *ngIf="!status['identity']">
-									<!-- We're not logged in.--><i>Log in and register your platform first!</i>
-								</div>
-								<div *ngIf="status['identity']">
-									<!-- We're logged in!--><i *ngIf="platforms.length == 0">No platforms defined!
-										(See<a [routerLink]="['/account']">account</a> page)</i>
-									<div *ngIf="platforms.length &gt; 0">
-										<div class="dropdown">
-											<button class="btn btn-default dropdown-toggle" type="button"
-												data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Deploy
-												to..<span class="caret"></span></button>
-											<ul class="dropdown-menu">
-												<li *ngFor="let p of platforms"><a class="btn"
-														(click)="createInstance(b, p)">{{p.name}}</a></li>
-											</ul>
-										</div>
+		<div class="tab-pane active row" id="builds" role="tabpanel">
+			<p>
+				<i>Note: Unpublished builds won't be shown.</i></p>
+			<i *ngIf="builds.length == 0">None have been published.</i>
+			<table class="table table-condensed table-striped" *ngIf="builds.length &gt; 0">
+				<thead>
+					<tr>
+						<th>Version</th>
+						<th>Container?</th>
+						<th>Asset?</th>
+						<th>Validated?</th>
+						<th>Published?</th>
+						<th>Release Notes</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let b of builds">
+						<td>{{b.version}}</td>
+						<td>
+							<span *ngIf="b.container_repository">
+								{{b.container_repository}}:{{b.container_tag}}
+							</span>
+							<span *ngIf="!b.container_repository">
+								N/A
+							</span>
+						</td>
+						<td>
+							<span *ngIf="b.asset">
+								<a role="button" class="btn btn-primary btn-sm" [href]="b.url + '/asset'">
+									<i class="fa fa-link"></i>
+									Download</a>
+							</span>
+							<span *ngIf="!b.asset">
+								N/A
+							</span>
+						</td>
+						<td>{{b.validated_at}}</td>
+						<td>{{b.published_at}}</td>
+						<td>{{b.release_notes}}</td>
+						<td>
+							<div *ngIf="!status['identity']">
+								<!-- We're not logged in.--><i>Log in and register your platform first!</i>
+							</div>
+							<div *ngIf="status['identity']">
+								<!-- We're logged in!--><i *ngIf="platforms.length == 0">No platforms defined!
+									(See<a [routerLink]="['/account']">account</a> page)</i>
+								<div *ngIf="platforms.length &gt; 0">
+									<div class="dropdown">
+										<button class="btn btn-default dropdown-toggle" type="button"
+											data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Deploy
+											to..<span class="caret"></span></button>
+										<ul class="dropdown-menu">
+											<li *ngFor="let p of platforms"><a class="btn"
+													(click)="createInstance(b, p)">{{p.name}}</a></li>
+										</ul>
 									</div>
 								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="col-sm-4">
-				<div class="row"><img class="thumbnail col-sm-12" src="{{product.url}}/logo/large" />
-					<div class="col-sm-12">
-						<dl>
-							<dt>Support</dt>
-							<dd><a *ngIf="product.support_url"
-									href="{{product.support_url}}">{{product.support_url}}</a></dd>
-							<dt>URI</dt>
-							<dd>{{product.uri}}</dd>
-							<dt>License</dt>
-							<dd>FIXME</dd>
-							<!-- <dd><a href="{{licenseFor(product.license_id).url}}" target="_blank">{{licenseFor(product.license_id).name}}</a></dd>-->
-							<dt>Last Updated</dt>
-							<dd>{{product.updated_at}}</dd>
-						</dl>
-					</div>
-				</div>
-			</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-		<div class="tab-pane" id="screenshots" role="tabpanel">
+		<!-- <div class="tab-pane" id="screenshots" role="tabpanel">
 			<div class="thumbnail" *ngFor="let ss of product.screenshots"><img src="{{ss.url}}/medium"
 					[alt]="ss.caption" />
 				<div class="caption">
 					<h4>{{ss.caption}}</h4>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<div class="tab-pane" id="runtime" role="tabpanel">
-			<div class="lead">TODO This section will contain tunable parameters than may be specific to the
-				infrastructure environment.</div>
+			<div class="lead">
+				<p><b>This section is not yet implemented.</b> It aims to provide tunable parameters that may be set
+					prior to deployment to your local environment.</p>
+			</div>
 		</div>
 		<div class="tab-pane" id="deployment" role="tabpanel">
-			<div class="lead">TODO This section will provide deployment artifacts and details on auto-wired dependency
-				resolution specific to the environment reported by your locally-running orchestration agent.</div>
+			<div class="lead">
+				<p><b>This section is not yet implemented.</b> It aims to provide deployment artifacts and details on
+					auto-wired dependency resolution specific to the environment reported by your locally-running
+					orchestration agent.</p>
+			</div>
 		</div>
 	</div>
 </div>

@@ -3,7 +3,8 @@ import { ToasterConfigurationService } from '../toaster/toaster.configuration.se
 
 @Component({
     selector: 'documentation',
-    templateUrl: 'documentation.component.html'
+	templateUrl: 'documentation.component.html',
+	styleUrls: ['documentation.component.scss']
 })
 export class DocumentationComponent {
 
