@@ -18,7 +18,7 @@ export class InterfaceService extends BaseService {
     }
 
     url(): string {
-        return this.backendService.url + InterfaceService.PATH;
+        return this.backendService.getUrl() + InterfaceService.PATH;
     }
 
     index() {

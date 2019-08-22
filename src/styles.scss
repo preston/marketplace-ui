@@ -1,6 +1,8 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
 
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
 // @import "app/stylesheets/main.scss";
 // @import "app/stylesheets/theme.scss";
 
@@ -22,12 +24,9 @@ body {
 #directory {
 	.product {
 		display: inline-block;
-		// margin-top: 20px;
-		// padding: 100px 10px 0 10px;
 		background: #eeeeee;
 		box-shadow: $shadow;
 		border-radius: 2px;
-		// border: 1px solid rgba(0,0,0,.3);
 		border: none;
 		cursor: pointer;
 		height: 300px;
@@ -35,22 +34,16 @@ body {
 		margin: 4px 4px 0 auto;
 		overflow-y: hidden;
 
+
+
 		.name {
-			font-size: 10pt;
+			font-size: .9em;
 		}
 		.description {
-			font-size: 9pt;
+			font-size: .8em;
 		}
-		// h2 {
-			// margin-left: -20px;
-			// text-align: right;
-			// font-size: 1.5em;
-			// text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.2);
-		// }
 		.logo {
-			// max-height: 200px;
 			max-width: 150px;
-			// object-fit: cover;
 		}
 	}
 }

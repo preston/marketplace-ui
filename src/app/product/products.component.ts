@@ -78,7 +78,7 @@ export class ProductsComponent implements OnInit {
             reader.onload = () => {
                 // this text is the content of the file
                 // console.log(reader.result);
-                this.product.logo = reader.result.toString();
+                // this.product.logo = reader.result.toString();
                 // this.loadFromContentString(reader.result);
             }
             reader.readAsBinaryString(this.logoFile);
@@ -92,7 +92,7 @@ export class ProductsComponent implements OnInit {
         if (this.licenses.length == 0) {
             this.toasterService.pop('error', 'No License Types', 'Please establish a license type prior to declared products.');
         } else {
-            product.license_id = this.licenses[0].id;
+            // product.license_id = this.licenses[0].id;
             this.productService.create(product).subscribe(d => {
                 this.toasterService.pop('success', 'Service Created', 'Please update the details accordingly!');
                 this.products.push(d);

@@ -18,7 +18,7 @@ export class GroupService extends BaseService {
     }
 
     url(): string {
-        return this.backendService.url + GroupService.PATH;
+        return this.backendService.getUrl() + GroupService.PATH;
     }
 
     index() {

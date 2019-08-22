@@ -18,7 +18,7 @@ export class StatusService extends BaseService {
     }
 
     url(): string {
-        return this.backendService.url + StatusService.PATH;
+        return this.backendService.getUrl() + StatusService.PATH;
     }
 
     latest() {

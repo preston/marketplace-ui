@@ -1,6 +1,13 @@
+
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+
 import { Component, OnInit } from '@angular/core';
 
-import {BackendService} from './backend/backend.service';
+import { BackendService } from './backend/backend.service';
+import { config } from 'rxjs';
+// import { tmpdir } from 'os';
+
 
 @Component({
 	selector: 'app',
@@ -9,10 +16,10 @@ import {BackendService} from './backend/backend.service';
 })
 export class AppComponent implements OnInit {
 
-	constructor(private backendService: BackendService) {
+
+	constructor(protected http: HttpClient, private backendService: BackendService) {
 		console.log("AppComponent has been initialized to establish router element.");
 	}
-
 
 	ngOnInit(): void {
 		console.log("Launching app...");

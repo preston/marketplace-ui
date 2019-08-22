@@ -78,7 +78,6 @@ export class ProductComponent implements OnInit {
     createInstance(build: Build, platform: Platform) {
         console.log("Attempting to create an instance of build " + build.id + " on platform " + platform.id + '.');
         let instance = new Instance();
-        instance.build_id = build.id;
         instance.platform_id = platform.id;
         this.instanceService.create(this.status.identity['user'], platform, instance).subscribe(d => {
             let instance: Instance = d;// as Instance;

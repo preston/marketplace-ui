@@ -9,11 +9,12 @@ import { Status } from "../status/status";
 export class BackendService {
 
 	// FIXME Hardcoded URLs
-	public url: string = 'http://localhost:3000';
-	// public url: string = 'https://marketplace-server.logicahealth.org';
+	private url: string;
+	private static DEFAULT_SERVER_URL = 'http://localhost:3000';
 
-	public websocket_url: string = 'ws://localhost:3000';
-	// public websocket_url: string = 'wss://marketplace-server.logicahealth.org';
+	private websocket_url: string;
+	private static DEFAULT_SERVER_WEBSOCKET_URL = 'ws://localhost:3000';
+
 
 	public static STATUS_PATH: string = '/status';
 	public static SESSIONS_PATH: string = '/sessions';
@@ -25,6 +26,58 @@ export class BackendService {
 	constructor(protected http: HttpClient) {
 	}
 
+	public static CONFIGURATION_PATH: string = '/configuration.json';
+	// public configuration = {};
+
+	public getUrl() {
+		if (this.url == null) {
+			this.checkForConfiguration();
+			// console.log("Configuration: ");
+			// console.log(this.configuration);
+		}
+		return this.url;
+	}
+
+	public getWebsocketUrl() {
+		if (this.websocket_url == null) {
+			this.checkForConfiguration();
+			// console.log("Configuration: ");
+			// console.log(this.configuration);
+		}
+		return this.websocket_url;
+	}
+
+
+	async checkForConfiguration() {
+		try {
+			await this.http.get(BackendService.CONFIGURATION_PATH).toPromise().then(resp => {
+				// this.configuration = resp;
+				let server_url = resp["MARKETPLACE_SERVER_URL"];
+				let ws_url = resp["MARKETPLACE_SERVER_WEBSOCKET_URL"]
+				if ('' != server_url) {
+					this.url = server_url;
+				}
+				if ('' != ws_url) {
+					this.websocket_url = ws_url;
+				}
+			}
+			);
+		} catch (e) {
+			console.log("Configuration overrides not found. Development defaults will be used.");
+		} finally {
+			if (this.url == null) {
+				this.url = BackendService.DEFAULT_SERVER_URL;
+			}
+			if (this.websocket_url == null) {
+				this.websocket_url = BackendService.DEFAULT_SERVER_WEBSOCKET_URL;
+			}
+		}
+		console.log("Server URL to: " + this.url);
+		console.log("Websocket URL to: " + this.websocket_url);
+
+		// return this.configuration;
+		// pipe(map(res => res));
+	}
 	public requestOptions(includeBearerToken: boolean): HttpHeaders {
 		var headers = new HttpHeaders({ 'Accept': 'application/json' });
 		if (includeBearerToken) {

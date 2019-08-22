@@ -20,7 +20,7 @@ export class ProductLicenseService extends BaseService {
     }
 
     url(product: Product): string {
-        return this.backendService.url + ProductLicenseService.PATH + '/' + product.id + '/licenses';
+        return this.backendService.getUrl() + ProductLicenseService.PATH + '/' + product.id + '/licenses';
     }
 
     index(product: Product) {

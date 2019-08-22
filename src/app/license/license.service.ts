@@ -18,7 +18,7 @@ export class LicenseService extends BaseService {
     }
 
     url(): string {
-        return this.backendService.url + LicenseService.PATH;
+        return this.backendService.getUrl() + LicenseService.PATH;
     }
 
     index() {

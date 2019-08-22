@@ -16,7 +16,7 @@ export class UserService extends BaseService {
     }
 
     url(): string {
-        return this.backendService.url + UserService.PATH;
+        return this.backendService.getUrl() + UserService.PATH;
     }
 
     index() {

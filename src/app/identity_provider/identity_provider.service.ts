@@ -18,7 +18,7 @@ export class IdentityProviderService extends BaseService {
     }
 
     url(): string {
-        return this.backendService.url + IdentityProviderService.PATH;
+        return this.backendService.getUrl() + IdentityProviderService.PATH;
     }
 
     index() {

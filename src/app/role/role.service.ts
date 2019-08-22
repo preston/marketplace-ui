@@ -18,7 +18,7 @@ export class RoleService extends BaseService {
     }
 
     url(): string {
-        return this.backendService.url + RoleService.PATH;
+        return this.backendService.getUrl() + RoleService.PATH;
     }
 
     index() {

@@ -1,136 +1,232 @@
 <app-header></app-header>
 <toaster-container [toasterconfig]="toasterConfig"></toaster-container>
 
+<div id="directory">
+	<div class="wrapper">
+		<!-- Sidebar Holder -->
+		<nav id="sidebar" [class.active]="sidebarActive">
+			<!-- <div class="sidebar-header">
+				<h4>Type</h4>
+			</div> -->
+
+			<ul class="list-unstyled components">
+				<!-- <p>Test</p> -->
 
 
+				<li class="active">
+					<a href="#clinicalModelsSubmenu" data-toggle="collapse" aria-expanded="true"
+						class="dropdown-toggle">Clinical
+						Models</a>
+					<fieldset class="form-group">
+						<ul class="collapse show list-unstyled" id="clinicalModelsSubmenu">
+							<!-- <li>
+								<a href="#">Home 1</a>
+							</li> -->
+							<li>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="gridRadios" id="mime_fhir_xml"
+										value="application/fhir+xml" [(ngModel)]="searchMime['application/fhir+xml']" (change)="search()">
+									<label class="form-check-label" for="mime_fhir_xml">
+										FHIR XML
+									</label>
+								</div>
+							</li>
+							<li>
+								<div class="form-check ">
 
-<div class="container-fluid" id="directory">
-	<div class="row">
-		<div class="col-md-10 offset-md-1">
-			<div>
-				<br />
-				<h2>Find and deploy a health product<span *ngIf="status?.identity">,
-						{{status.identity.user.first_name}}.</span></h2>
-				<form>
-					<div class="row">
-						<div class="col-sm-6 input-group input-group-lg">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="inputGroup-sizing-lg">
-									<i class="fa fa-search"></i>
-								</span>
-							</div>
-							<input class="form-control form-control-lg" type="text" autofocus="true" type="search"
-								[(ngModel)]="searchQuery.text" name="search_text" (keyup)="search()" />
-							<!-- <span class="input-group-btn">
-							<button class="form-control form-control-lg" type="submit" [disabled]="!validSearch()"><span
-											class="fa fa-search"></span> Search Marketplace</button></span> -->
+									<input class="form-check-input" type="checkbox" name="gridRadios" id="mime_cem_xml"
+										value="application/x-cem+txt" [(ngModel)]="searchMime['application/x-cem+txt']" (change)="search()">
+									<label class="form-check-label" for="mime_cem_xml">
+										Cliincal Element Model (CEM) XML
+									</label>
+								</div>
+							</li>
+						</ul>
+					</fieldset>
+				</li>
+				<li>
+					<a href="#executablesSubmenu" data-toggle="collapse" aria-expanded="true"
+						class="dropdown-toggle">Software (Images)</a>
+					<fieldset class="form-group">
+						<ul class="collapse show list-unstyled" id="executablesSubmenu">
+							<li>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="mime_fhir_image" id="mime_fhir_image" value="application/vnd.docker+fhir" [(ngModel)]="searchMime['application/vnd.docker+fhir']" (change)="search()">
+									<label class="form-check-label" for="mime_fhir_image">
+										FHIR Resource Server
+									</label>
+								</div>
+							</li>
+							<li>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="mime_smart_image" id="mime_smart_image" value="application/vnd.docker+smart" [(ngModel)]="searchMime['application/vnd.docker+smart']" (change)="search()">
+									<label class="form-check-label" for="mime_smart_image">
+										SMART Application
+									</label>
+								</div>
+							</li>
+							<li>
+								<div class="form-check ">
+									<input class="form-check-input" type="checkbox" name="mime_cds_hooks_image"
+										id="mime_cds_hooks_image" value="application/x-cds-hooks" [(ngModel)]="searchMime['application/x-cds-hooks']" (change)="search()">
+									<label class="form-check-label" for="mime_cds_hooks_image">
+										CDS Hooks Service
+									</label>
+								</div>
+							</li>
+							<li>
+								<div class="form-check ">
+									<input class="form-check-input" type="checkbox" name="mime_other_image"
+										id="mime_other_image" value="application/vnd.docker" [(ngModel)]="searchMime['application/vnd.docker']" (change)="search()">
+									<label class="form-check-label" for="mime_other_image">
+										Other Images
+									</label>
+								</div>
+							</li>
+						</ul>
+					</fieldset>
+				</li>
+
+				<li>
+					<a href="#terminologiesSubmenu" data-toggle="collapse" aria-expanded="true"
+						class="dropdown-toggle">Terminologies</a>
+					<fieldset class="form-group">
+						<ul class="collapse show list-unstyled" id="terminologiesSubmenu">
+							<li>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="mime_rf2_zip"
+										id="mime_rf2_zip" value="application/x-rf2+zip" [(ngModel)]="searchMime['application/x-rf2+zip']" (change)="search()">
+									<label class="form-check-label" for="mime_rf2_zip">
+										RF2 Packages
+									</label>
+								</div>
+							</li>
+						</ul>
+					</fieldset>
+				</li>
+
+				<li>
+					<a href="#functionalLibrariesSubmenu" data-toggle="collapse" aria-expanded="true"
+						class="dropdown-toggle">Functional Libraries</a>
+					<fieldset class="form-group">
+						<ul class="collapse show list-unstyled" id="functionalLibrariesSubmenu">
+							<li>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="mime_cql_zip"
+										id="mime_cql_zip" value="application/x-cql+zip" [(ngModel)]="searchMime['application/x-cql+zip']" (change)="search()">
+									<label class="form-check-label" for="mime_cql_zip">
+										CQL
+									</label>
+								</div>
+							</li>
+						</ul>
+					</fieldset>
+				</li>
+
+
+				<li>
+					<a href="#knowledgeSubmenu" data-toggle="collapse" aria-expanded="true"
+						class="dropdown-toggle">Executable Knowledge</a>
+					<fieldset class="form-group">
+						<ul class="collapse show list-unstyled" id="knowledgeSubmenu">
+							<li>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="mime_arden" id="mime_arden" value="application/x-arden" [(ngModel)]="searchMime['application/x-arden']" (change)="search()">
+									<label class="form-check-label" for="mime_arden">
+										Arden
+									</label>
+								</div>
+							</li>
+							<li>
+								<div class="form-check ">
+									<input class="form-check-input" type="checkbox" name="mime_knart_xml" id="mime_knart_xml" value="application/x-knart" [(ngModel)]="searchMime['application/x-knart']" (change)="search()">
+									<label class="form-check-label" for="mime_knart_xml">
+										CDS KNART
+									</label>
+								</div>
+							</li>
+							<li>
+								<div class="form-check ">
+									<input class="form-check-input" type="checkbox" name="mime_bpm_zip" id="mime_bpm_zip"
+										value="application/x-bpm" [(ngModel)]="searchMime['application/x-bpm']" (change)="search()">
+									<label class="form-check-label" for="mime_bpm_zip">
+										BPM+
+									</label>
+								</div>
+							</li>
+						</ul>
+					</fieldset>
+				</li>
+
+				<!-- <li>
+					<a href="#">Contact</a>
+				</li> -->
+			</ul>
+
+		</nav>
+
+		<!-- Tool bar -->
+		<div id="content">
+			<h2>Find and deploy a health product<span *ngIf="status?.identity">,
+					{{status.identity.user.first_name}}.</span></h2>
+
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<div class="container-fluid">
+
+					<button type="button" id="sidebarCollapse" class='navbar-btn' [class.active]="sidebarActive"
+						(click)="toggleSidebar()">
+						<span></span>
+						<span></span>
+						<span></span>
+					</button>
+					<button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+						data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+						<i class="fas fa-align-justify"></i>
+					</button>
+
+					<div class="col-sm-4 input-group input-group-lg">
+						<input class="form-control form-control-lg" type="text" autofocus="true" type="search"
+							[(ngModel)]="searchQuery.text" name="search_text" (keyup)="search()" />
+						<div class="input-group-append">
+							<span class="input-group-text" id="inputGroup-sizing-lg">
+								<i class="fa fa-search"></i>
+							</span>
 						</div>
 					</div>
-					<div class="row">
-						<fieldset class="col-sm-3 form-group">
-							<p>Clinical Models</p>
-							<div class="form-check">
-								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1"
-									value="application/fhir+xml" checked>
-								<label class="form-check-label" for="gridRadios1">
-									FHIR XML
-								</label>
-							</div>
-							<div class="form-check disabled">
-								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2"
-									value="application/x-cem+txt">
-								<label class="form-check-label" for="gridRadios2">
-									Cliincal Element Model (CEM) XML
-								</label>
-							</div>
-						</fieldset>
-						<fieldset class="col-sm-3 form-group">
-							<small>Terminologies</small>
-							<div class="form-check disabled">
-								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2"
-									value="application/x-rf2+zip">
-								<label class="form-check-label" for="gridRadios2">
-									RF2 Package
-								</label>
-							</div>
-						</fieldset>
-						<fieldset class="col-sm-3 form-group">
-							<small>Function Library</small>
-							<div class="form-check">
-								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
-									value="application/x-cql+zip" disabled>
-								<label class="form-check-label" for="gridRadios3">
-									CQL (Clinical Quality Language)
-								</label>
-							</div>
-						</fieldset>
-						<fieldset class="col-sm-3 form-group">
-							<small>Computable Knowledge</small>
-							<div class="form-check disabled">
-								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
-									value="application/x-arden" disabled>
-								<label class="form-check-label" for="gridRadios3">
-									Arden
-								</label>
-							</div>
-							<div class="form-check disabled">
-								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
-									value="application/x-arden" disabled>
-								<label class="form-check-label" for="gridRadios3">
-									CDS KNART
-								</label>
-							</div>
-							<div class="form-check disabled">
-								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
-									value="application/x-bpm" disabled>
-								<label class="form-check-label" for="gridRadios3">
-									BPM+
-								</label>
-							</div>
-						</fieldset>
-						<fieldset class="col-sm-3 form-group">
-							<small>Executables (Container Images)</small>
-							<div class="form-check">
-								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
-									value="application/vnd.docker+fhir" disabled>
-								<label class="form-check-label" for="gridRadios3">
-									FHIR Resource Server
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
-									value="application/vnd.docker+smart" disabled>
-								<label class="form-check-label" for="gridRadios3">
-									SMART Application
-								</label>
-							</div>
-							<div class="form-check disabled">
-								<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3"
-									value="application/x-cds-hooks" disabled>
-								<label class="form-check-label" for="gridRadios3">
-									CDS Hooks Service
-								</label>
-							</div>
-						</fieldset>
+
+
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="nav navbar-nav ml-auto">
+							<li class="nav-item active">
+								<a class="nav-link" href="#">Page</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Page</a>
+							</li>
+						</ul>
 					</div>
-				</form>
+				</div>
+			</nav>
+
+			<!-- Results -->
+			<div class="" *ngIf="!product">
+				<div class="product" *ngFor="let s of products" (click)="select(s)">
+					<img class="logo" src="{{s.url}}/logo/medium" />
+					<p class="name">{{s.name}}</p>
+				</div>
 			</div>
+
+			<!-- Product selection modal -->
+			<button class="button" class="btn btn-default btn-lg" id="close-product-button" *ngIf="product"
+				(click)="select(null)">
+				&lt; Back
+			</button>
+			<product *ngIf="product" [product]="product" [licenses]="licenses" [status]="status"></product>
+
 		</div>
 	</div>
-	<div class="">
-		<!-- <div class="card ml-auto mr-auto my-2 product" style="width: 24rem;" *ngFor="let s of products" (click)="select(s)"> -->
-		<div class="product" *ngFor="let s of products"
-			(click)="select(s)">
-			<img class="logo" src="{{s.url}}/logo/medium" />
-			<p class="name">{{s.name}}</p>
-			<!-- <p class="description">{{s.description}}</p> -->
-		</div>
-	</div>
-	<button class="button" class="btn btn-default btn-lg" id="close-product-button" *ngIf="product" (click)="select(null)">
-		<!-- <i class="fa fa-close"></i> -->
-		&lt; Back
-	</button>
-	<product *ngIf="product" [product]="product" [licenses]="licenses" [status]="status"></product>
 </div>
+
 
 <app-footer></app-footer>

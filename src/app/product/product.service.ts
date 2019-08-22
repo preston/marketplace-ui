@@ -20,11 +20,11 @@ export class ProductService extends BaseService {
     }
 
     url(): string {
-        return this.backendService.url + ProductService.PATH;
+        return this.backendService.getUrl() + ProductService.PATH;
     }
 
     searchUrl(): string {
-        return this.backendService.url + ProductService.SEARCH_PATH;
+        return this.backendService.getUrl() + ProductService.SEARCH_PATH;
     }
 
     search(text: string) {
@@ -32,13 +32,15 @@ export class ProductService extends BaseService {
         return products;
     }
 
-    searchPublished(text: string) {
-        let products = this.http.post<Product[]>(this.searchUrl() + '?published=true', { text: text }, {headers: this.headers()}).pipe(map(res => res));
+    searchPublished(text: string, mimeTypes: string[]) {
+		let types = mimeTypes.join(',');
+        let products = this.http.post<Product[]>(this.searchUrl() + '?published=true&mime_type=' + types, { text: text }, {headers: this.headers()}).pipe(map(res => res));
         return products;
     }
 
-    searchUnpublished(text: string) {
-        let products = this.http.post<Product[]>(this.searchUrl() + '?published=false', { text: text }, {headers: this.headers()}).pipe(map(res => res));
+    searchUnpublished(text: string, mimeTypes: string[]) {
+		let types = mimeTypes.join(',');
+        let products = this.http.post<Product[]>(this.searchUrl() + '?published=false&mime_type=' + types, { text: text }, {headers: this.headers()}).pipe(map(res => res));
         return products;
     }
 
@@ -57,13 +59,15 @@ export class ProductService extends BaseService {
         return products;
     }
 
-    published() {
-        let products = this.http.get<Product[]>(this.url() + '?published=true', {headers: this.headers()}).pipe(map(res => res));
+    published(mimeTypes: string[]) {
+		let types = mimeTypes.join(',');
+        let products = this.http.get<Product[]>(this.url() + '?published=true&mime_type=' + types, {headers: this.headers()}).pipe(map(res => res));
         return products;
     }
 
-    unpublished() {
-        let products = this.http.get<Product[]>(this.url() + '?published=false', {headers: this.headers()}).pipe(map(res => res));
+    unpublished(mimeTypes: string[]) {
+		let types = mimeTypes.join(',');
+        let products = this.http.get<Product[]>(this.url() + '?published=false&mime_type=' + types, {headers: this.headers()}).pipe(map(res => res));
         return products;
     }
 
