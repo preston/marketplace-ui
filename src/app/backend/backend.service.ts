@@ -9,12 +9,11 @@ import { Status } from "../status/status";
 export class BackendService {
 
 	// FIXME Hardcoded URLs
-	private url: string;
 	private static DEFAULT_SERVER_URL = 'http://localhost:3000';
+	private url: string = BackendService.DEFAULT_SERVER_URL;
 
-	private websocket_url: string;
 	private static DEFAULT_SERVER_WEBSOCKET_URL = 'ws://localhost:3000';
-
+	private websocket_url: string = BackendService.DEFAULT_SERVER_WEBSOCKET_URL;
 
 	public static STATUS_PATH: string = '/status';
 	public static SESSIONS_PATH: string = '/sessions';

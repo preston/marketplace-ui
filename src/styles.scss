@@ -51,19 +51,20 @@ body {
 #close-product-button {
 	position: absolute;
 	z-index: 20;
-	top: 78px;
+	top: 38px;
 	left: 40px;
 	color: #777;
-	font-size: 10pt;
+	font-size: 1.4em;
+	// border: 1px solid #aaa;
 }
 
 product {
 	position: absolute;
 	z-index: 10;
-	top: 80px;
-	right: 40px;
+	top: 40px;
+	right: 30px;
 	// bottom: 40px;
-	left: 40px;
+	left: 30px;
 	box-shadow: $shadow;
 	padding: 40px 20px;
 	background: rgba(255, 255, 255, 0.95);

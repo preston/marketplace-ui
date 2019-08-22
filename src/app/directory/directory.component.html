@@ -25,7 +25,8 @@
 							<li>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="gridRadios" id="mime_fhir_xml"
-										value="application/fhir+xml" [(ngModel)]="searchMime['application/fhir+xml']" (change)="search()">
+										value="application/fhir+xml" [(ngModel)]="searchMime['application/fhir+xml']"
+										(change)="search()">
 									<label class="form-check-label" for="mime_fhir_xml">
 										FHIR XML
 									</label>
@@ -35,7 +36,8 @@
 								<div class="form-check ">
 
 									<input class="form-check-input" type="checkbox" name="gridRadios" id="mime_cem_xml"
-										value="application/x-cem+txt" [(ngModel)]="searchMime['application/x-cem+txt']" (change)="search()">
+										value="application/x-cem+txt" [(ngModel)]="searchMime['application/x-cem+txt']"
+										(change)="search()">
 									<label class="form-check-label" for="mime_cem_xml">
 										Cliincal Element Model (CEM) XML
 									</label>
@@ -51,7 +53,9 @@
 						<ul class="collapse show list-unstyled" id="executablesSubmenu">
 							<li>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" name="mime_fhir_image" id="mime_fhir_image" value="application/vnd.docker+fhir" [(ngModel)]="searchMime['application/vnd.docker+fhir']" (change)="search()">
+									<input class="form-check-input" type="checkbox" name="mime_fhir_image"
+										id="mime_fhir_image" value="application/vnd.docker+fhir"
+										[(ngModel)]="searchMime['application/vnd.docker+fhir']" (change)="search()">
 									<label class="form-check-label" for="mime_fhir_image">
 										FHIR Resource Server
 									</label>
@@ -59,7 +63,9 @@
 							</li>
 							<li>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" name="mime_smart_image" id="mime_smart_image" value="application/vnd.docker+smart" [(ngModel)]="searchMime['application/vnd.docker+smart']" (change)="search()">
+									<input class="form-check-input" type="checkbox" name="mime_smart_image"
+										id="mime_smart_image" value="application/vnd.docker+smart"
+										[(ngModel)]="searchMime['application/vnd.docker+smart']" (change)="search()">
 									<label class="form-check-label" for="mime_smart_image">
 										SMART Application
 									</label>
@@ -68,7 +74,8 @@
 							<li>
 								<div class="form-check ">
 									<input class="form-check-input" type="checkbox" name="mime_cds_hooks_image"
-										id="mime_cds_hooks_image" value="application/x-cds-hooks" [(ngModel)]="searchMime['application/x-cds-hooks']" (change)="search()">
+										id="mime_cds_hooks_image" value="application/x-cds-hooks"
+										[(ngModel)]="searchMime['application/x-cds-hooks']" (change)="search()">
 									<label class="form-check-label" for="mime_cds_hooks_image">
 										CDS Hooks Service
 									</label>
@@ -77,7 +84,8 @@
 							<li>
 								<div class="form-check ">
 									<input class="form-check-input" type="checkbox" name="mime_other_image"
-										id="mime_other_image" value="application/vnd.docker" [(ngModel)]="searchMime['application/vnd.docker']" (change)="search()">
+										id="mime_other_image" value="application/vnd.docker"
+										[(ngModel)]="searchMime['application/vnd.docker']" (change)="search()">
 									<label class="form-check-label" for="mime_other_image">
 										Other Images
 									</label>
@@ -95,7 +103,8 @@
 							<li>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="mime_rf2_zip"
-										id="mime_rf2_zip" value="application/x-rf2+zip" [(ngModel)]="searchMime['application/x-rf2+zip']" (change)="search()">
+										id="mime_rf2_zip" value="application/x-rf2+zip"
+										[(ngModel)]="searchMime['application/x-rf2+zip']" (change)="search()">
 									<label class="form-check-label" for="mime_rf2_zip">
 										RF2 Packages
 									</label>
@@ -113,7 +122,8 @@
 							<li>
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" name="mime_cql_zip"
-										id="mime_cql_zip" value="application/x-cql+zip" [(ngModel)]="searchMime['application/x-cql+zip']" (change)="search()">
+										id="mime_cql_zip" value="application/x-cql+zip"
+										[(ngModel)]="searchMime['application/x-cql+zip']" (change)="search()">
 									<label class="form-check-label" for="mime_cql_zip">
 										CQL
 									</label>
@@ -131,7 +141,9 @@
 						<ul class="collapse show list-unstyled" id="knowledgeSubmenu">
 							<li>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" name="mime_arden" id="mime_arden" value="application/x-arden" [(ngModel)]="searchMime['application/x-arden']" (change)="search()">
+									<input class="form-check-input" type="checkbox" name="mime_arden" id="mime_arden"
+										value="application/x-arden" [(ngModel)]="searchMime['application/x-arden']"
+										(change)="search()">
 									<label class="form-check-label" for="mime_arden">
 										Arden
 									</label>
@@ -139,7 +151,9 @@
 							</li>
 							<li>
 								<div class="form-check ">
-									<input class="form-check-input" type="checkbox" name="mime_knart_xml" id="mime_knart_xml" value="application/x-knart" [(ngModel)]="searchMime['application/x-knart']" (change)="search()">
+									<input class="form-check-input" type="checkbox" name="mime_knart_xml"
+										id="mime_knart_xml" value="application/x-knart"
+										[(ngModel)]="searchMime['application/x-knart']" (change)="search()">
 									<label class="form-check-label" for="mime_knart_xml">
 										CDS KNART
 									</label>
@@ -147,8 +161,9 @@
 							</li>
 							<li>
 								<div class="form-check ">
-									<input class="form-check-input" type="checkbox" name="mime_bpm_zip" id="mime_bpm_zip"
-										value="application/x-bpm" [(ngModel)]="searchMime['application/x-bpm']" (change)="search()">
+									<input class="form-check-input" type="checkbox" name="mime_bpm_zip"
+										id="mime_bpm_zip" value="application/x-bpm"
+										[(ngModel)]="searchMime['application/x-bpm']" (change)="search()">
 									<label class="form-check-label" for="mime_bpm_zip">
 										BPM+
 									</label>
@@ -167,8 +182,10 @@
 
 		<!-- Tool bar -->
 		<div id="content">
-			<h2>Find and deploy a health product<span *ngIf="status?.identity">,
-					{{status.identity.user.first_name}}.</span></h2>
+				<div class="">
+						<h2>Find and deploy a health product<span *ngIf="status?.identity">,
+								{{status.identity.user.first_name}}.</span></h2>
+					</div>
 
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<div class="container-fluid">
@@ -185,9 +202,11 @@
 						<i class="fas fa-align-justify"></i>
 					</button>
 
-					<div class="col-sm-4 input-group input-group-lg">
+
+
+					<div class="input-group input-group-lg">
 						<input class="form-control form-control-lg" type="text" autofocus="true" type="search"
-							[(ngModel)]="searchQuery.text" name="search_text" (keyup)="search()" />
+							[(ngModel)]="searchQuery.text" name="search_text" (keyup)="search()" focus />
 						<div class="input-group-append">
 							<span class="input-group-text" id="inputGroup-sizing-lg">
 								<i class="fa fa-search"></i>
@@ -196,7 +215,7 @@
 					</div>
 
 
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="nav navbar-nav ml-auto">
 							<li class="nav-item active">
 								<a class="nav-link" href="#">Page</a>
@@ -205,7 +224,8 @@
 								<a class="nav-link" href="#">Page</a>
 							</li>
 						</ul>
-					</div>
+					</div> -->
+
 				</div>
 			</nav>
 
