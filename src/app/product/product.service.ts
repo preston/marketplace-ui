@@ -48,7 +48,20 @@ export class ProductService extends BaseService {
 	index() {
         let products = this.http.get<Product[]>(this.url(), {headers: this.headers()}).pipe(map(res => res));
         return products;
-    }
+	}
+
+	parents(product: Product, page: string) {
+		let params = new HttpParams().set('page', page);
+        let products = this.http.get<Product[]>(this.url() + '/' + product.id + '/parents', {headers: this.headers(), params: params}).pipe(map(res => res));
+        return products;
+	}
+
+	children(product: Product, page: string) {
+		let params = new HttpParams().set('page', page);
+        let products = this.http.get<Product[]>(this.url() + '/' + product.id + '/children', {headers: this.headers(), params: params}).pipe(map(res => res));
+        return products;
+	}
+
 
 	indexByLicense(license: License) {
         let products = this.http.get<Product[]>(this.url() + '?license_id=' + license.id , {headers: this.headers()}).pipe(map(res => res));

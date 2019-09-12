@@ -29,7 +29,7 @@ export class DirectoryComponent implements OnInit {
 	licenses: Array<License> = new Array<License>();
 
 	searchQuery: Search;
-	searchMime = {'application/fhir+xml' : false};
+	searchMime = { 'application/fhir+xml': false };
 	status: Object;
 
 	sidebarActive: boolean = false;
@@ -65,9 +65,13 @@ export class DirectoryComponent implements OnInit {
 	}
 
 	loadInitialProducts() {
-		this.productService.published(this.selectedMimeTypes()).subscribe(d => {
-			this.products = d['results'];
-		});
+		if (this.searchQuery.text.length > 0) {
+			this.productService.published(this.selectedMimeTypes()).subscribe(d => {
+				this.products = d['results'];
+			});
+		} else {
+			this.products = [];
+		}
 	}
 	select(product: Product) {
 		this.product = product;
