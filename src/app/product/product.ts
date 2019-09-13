@@ -11,9 +11,11 @@ export class Product {
     public user_id: string = '';
     public uri: string = '';
     public support_url: string = '';
-	public product_licenses: Array<ProductLicense> = [];
+	public external_id: string;
+	public mime_type: string = '';
 
-	public license: License;
+	public logo: File;
+
 	public user: User;
 
 	public published_at: Date;
@@ -21,6 +23,7 @@ export class Product {
 	public created_at: Date;
 	public updated_at: Date;
 
+	public product_licenses: Array<ProductLicense> = [];
     public builds: Array<Build> = new Array<Build>();
 
 }

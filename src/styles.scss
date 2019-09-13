@@ -8,7 +8,7 @@
 
 @import "ribbons.scss";
 
-$shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+$shadow: 0px 8px 8px rgba(0, 0, 0, 0.9);
 $content_background: url("/assets/images/textures/crossword.png") repeat;
 
 .toast {
@@ -34,13 +34,11 @@ body {
 		margin: 4px 4px 0 auto;
 		overflow-y: hidden;
 
-
-
 		.name {
-			font-size: .9em;
+			font-size: 0.9em;
 		}
 		.description {
-			font-size: .8em;
+			font-size: 0.8em;
 		}
 		.logo {
 			max-width: 150px;
@@ -90,11 +88,20 @@ product {
 }
 
 #system {
+
+	padding-top: 10px;
 	background: url(/images/backgrounds/benjamin-suter-1631714-unsplash.jpg)
 		no-repeat center center fixed;
 	background-size: cover;
+
 	.tab-pane {
 		background: rgba(255, 255, 255, 0.8);
+		padding-top: 20px;
+	}
+
+	.selected {
+		background: #cfe2f3;
+		// border: 1px solid #aaa;
 	}
 }
 
@@ -105,8 +112,16 @@ product {
 #licenses,
 #interfaces,
 #products {
+
 	a:hover {
 		cursor: pointer;
+	}
+	.build {
+		border: 1px solid #aaa;
+		background: #f8f8f8;
+		box-shadow: $shadow;
+		padding-top: 10px;
+		margin-bottom: 10px;
 	}
 }
 

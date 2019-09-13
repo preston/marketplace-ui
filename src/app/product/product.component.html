@@ -60,21 +60,18 @@
 		<li class="nav-item ">
 			<a class="nav-link active" href="#builds" aria-controls="builds" role="tab" data-toggle="tab"><span
 					class="fa fa-home"></span> Builds</a></li>
-		<!-- <li class="nav-item">
-			<a class="nav-link" href="#screenshots" aria-controls="screenshots" role="tab" data-toggle="tab"><span
-					class="fa fa-image"></span> Screenshots</a></li> -->
-		<li class="nav-item">
-			<a class="nav-link" href="#runtime" aria-controls="runtime" role="tab" data-toggle="tab"><span
-					class="fa fa-cog"></span> Runtime configuration</a></li>
-		<li class="nav-item">
-			<a class="nav-link" href="#deployment" aria-controls="deployment" role="tab" data-toggle="tab"><span
-					class="fa fa-list"></span> Deployment Visualization</a></li>
 		<li class="nav-item">
 			<a class="nav-link" href="#parents" aria-controls="parents" role="tab" data-toggle="tab"><span
 					class="fa fa-list"></span> Super-Products</a></li>
 		<li class="nav-item">
 			<a class="nav-link" href="#children" aria-controls="children" role="tab" data-toggle="tab"><span
 					class="fa fa-list"></span> Sub-Products</a></li>
+		<li class="nav-item">
+			<a class="nav-link" href="#runtime" aria-controls="runtime" role="tab" data-toggle="tab"><span
+					class="fa fa-cog"></span> Runtime configuration</a></li>
+		<li class="nav-item">
+			<a class="nav-link" href="#deployment" aria-controls="deployment" role="tab" data-toggle="tab"><span
+					class="fa fa-list"></span> Deployment Visualization</a></li>
 	</ul>
 	<!-- Tab panes-->
 	<div class="tab-content">
@@ -168,7 +165,7 @@
 				<p>You will automatically be granted access to this product if you have licensed access to any of the
 					super-products listed below.</p>
 				<div *ngIf="parentProducts">
-					<div class="text-center">Page:
+					<div class="text-center">
 						<a *ngIf="parentProducts['previous_page']"
 							(click)="selectParentPage(parentProducts['previous_page'])">&lt;</a>
 						<a *ngIf="parentProducts['previous_page']"
@@ -179,18 +176,18 @@
 						<a *ngIf="parentProducts['next_page']"
 							(click)="selectParentPage(parentProducts['next_page'])">&gt;</a>
 					</div>
-					<table class="table-striped">
+					<table class="table table-striped table-condensed">
 						<thead>
 							<tr>
-									<th>Product</th>
-									<th>UUID</th>
+								<th>Product</th>
+								<th>UUID</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr *ngFor="let p of parentProducts['results']">
-									<td><b>{{p.name}}</b><br>
-										{{p.description}}</td>
-										<td>{{p.id}}</td>
+								<td><b>{{p.name}}</b><br>
+									{{p.description}}</td>
+								<td>{{p.id}}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -202,7 +199,7 @@
 				<p>When you have licensed access to this project, you will automatically be granted access to the
 					sub-products listed below.</p>
 				<div *ngIf="childProducts">
-					<div class="text-center">Page:
+					<div class="text-center">
 						<a *ngIf="childProducts['previous_page']" class="btn"
 							(click)="selectChildPage(childProducts['previous_page'])">&lt;</a>
 						<a *ngIf="childProducts['previous_page']" class="btn"
@@ -213,7 +210,7 @@
 						<a *ngIf="childProducts['next_page']" class="btn"
 							(click)="selectChildPage(childProducts['next_page'])">&gt;</a>
 					</div>
-					<table class="table-striped">
+					<table class="table table-striped table-condensed">
 						<thead>
 							<tr>
 								<th>Product</th>
@@ -223,7 +220,7 @@
 						<tbody>
 							<tr *ngFor="let p of childProducts['results']">
 								<td><b>{{p.name}}</b><br>
-								{{p.description}}</td>
+									{{p.description}}</td>
 								<td>{{p.id}}</td>
 							</tr>
 						</tbody>

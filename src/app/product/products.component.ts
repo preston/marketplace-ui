@@ -1,141 +1,182 @@
-import {Component, Output, Inject, Input, OnInit} from '@angular/core';
-import {UUID} from 'angular2-uuid';
+import { Component, Output, Inject, Input, OnInit } from '@angular/core';
+import { UUID } from 'angular2-uuid';
 
-import {User} from '../user/user';
-import {Product} from '../product/product';
-import {License} from '../license/license';
-import {Status} from '../status/status';
-import {Search} from '../search/search';
-import {Build} from '../build/build';
+import { User } from '../user/user';
+import { Product } from '../product/product';
+import { License } from '../license/license';
+import { Status } from '../status/status';
+import { Search } from '../search/search';
+import { Build } from '../build/build';
 
-import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
+import { ToasterModule, ToasterService } from 'angular2-toaster/angular2-toaster';
 
 // import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
-import {BuildService} from '../build/build.service';
-import {UserService} from '../user/user.service';
-import {LicenseService} from '../license/license.service';
-import {ProductService} from '../product/product.service';
-import {BackendService} from '../backend/backend.service';
+import { BuildService } from '../build/build.service';
+import { UserService } from '../user/user.service';
+import { LicenseService } from '../license/license.service';
+import { ProductService } from '../product/product.service';
+import { BackendService } from '../backend/backend.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-    selector: 'products',
-    templateUrl: 'products.component.html'
+	selector: 'products',
+	templateUrl: 'products.component.html'
 })
 export class ProductsComponent implements OnInit {
 
 
-    @Input() status: Object;
+	@Input() status: Object;
 
-    // The current selection, if any.
-    product: Product;
-    products: Array<Product>;
-    logoFile: File;
+	// The current selection, if any.
+	product: Product;
+	products: any = { 'results': [] };//: Array<Product> = ;
 
-    licenses: Array<License> = new Array<License>();
-    builds: Array<Build> = new Array<Build>();
+	childProducts;
+	childPage: string = '1';
+	parentProducts;
+	parentPage: string = '1';
+	// logoFile: File;
 
-    constructor(private backendService: BackendService,
-        private productService: ProductService,
-        private buildService: BuildService,
-        private licenseService: LicenseService,
-        private toasterService: ToasterService) {
-    }
+	logoUploadProgress;
+	logoPreviewUrl: string | ArrayBuffer;
 
-    ngOnInit() {
-        this.reload();
-    }
+	licenses: Array<License> = new Array<License>();
+	// builds: Array<Build> = new Array<Build>();
 
-    reload() {
-        this.products = new Array<Product>();
-        this.productService.index().subscribe(d => {
-            this.products = d['results'];
-        });
-        this.licenseService.index().subscribe(d => {
-            this.licenses = d['results'];
-        });
-    }
+	searchQuery = new Search;
+	searchPage = "1";
 
-    select(product: Product) {
-        this.product = product;
-        if (this.product) {
-            this.buildService.index(this.product).subscribe(d => {
-                this.builds = d['results'];
-                console.log('Loaded ' + this.builds.length + ' builds.');
-            });
-        } else {
-            this.builds = new Array<Build>();
-        }
+	constructor(private backendService: BackendService,
+		private productService: ProductService,
+		private buildService: BuildService,
+		private licenseService: LicenseService,
+		private toasterService: ToasterService) {
+	}
 
-    }
+	ngOnInit() {
+		this.reload();
+	}
 
-    handleLogoSelect(fileInput: any) {
-        console.log("Reading logo.");
-        if (fileInput.target.files.length > 0) {
-            this.logoFile = <File>fileInput.target.files[0];
-            // this.logoFile.
-            let reader = new FileReader();
-            reader.onload = () => {
-                // this text is the content of the file
-                // console.log(reader.result);
-                // this.product.logo = reader.result.toString();
-                // this.loadFromContentString(reader.result);
-            }
-            reader.readAsBinaryString(this.logoFile);
-        }
-    }
 
-    create() {
-        let product = new Product();
-        product.name = "New Product " + UUID.UUID();
-        product.user_id = this.status['identity']['user_id'];
-        if (this.licenses.length == 0) {
-            this.toasterService.pop('error', 'No License Types', 'Please establish a license type prior to declared products.');
-        } else {
-            // product.license_id = this.licenses[0].id;
-            this.productService.create(product).subscribe(d => {
-                this.toasterService.pop('success', 'Service Created', 'Please update the details accordingly!');
-                this.products.push(d);
-                this.select(d);
-            });
-        }
-    }
-    update(product: Product) {
-        this.productService.update(product).subscribe(d => {
-            this.toasterService.pop('success', 'Service Updated');
-            let i = this.products.indexOf(product, 0);
-            this.products[i] = d;
-        });
-    }
-    delete(product: Product) {
-        this.productService.delete(product).subscribe(d => {
-            this.toasterService.pop('success', 'Service Deleted');
-            let i = this.products.indexOf(product, 0);
-            if (i >= 0) {
-                this.products.splice(i, 1);
-            }
-            this.select(null);
-        });
-    }
+	search() {
+		this.unselect();
+		this.productService.search(this.searchQuery.text, this.searchPage).subscribe(d => {
+			this.products = d;
+		});
+	}
 
-    publish(product: Product) {
-        this.productService.publish(product).subscribe(d => {
-            this.toasterService.pop('success', 'Service Published!');
-            let i = this.products.indexOf(product, 0);
-            this.products[i] = d;
-            this.product = d;
-        });
-    }
-    unpublish(product: Product) {
-        this.productService.unpublish(product).subscribe(d => {
-            this.toasterService.pop('success', 'Service Unpublished');
-            let i = this.products.indexOf(product, 0);
-            this.products[i] = d;
-            this.product = d;
-        });
-    }
+	reload() {
+		this.search();
+		this.licenseService.index().subscribe(d => {
+			this.licenses = d['results'];
+		});
+	}
 
-    createBuild(product: Product) {
+	unselect() {
+		this.product = null;
+		// this.product.builds = new Array<Build>();
+	}
+	select(product: Product) {
+		if (this.product == product) {
+			this.unselect();
+		} else {
+			this.product = product;
+			if (this.product) {
+				this.buildService.index(this.product).subscribe(d => {
+					this.product.builds = d['results'];
+					console.log('Loaded ' + this.product.builds.length + ' builds.');
+				});
+				this.reloadChildren()
+				this.reloadParents();
+			} else {
+				this.unselect();
+			}
+		}
+	}
+
+	handleLogoSelect(fileInput: any) {
+		console.log("Selected logo file: " + fileInput);
+		this.product.logo = fileInput.target.files[0];
+		// if (fileInput.target.files.length > 0) {
+		// this.productService.updateLogo(this.product, fileInput.target.files[0] );
+		// }
+		this.preview();
+	}
+
+	handleBuildAssetSelect(build: Build, fileInput: any) {
+		console.log("Selected build asset file: " + fileInput);
+		build.asset = fileInput.target.files[0];
+	}
+
+	preview() {
+		// Show preview
+		var mimeType = this.product.logo.type;
+		if (mimeType.match(/image\/*/) == null) {
+			return;
+		}
+
+		var reader = new FileReader();
+		reader.readAsDataURL(this.product.logo);
+		reader.onload = (_event) => {
+			this.logoPreviewUrl = reader.result;
+		}
+	}
+
+	create() {
+		let product = new Product();
+		product.name = "New Product " + UUID.UUID();
+		product.user_id = this.status['identity']['user_id'];
+		if (this.licenses.length == 0) {
+			this.toasterService.pop('error', 'No License Types', 'Please establish a license type prior to declared products.');
+		} else {
+			// product.license_id = this.licenses[0].id;
+			this.productService.create(product).subscribe(d => {
+				this.toasterService.pop('success', 'Product Created', 'Please update the details accordingly!');
+				this.products['results'].push(d);
+				this.select(d);
+			});
+		}
+	}
+	update(product: Product) {
+		this.productService.update(product).subscribe(d => {
+			this.toasterService.pop('success', 'Product Updated');
+			let i = this.products['results'].indexOf(product, 0);
+			this.products[i] = d;
+		}, err => {
+			this.toasterService.pop('error', "Failed to update product.", "Not sure why.. sorry. :(");
+			console.log(err);
+		});
+	}
+	delete(product: Product) {
+		this.productService.delete(product).subscribe(d => {
+			this.toasterService.pop('success', 'Product Deleted');
+			let i = this.products['results'].indexOf(product, 0);
+			if (i >= 0) {
+				this.products['results'].splice(i, 1);
+			}
+			this.select(null);
+		});
+	}
+
+	publish(product: Product) {
+		this.productService.publish(product).subscribe(d => {
+			this.toasterService.pop('success', 'Product Published!');
+			let i = this.products['results'].indexOf(product, 0);
+			this.products[i] = d;
+			this.product = d;
+		});
+	}
+	unpublish(product: Product) {
+		this.productService.unpublish(product).subscribe(d => {
+			this.toasterService.pop('success', 'Product Unpublished');
+			let i = this.products['results'].indexOf(product, 0);
+			this.products[i] = d;
+			this.product = d;
+		});
+	}
+
+	createBuild(product: Product) {
 
 		let build = new Build();
 		build.product_id = this.product.id;
@@ -144,25 +185,49 @@ export class ProductsComponent implements OnInit {
 		build.container_tag = UUID.UUID();
 		this.buildService.create(this.product, build).subscribe(d => {
 			this.toasterService.pop('success', 'Build Created', 'Please update the details accordingly!');
-			this.builds.push(d);
+			this.product.builds.push(d);
 		});
-    }
+	}
 
-    updateBuild(build: Build) {
+	updateBuild(build: Build) {
+		console.log(build);
 		this.buildService.update(this.product, build).subscribe(d => {
 			this.toasterService.pop('success', 'Build Updated');
-			let i = this.builds.indexOf(build, 0);
-			this.builds[i] = d;
+			let i = this.product.builds.indexOf(build, 0);
+			this.product.builds[i] = d;
+		}, err => {
+			const errors = <Object>err['error'];
+			let msg = '';
+			for (let n of Object.entries(errors)) {
+				msg += n[0] + ' ' + n[1].join(', ') + ".\n";
+			}
+			console.log(err);
+			this.toasterService.pop('error', "Failed to update build.", msg);
 		});
-    }
+	}
 
-    deleteBuild(build: Build) {
+	deleteBuild(build: Build) {
 		this.buildService.delete(this.product, build).subscribe(d => {
 			this.toasterService.pop('success', 'Build Deleted');
-			let i = this.builds.indexOf(build, 0);
+			let i = this.product.builds.indexOf(build, 0);
 			if (i >= 0) {
-				this.builds.splice(i, 1);
+				this.product.builds.splice(i, 1);
 			}
 		});
-    }
+	}
+
+	reloadChildren() {
+		this.productService.children(this.product, this.childPage.toString()).subscribe(d => {
+			this.childProducts = d;
+			console.log('Loaded ' + this.childProducts['results'].length + ' children.');
+		});
+	}
+
+	reloadParents() {
+		this.productService.parents(this.product, this.parentPage.toString()).subscribe(d => {
+			this.parentProducts = d;
+			console.log('Loaded ' + this.parentProducts['results'].length + ' parents.');
+		});
+
+	}
 }

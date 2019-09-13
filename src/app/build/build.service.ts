@@ -34,7 +34,16 @@ export class BuildService extends BaseService {
 	}
 
 	update(product: Product, build: Build) {
-		let obs = this.http.put<Build>(this.url(product) + '/' + build.id, { 'build': build }, {headers: this.headers()}).pipe(map(res => res));
+		let fd = new FormData();
+		fd.set('build[version]', build.version);
+		fd.set('build[container_repository]', build.container_repository);
+		fd.set('build[container_tag]', build.container_tag);
+		fd.set('build[permissions]', build.permissions);
+		fd.set('build[release_notes]', build.release_notes);
+		if (build.asset) {
+			fd.set('build[asset]', build.asset, build.asset.name);
+		}
+		let obs = this.http.put<Build>(this.url(product) + '/' + build.id, fd, {headers: this.headers()}).pipe(map(res => res));
         return obs;
 	}
 

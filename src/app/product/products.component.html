@@ -1,114 +1,211 @@
 <div class="container-fluid" id="products">
-		<div class="row">
-			<div class="col-sm-8">
-				<h1>Catalog management</h1>
-				<div class="pull-right">
-					<button class="btn btn-primary" (click)="create()"><span class="fa fa-plus"></span> Declare a service</button>
+	<div class="row">
+		<div class="col-sm-8">
+			<h1>Catalog management</h1>
+			<div class="pull-right">
+				<button class="btn btn-primary" (click)="create()"><span class="fa fa-plus"></span> Declare a
+					Product</button>
+			</div>
+			<p class="text-help">Products are collections of users, and are usually used to ease the permissions
+				management. When a role is assigned to a product, the role is automatically applied to all members.</p>
+			<div class="clearfix"></div>
+			<div class="row">
+
+				<form class="input-group input-group-md">
+					<input class="form-control form-control-lg" type="text" autofocus="true" type="search"
+						[(ngModel)]="searchQuery.text" name="search_text" (keyup)="search()" focus />
+					<div class="input-group-append">
+						<span class="input-group-text" id="inputGroup-sizing-lg">
+							<i class="fa fa-search"></i>
+						</span>
+					</div>
+				</form>
+
+
+				<div class="col-md-4" *ngFor="let p of products['results']" [class.selected]="p == product">
+					<a (click)="select(p)">
+						<img class="logo" src="{{p.url}}/logo/small" />
+						<br />
+						{{p.name}}
+					</a>
 				</div>
-				<p class="text-help">Products are collections of users, and are usually used to ease the permissions management. When a role is assigned to a service, the role is automatically applied to all members.</p>
-				<div class="clearfix"></div>
-				<div class="row">
-					<div class="col-md-4" *ngFor="let service of products"><a (click)="select(service)"><img class="logo" src="{{product.url}}/logo/small" /><br /> {{product.name}}</a></div>
-				</div>
-				<hr />
-				<div id="builds" *ngIf="service">
-					<h2>
-						<div class="pull-right">
-							<button class="btn btn-primary" (click)="createBuild(service)"><span class="fa fa-plus"></span> Register a container build of {{product.name}}</button>
-						</div>Available Builds
-					</h2>
-					<hr /><i *ngIf="builds.length == 0">No builds have been listed.</i>
-					<div *ngFor="let b of builds">
-						<div class="row well">
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label for="version">Version</label>
-									<input class="form-control" type="text" [(value)]="b.version" />
-								</div>
-								<div class="form-group">
-									<label for="container_repository">Container Repository</label>
-									<input class="form-control" type="text" [(value)]="b.container_repository" />
-								</div>
-								<div class="form-group">
-									<label for="container_tag">Container Tag</label>
-									<input class="form-control" type="text" [(value)]="b.container_tag" />
+			</div>
+			<hr />
+			<section id="builds" *ngIf="product">
+				<h2>
+					<div class="pull-right">
+						<button class="btn btn-primary" (click)="createBuild(product)"><span class="fa fa-plus"></span>
+							Create a new Build</button>
+					</div>
+					Available Builds
+				</h2>
+				<hr /><i *ngIf="product.builds && product.builds.length == 0">No builds have been listed.</i>
+				<div *ngFor="let b of product.builds">
+					<div class="row build">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label for="version">Version</label>
+								<input class="form-control" type="text" [(ngModel)]="b.version" />
+							</div>
+							<div class="form-group">
+								<label for="asset">Asset </label>
+								<input type="file" name="build_asset" (change)="handleBuildAssetSelect(b, $event)" />
+								<small>
+									<i *ngIf="b.asset_available">File already set. Uploaded another to overwrite.</i>
+									<i *ngIf="!b.asset_available">File not uploaded.</i>
+								</small>
+							</div>
+							<div class="form-group">
+								<label for="container_repository">Container Repository</label>
+								<input class="form-control" type="text" [(ngModel)]="b.container_repository" />
+							</div>
+							<div class="form-group">
+								<label for="container_tag">Container Tag</label>
+								<input class="form-control" type="text" [(ngModel)]="b.container_tag" />
+							</div>
+							<div class="form-group">
+								<div class="btn-group">
+									<button class="btn btn-primary" (click)="updateBuild(b)"><span
+											class="fa fa-cloud-upload"></span> Save Build</button>
 								</div>
 							</div>
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label for="validated_at">Validated At</label>
-									<input class="form-control" type="text" [(value)]="b.validated_at" />
+							<dl>
+								<dt>Published At</dt>
+								<dd>{{b.published_at}}</dd>
+								<dt>Validated At</dt>
+								<dd>{{b.validated_at}}</dd>
+								<dt>Updated</dt>
+								<dd>{{b.updated_at}}</dd>
+								<dt>Created</dt>
+								<dd>{{b.created_at}}</dd>
+							</dl>
+							<div class="form-group">
+								<div class="btn-group">
+									<button class="btn btn-danger" (click)="deleteBuild(b)"><span
+											class="fa fa-trash"></span> Delete Build</button>
 								</div>
-								<div class="form-group">
-									<label for="published_at">Published At</label>
-									<input class="form-control" type="text" [(value)]="b.published_at" />
-								</div>
-								<div class="form-group">
-									<label for="release_notes">Release Notes</label>
-									<textarea class="form-control" type="text" [(value)]="b.release_notes"></textarea>
-								</div>
-								<div class="form-group">
-									<div class="btn-group">
-										<button class="btn btn-primary" (click)="updateBuild(b)"><span class="fa fa-cloud-upload"></span> Save Build</button>
-										<button class="btn btn-danger" (click)="deleteBuild(b)"><span class="fa fa-trash"></span> Delete Build</button>
-									</div>
-								</div>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label for="release_notes">Release Notes</label>
+								<textarea class="form-control" type="text" rows="10"
+									[(ngModel)]="b.release_notes"></textarea>
+							</div>
+							<div class="form-group">
+								<label for="permissions">Runtime Permissions</label>
+								<textarea class="form-control" type="text" rows="10"
+									[(ngModel)]="b.permissions"></textarea>
 							</div>
 						</div>
 					</div>
 				</div>
-				<section *ngIf="service">
-					<hr />
-					<h2>Exposed interfaces</h2><i>Management UI not implemented.</i>
-					<hr />
-					<h2>Required interfaces</h2><i>Management UI not implemented.</i>
-					<hr />
-					<h2>Screenshots</h2><i>Management UI not implemented.</i>
-					<hr />
-					<h2>Runtime configurations</h2><i>Management UI not implemented.</i>
-				</section>
-			</div>
-			<div class="col-sm-4" *ngIf="service">
-				<h2>{{product.name}}
-					<div class="btn-group">
-						<button class="btn btn-sm btn-primary" (click)="publish(service)" *ngIf="!product.published_at"><span class="fa fa-thumbs-up"></span> Publish</button>
-						<button class="btn btn-sm btn-primary" (click)="unpublish(service)" *ngIf="product.published_at"><span class="fa fa-thumbs-down"></span> Unpublish</button>
-						<button class="btn btn-sm btn-primary" (click)="update(service)"><span class="fa fa-cloud-upload"></span> Save</button>
-						<button class="btn btn-sm btn-danger" (click)="delete(service)"><span class="fa fa-trash"></span> Delete</button>
-					</div>
-				</h2>
-				<p *ngIf="product.published_at">Last published at {{product.published_at}}.</p>
+			</section>
+			<section *ngIf="product">
 				<hr />
-				<form class="form">
-					<div class="form-group">
-						<label for="service_name">Name</label>
-						<input class="form-control" type="text" name="service_name" [(ngModel)]="product.name" /><small><i>ID: {{product.id}}</i></small>
+				<h2>Exposed interfaces</h2><i>Management UI not implemented.</i>
+				<hr />
+				<h2>Required interfaces</h2><i>Management UI not implemented.</i>
+				<hr />
+				<h2>Screenshots</h2><i>Management UI not implemented.</i>
+				<hr />
+				<h2>Runtime configurations</h2><i>Management UI not implemented.</i>
+			</section>
+			<section *ngIf="product">
+				<hr />
+				<h2>Child Products</h2>
+				<p>The sub-products listed here are individually valid products and have their own lifecycle states and
+					builds. These "child" associations at the product level are created for licensing situations where
+					an entire product family to be implicitly granted usage rights under a common parent license. With
+					these established, users do not need to acquire entitlements to each child product: implicit
+					transitive entitlement is determined during DRM operations. Entitlement checking is recursive, so
+					feel free to create complex product tiers and groupings. A product may have any number of parents
+					children simultaneously.</p>
+				<i>Management UI not fully implemented.</i>
+				<table *ngIf="childProducts" class="table table-striped table-condensed">
+					<thead>
+						<tr>
+							<th>Product</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let p of childProducts['results']">
+							<td><b>{{p.name}}</b><br>
+								{{p.description}}</td>
+							<!-- <td>{{p.id}}</td> -->
+							<td>todo</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</section>
+			<section *ngIf="product">
+				<hr />
+				<h2>Parent Products</h2>
+				<i>To change these setting, search for and select the parent product.</i>
+				TODO
+			</section>
+		</div>
+		<div class="col-sm-4" *ngIf="product">
+			<h2>{{product.name}}
+				<div class="btn-group">
+					<button class="btn btn-sm btn-primary" (click)="publish(product)"
+						*ngIf="!product.published_at"><span class="fa fa-thumbs-up"></span> Publish Product</button>
+					<button class="btn btn-sm btn-primary" (click)="unpublish(product)"
+						*ngIf="product.published_at"><span class="fa fa-thumbs-down"></span> Unpublish Product</button>
+					<button class="btn btn-sm btn-primary" (click)="update(product)"><span
+							class="fa fa-cloud-upload"></span> Save Product</button>
+				</div>
+			</h2>
+			<p *ngIf="product.published_at">Last published at {{product.published_at}}.</p>
+			<hr />
+			<form class="form">
+				<div class="form-group">
+					<label for="product_name">Name</label>
+					<input class="form-control" type="text" name="product_name"
+						[(ngModel)]="product.name" /><small><i>ID: {{product.id}}</i></small>
+				</div>
+				<div class="form-group">
+					<label for="product_support_url">Support URL</label>
+					<input class="form-control" type="text" name="product_support_url"
+						[(ngModel)]="product.support_url" />
+				</div>
+				<div class="form-group">
+					<label for="product_uri">URI</label>
+					<input class="form-control" type="text" name="product_uri" [(ngModel)]="product.uri" />
+				</div>
+				<div class="form-group">
+					<label for="product_mime_type">MIME Type</label>
+					<input class="form-control" type="text" name="product_mime_type" [(ngModel)]="product.mime_type" />
+				</div>
+				<div class="form-group">
+					<label for="product_description">Description</label>
+					<textarea class="form-control" type="text" name="product_description" cols="10"
+						[(ngModel)]="product.description"></textarea>
+				</div>
+				<div class="form-group">
+					<div class="image-preview mb-3" *ngIf="logoPreviewUrl">
+						<img [src]="logoPreviewUrl" height="100" />
 					</div>
-					<div class="form-group">
-						<label for="service_support_url">Support URL</label>
-						<input class="form-control" type="text" name="service_support_url" [(ngModel)]="product.support_url" />
+
+					<label for="product_logo">Logo</label>
+					<input type="file" name="product_logo" (change)="handleLogoSelect($event)" />
+					<div *ngIf="logoUploadProgress">
+						Upload progress: {{ logoUploadProgress }}
 					</div>
-					<div class="form-group">
-						<label for="service_uri">URI</label>
-						<input class="form-control" type="text" name="service_uri" [(ngModel)]="product.uri" />
-					</div>
-					<div class="form-group">
-						<label for="service_description">Description</label>
-						<textarea class="form-control" type="text" name="service_description" [(ngModel)]="product.description"></textarea>
-					</div>
-					<div class="form-group">
-						<label for="service_logo">Logo</label>
-						<input type="file" name="service_logo" (change)="handleLogoSelect($event)" />
-					</div>
-				</form>
-				<dl>
-					<dt>UUID</dt>
-					<dd>{{product.id}}</dd>
-					<dt>Created</dt>
-					<dd>{{product.created_at}}</dd>
-					<dt>Updated</dt>
-					<dd>{{product.updated_at}}</dd>
-				</dl>
-			</div>
+				</div>
+			</form>
+			<dl>
+				<dt>UUID</dt>
+				<dd>{{product.id}}</dd>
+				<dt>Created</dt>
+				<dd>{{product.created_at}}</dd>
+				<dt>Updated</dt>
+				<dd>{{product.updated_at}}</dd>
+			</dl>
+			<button class="btn btn-sm btn-danger" (click)="delete(product)"><span class="fa fa-trash"></span>
+				Delete Entire Product</button>
 		</div>
 	</div>
+</div>
