@@ -28,14 +28,14 @@
               "src/assets"
             ],
             "styles": [
-				"./node_modules/bootstrap/dist/css/bootstrap.min.css",
-				"./node_modules/angular2-toaster/toaster.css",
-				"src/styles.scss"
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-toastr/toastr.css",
+              "src/styles.scss"
             ],
             "scripts": [
-				"./node_modules/jquery/dist/jquery.min.js",
-				"./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-			]
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -124,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "marketplace-ui"
+    }
+  },
+  "defaultProject": "marketplace-ui",
+  "cli": {
+    "analytics": "69983c19-2b25-494f-a0a0-5d85da545fd9"
+  }
 }

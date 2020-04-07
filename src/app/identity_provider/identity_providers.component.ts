@@ -5,7 +5,7 @@ import {UUID} from 'angular2-uuid';
 import {IdentityProvider} from '../identity_provider/identity_provider';
 
 
-import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
+import {ToastrService} from 'ngx-toastr';
 
 // import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
@@ -24,7 +24,7 @@ export class IdentityProvidersComponent {
 
     constructor(private backendService: BackendService,
         private identityProviderService: IdentityProviderService,
-        private toasterService: ToasterService) {
+        private toastrService: ToastrService) {
         this.reload();
     }
 
@@ -48,25 +48,25 @@ export class IdentityProvidersComponent {
         idp.issuer = 'https://example.com/' + uuid;
         idp.scopes = 'openid email profile';
         this.identityProviderService.create(idp).subscribe(d => {
-            this.toasterService.pop('success', 'IDP added', 'Please update the details accordingly!');
+            this.toastrService.success('Please update the details accordingly!', 'IDP added');
             this.identityProviders.push(d);
             this.select(d);
         }, err => {
-            this.toasterService.pop('error', "Failed to create IDP.", "Not sure why.. sorry. :(");
+            this.toastrService.error("Not sure why.. sorry. :(", "Failed to create IDP.");
         });
     }
     update(identityProvider: IdentityProvider) {
         this.identityProviderService.update(identityProvider).subscribe(d => {
-            this.toasterService.pop('success', 'IDP updated and reconfigured!');
+            this.toastrService.success('IDP updated and reconfigured!');
             let i = this.identityProviders.indexOf(identityProvider, 0);
             this.identityProviders[i] = d;
         }, err => {
-            this.toasterService.pop('error', "Couldn't update IDP.", "The issuer URL must be discoverable, and other fields must be set correctly. Further, do not enable an IDP that isn't updating correctly.");
+            this.toastrService.error("The issuer URL must be discoverable, and other fields must be set correctly. Further, do not enable an IDP that isn't updating correctly.", "Couldn't update IDP.");
         });
     }
     delete(identityProvider: IdentityProvider) {
         this.identityProviderService.delete(identityProvider).subscribe(d => {
-            this.toasterService.pop('success', 'IDP deleted', "Associated user identitities have been removed, though user records have not been changed.");
+            this.toastrService.success('IDP deleted', "Associated user identitities have been removed, though user records have not been changed.");
             let i = this.identityProviders.indexOf(identityProvider, 0);
             if (i >= 0) {
                 this.identityProviders.splice(i, 1);
@@ -77,23 +77,23 @@ export class IdentityProvidersComponent {
 
     enable(identityProvider: IdentityProvider) {
         this.identityProviderService.enable(identityProvider).subscribe(d => {
-            this.toasterService.pop('success', 'IDP enabled and is now live!');
+            this.toastrService.success('IDP enabled and is now live!');
             let i = this.identityProviders.indexOf(identityProvider, 0);
             this.identityProviders[i] = d;
             this.identityProvider = d;
         }, err => {
-            this.toasterService.pop('error', "Couldn't enable.", "Are you sure the issuer URL is discoverable? An IDP that fails backend auto-discovery validation of the issuer URL can't be enabled.");
+            this.toastrService.error("Are you sure the issuer URL is discoverable? An IDP that fails backend auto-discovery validation of the issuer URL can't be enabled.", "Couldn't enable.");
         });
     }
 
     disable(identityProvider: IdentityProvider) {
         this.identityProviderService.disable(identityProvider).subscribe(d => {
-            this.toasterService.pop('success', 'IDP disabled.');
+            this.toastrService.success('IDP disabled.');
             let i = this.identityProviders.indexOf(identityProvider, 0);
             this.identityProviders[i] = d;
             this.identityProvider = d;
         }, err => {
-            this.toasterService.pop('error', "Couldn't disable.", "This is.. odd. Not sure why, sorry. :(");
+            this.toastrService.error("This is.. odd. Not sure why, sorry. :(", "Couldn't disable.");
         });
     }
 

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
+import {ToastrModule} from 'ngx-toastr';
 
 import {AppComponent} from './app.component';
 import {DirectoryComponent} from './directory/directory.component';
@@ -54,7 +54,7 @@ import { ProductLicenseService } from './product_license/product_license.service
         FormsModule,
         HttpClientModule,
 		BrowserAnimationsModule, // For Toaster
-        ToasterModule.forRoot()
+        ToastrModule.forRoot()
         // CarouselModule,
 		// Ng2CableModule
 	],
@@ -84,7 +84,6 @@ import { ProductLicenseService } from './product_license/product_license.service
         // SlideComponent
     ],   // components and directives
     providers: [
-        ToasterService,
         BuildService,
         LicenseService,
         BackendService,

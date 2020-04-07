@@ -6,7 +6,7 @@ import { Build } from '../build/build';
 import { User } from '../user/user';
 import { Platform } from '../platform/platform';
 import { Instance } from '../instance/instance';
-import { ToasterModule, ToasterService } from 'angular2-toaster/angular2-toaster';
+import { ToastrService } from 'ngx-toastr';
 
 import { BuildService } from '../build/build.service';
 import { ProductService } from '../product/product.service';
@@ -41,7 +41,7 @@ export class ProductComponent implements OnInit {
 		private productLicenseService: ProductLicenseService,
 		private platformService: PlatformService,
 		private instanceService: InstanceService,
-		private toasterService: ToasterService) {
+		private toastrService: ToastrService) {
 	}
 
 
@@ -114,7 +114,7 @@ export class ProductComponent implements OnInit {
 		instance.platform_id = platform.id;
 		this.instanceService.create(this.status.identity['user'], platform, instance).subscribe(d => {
 			let instance: Instance = d;// as Instance;
-			this.toasterService.pop('success', 'Instance Requested', 'Any/All listening platform agents have been pushed a notification and should now be processing the command.');
+			this.toastrService.success('Any/All listening platform agents have been pushed a notification and should now be processing the command.', 'Instance Requested');
 			console.log('Loaded ' + this.platforms.length + ' platforms.');
 		});
 	}

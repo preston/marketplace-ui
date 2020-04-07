@@ -4,7 +4,7 @@ import {Group} from './group';
 
 import {UUID} from 'angular2-uuid';
 
-import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
+import {ToastrService} from 'ngx-toastr';
 
 // import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
@@ -23,7 +23,7 @@ export class GroupsComponent {
 
     constructor(private backendService: BackendService,
         private groupService: GroupService,
-        private toasterService: ToasterService) {
+        private toastrService: ToastrService) {
         this.reload();
     }
 
@@ -42,21 +42,21 @@ export class GroupsComponent {
         let group = new Group();
         group.name = "New Group " + UUID.UUID();
         this.groupService.create(group).subscribe(d => {
-            this.toasterService.pop('success', 'Group Created', 'Please update the details accordingly!');
+            this.toastrService.success('Please update the details accordingly!', 'Group Created');
             this.groups.push(d);
             this.select(d);
         });
     }
     update(group: Group) {
         this.groupService.update(group).subscribe(d => {
-            this.toasterService.pop('success', 'Group Updated');
+            this.toastrService.success('Group Updated');
             let i = this.groups.indexOf(group, 0);
             this.groups[i] = d;
         });
     }
     delete(group: Group) {
         this.groupService.delete(group).subscribe(d => {
-            this.toasterService.pop('success', 'Group Deleted');
+            this.toastrService.success('Group Deleted');
             let i = this.groups.indexOf(group, 0);
             if (i >= 0) {
                 this.groups.splice(i, 1);

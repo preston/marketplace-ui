@@ -5,12 +5,10 @@ import { Product } from '../product/product';
 import { License } from '../license/license';
 import { Search } from '../search/search';
 
-import { ToasterService, ToasterConfig } from 'angular2-toaster/angular2-toaster';
-
 import { ProductService } from '../product/product.service';
 import { LicenseService } from '../license/license.service';
 import { BackendService } from '../backend/backend.service';
-import { ToasterConfigurationService } from '../toaster/toaster.configuration.service';
+import { ToastrService } from 'ngx-toastr';
 
 import { HttpClient } from '@angular/common/http';
 
@@ -34,12 +32,10 @@ export class DirectoryComponent implements OnInit {
 
 	sidebarActive: boolean = false;
 
-	public toasterConfig = ToasterConfigurationService.TOASTER_CONFIG
-
 	constructor(private backendService: BackendService,
 		private productService: ProductService,
 		private licenseService: LicenseService,
-		private toasterService: ToasterService,
+		private toastrService: ToastrService,
 		@Inject('Window') private window: Window) {
 	}
 

@@ -3,7 +3,7 @@ import {Product} from '../product/product';
 import {License} from '../license/license';
 import {IdentityProvider} from '../identity_provider/identity_provider';
 
-import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
+import {ToastrService} from 'ngx-toastr';
 
 // import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
@@ -38,14 +38,12 @@ export class SystemComponent implements OnInit {
 
 	status: Status;
 
-	public toasterConfig = ToasterConfigurationService.TOASTER_CONFIG
-
     constructor(private backendService: BackendService,
         private productService: ProductService,
         private licenseService: LicenseService,
         private identityProviderService: IdentityProviderService,
         private userService: UserService,
-        private toasterService: ToasterService) {
+        private toastrService: ToastrService) {
     }
 
     ngOnInit() {

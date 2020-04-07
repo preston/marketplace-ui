@@ -4,7 +4,7 @@ import {Identity} from '../identity/identity';
 import {Product} from '../product/product';
 import {IdentityProvider} from '../identity_provider/identity_provider';
 
-import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
+import {ToastrService} from 'ngx-toastr';
 
 import {UserService} from './user.service';
 import {GroupService} from '../group/group.service';
@@ -36,7 +36,7 @@ export class UsersComponent implements OnInit {
         private identityService: IdentityService,
         private productService: ProductService,
         private identityProviderService: IdentityProviderService,
-        private toasterService: ToasterService) {
+        private toastrService: ToastrService) {
     }
 
     ngOnInit() {

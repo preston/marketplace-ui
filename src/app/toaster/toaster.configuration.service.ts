@@ -1,4 +1,4 @@
-import { ToasterConfig } from 'angular2-toaster';
+// import { ToasterConfig } from 'angular2-toaster';
 import { Component } from '@angular/core';
 
 
@@ -7,11 +7,11 @@ import { Component } from '@angular/core';
 })
 export class ToasterConfigurationService {
 
-	public static TOASTER_CONFIG = new ToasterConfig({
+	public static TOASTER_CONFIG = {
 		mouseoverTimerStop: true,
 		// timeout: -1, # Prevents automatic dismissal after timeout
 		animation: 'flyRight',
 		positionClass: 'toast-bottom-right'
-	});
+	};
 
 }

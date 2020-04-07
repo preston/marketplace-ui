@@ -8,7 +8,7 @@ import { Status } from '../status/status';
 import { Search } from '../search/search';
 import { Build } from '../build/build';
 
-import { ToasterModule, ToasterService } from 'angular2-toaster/angular2-toaster';
+import { ToastrService } from 'ngx-toastr';
 
 // import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
@@ -51,7 +51,7 @@ export class ProductsComponent implements OnInit {
 		private productService: ProductService,
 		private buildService: BuildService,
 		private licenseService: LicenseService,
-		private toasterService: ToasterService) {
+		private toastrService: ToastrService) {
 	}
 
 	ngOnInit() {
@@ -128,11 +128,11 @@ export class ProductsComponent implements OnInit {
 		product.name = "New Product " + UUID.UUID();
 		product.user_id = this.status['identity']['user_id'];
 		if (this.licenses.length == 0) {
-			this.toasterService.pop('error', 'No License Types', 'Please establish a license type prior to declared products.');
+			this.toastrService.error('Please establish a license type prior to declared products.', 'No License Types');
 		} else {
 			// product.license_id = this.licenses[0].id;
 			this.productService.create(product).subscribe(d => {
-				this.toasterService.pop('success', 'Product Created', 'Please update the details accordingly!');
+				this.toastrService.success('Please update the details accordingly!', 'Product Created');
 				this.products['results'].push(d);
 				this.select(d);
 			});
@@ -140,17 +140,17 @@ export class ProductsComponent implements OnInit {
 	}
 	update(product: Product) {
 		this.productService.update(product).subscribe(d => {
-			this.toasterService.pop('success', 'Product Updated');
+			this.toastrService.success('Product Updated');
 			let i = this.products['results'].indexOf(product, 0);
 			this.products[i] = d;
 		}, err => {
-			this.toasterService.pop('error', "Failed to update product.", "Not sure why.. sorry. :(");
+			this.toastrService.error("Not sure why.. sorry. :(", "Failed to update product.");
 			console.log(err);
 		});
 	}
 	delete(product: Product) {
 		this.productService.delete(product).subscribe(d => {
-			this.toasterService.pop('success', 'Product Deleted');
+			this.toastrService.success('Product Deleted');
 			let i = this.products['results'].indexOf(product, 0);
 			if (i >= 0) {
 				this.products['results'].splice(i, 1);
@@ -161,7 +161,7 @@ export class ProductsComponent implements OnInit {
 
 	publish(product: Product) {
 		this.productService.publish(product).subscribe(d => {
-			this.toasterService.pop('success', 'Product Published!');
+			this.toastrService.success('Product Published!');
 			let i = this.products['results'].indexOf(product, 0);
 			this.products[i] = d;
 			this.product = d;
@@ -169,7 +169,7 @@ export class ProductsComponent implements OnInit {
 	}
 	unpublish(product: Product) {
 		this.productService.unpublish(product).subscribe(d => {
-			this.toasterService.pop('success', 'Product Unpublished');
+			this.toastrService.success('Product Unpublished');
 			let i = this.products['results'].indexOf(product, 0);
 			this.products[i] = d;
 			this.product = d;
@@ -184,7 +184,7 @@ export class ProductsComponent implements OnInit {
 		build.container_repository = 'https://example.com';
 		build.container_tag = UUID.UUID();
 		this.buildService.create(this.product, build).subscribe(d => {
-			this.toasterService.pop('success', 'Build Created', 'Please update the details accordingly!');
+			this.toastrService.success('Please update the details accordingly!', 'Build Created');
 			this.product.builds.push(d);
 		});
 	}
@@ -192,7 +192,7 @@ export class ProductsComponent implements OnInit {
 	updateBuild(build: Build) {
 		console.log(build);
 		this.buildService.update(this.product, build).subscribe(d => {
-			this.toasterService.pop('success', 'Build Updated');
+			this.toastrService.success('Build Updated');
 			let i = this.product.builds.indexOf(build, 0);
 			this.product.builds[i] = d;
 		}, err => {
@@ -202,13 +202,13 @@ export class ProductsComponent implements OnInit {
 				msg += n[0] + ' ' + n[1].join(', ') + ".\n";
 			}
 			console.log(err);
-			this.toasterService.pop('error', "Failed to update build.", msg);
+			this.toastrService.error("Failed to update build.", msg);
 		});
 	}
 
 	deleteBuild(build: Build) {
 		this.buildService.delete(this.product, build).subscribe(d => {
-			this.toasterService.pop('success', 'Build Deleted');
+			this.toastrService.success('Build Deleted');
 			let i = this.product.builds.indexOf(build, 0);
 			if (i >= 0) {
 				this.product.builds.splice(i, 1);

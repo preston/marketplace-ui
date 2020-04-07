@@ -4,7 +4,7 @@ import {UUID} from 'angular2-uuid';
 
 import {Role} from './role';
 
-import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
+import {ToastrService} from 'ngx-toastr';
 
 // import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
@@ -23,7 +23,7 @@ export class RolesComponent {
 
     constructor(private backendService: BackendService,
         private roleService: RoleService,
-        private toasterService: ToasterService) {
+        private toastrService: ToastrService) {
         this.reload();
     }
 
@@ -42,21 +42,21 @@ export class RolesComponent {
         let role = new Role();
         role.name = "New Role " + UUID.UUID();
         this.roleService.create(role).subscribe(d => {
-            this.toasterService.pop('success', 'Role Created', 'Please update the details accordingly!');
+            this.toastrService.success('Please update the details accordingly!', 'Role Created');
             this.roles.push(d);
             this.select(d);
         });
     }
     update(role: Role) {
         this.roleService.update(role).subscribe(d => {
-            this.toasterService.pop('success', 'Role Updated');
+            this.toastrService.success('Role Updated');
             let i = this.roles.indexOf(role, 0);
             this.roles[i] = d;
         });
     }
     delete(role: Role) {
         this.roleService.delete(role).subscribe(d => {
-            this.toasterService.pop('success', 'Role Deleted');
+            this.toastrService.success('Role Deleted');
             let i = this.roles.indexOf(role, 0);
             if (i >= 0) {
                 this.roles.splice(i, 1);

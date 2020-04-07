@@ -5,7 +5,7 @@ import {Status} from '../status/status';
 import {Platform} from '../platform/platform';
 import {IdentityProvider} from '../identity_provider/identity_provider';
 
-import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
+import {ToastrService} from 'ngx-toastr';
 
 import {PlatformService} from '../platform/platform.service';
 import {UserService} from '../user/user.service';
@@ -25,7 +25,7 @@ export class PlatformsComponent implements OnChanges {
 
     constructor(private backendService: BackendService,
         private platformService: PlatformService,
-        private toasterService: ToasterService) {
+        private toastrService: ToastrService) {
     }
 
     reload() {
@@ -46,14 +46,14 @@ export class PlatformsComponent implements OnChanges {
         platform.name = "My IaaS " + UUID.UUID();
         platform.user_id = this.user.id;
         this.platformService.create(this.user, platform).subscribe(d => {
-            this.toasterService.pop('success', 'Platform Added', 'Please update the details accordingly!');
+            this.toastrService.success('Please update the details accordingly!', 'Platform Added');
             this.platforms.push(d);
         });
     }
 
     update(platform: Platform) {
         this.platformService.update(this.user, platform).subscribe(d => {
-            this.toasterService.pop('success', 'Platform Updated');
+            this.toastrService.success('Platform Updated');
             let i = this.platforms.indexOf(platform, 0);
             this.platforms[i] = d;
         });
@@ -61,7 +61,7 @@ export class PlatformsComponent implements OnChanges {
 
     delete(platform: Platform) {
         this.platformService.delete(this.user, platform).subscribe(d => {
-            this.toasterService.pop('success', 'Platform Unregistered');
+            this.toastrService.success('Platform Unregistered');
             let i = this.platforms.indexOf(platform, 0);
             if (i >= 0) {
                 this.platforms.splice(i, 1);

@@ -9,12 +9,12 @@ import { Status } from "../status/status";
 export class BackendService {
 
 	// FIXME Hardcoded URLs
-	// private static DEFAULT_SERVER_URL = 'http://localhost:3000';
-	private static DEFAULT_SERVER_URL = 'https://marketplace-server.logicahealth.org';
+	private static DEFAULT_SERVER_URL = 'http://localhost:3000';
+	// private static DEFAULT_SERVER_URL = 'https://marketplace-server.logicahealth.org';
 	private url: string = BackendService.DEFAULT_SERVER_URL;
 
-	// private static DEFAULT_SERVER_WEBSOCKET_URL = 'ws://localhost:3000';
-	private static DEFAULT_SERVER_WEBSOCKET_URL = 'wss:///marketplace-server.logicahealth.org';
+	private static DEFAULT_SERVER_WEBSOCKET_URL = 'ws://localhost:3000';
+	// private static DEFAULT_SERVER_WEBSOCKET_URL = 'wss:///marketplace-server.logicahealth.org';
 	private websocket_url: string = BackendService.DEFAULT_SERVER_WEBSOCKET_URL;
 
 	public static STATUS_PATH: string = '/status';

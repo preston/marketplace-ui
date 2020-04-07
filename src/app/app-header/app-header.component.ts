@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IdentityProviderService } from '../identity_provider/identity_provider.service';
 import { IdentityProvider } from '../identity_provider/identity_provider';
-import { ToasterService, ToasterConfig } from 'angular2-toaster';
+import { ToastrService } from 'ngx-toastr';
 import { BackendService } from '../backend/backend.service';
 import { Router } from '@angular/router';
 
@@ -17,7 +17,7 @@ export class AppHeaderComponent implements OnInit {
 
 	constructor(private backendService: BackendService,
 		private identityProviderService: IdentityProviderService,
-		private toasterService: ToasterService,
+		private toastrService: ToastrService,
 		private router: Router) {
 
 	}
@@ -40,7 +40,7 @@ export class AppHeaderComponent implements OnInit {
 			this.status = d;
 			console.log("Server status: ");
 			console.log(this.status);
-			this.toasterService.pop('success', "Hi", "This is a work in progress for demo purposes, and is not a production system. Thanks for playing!");
+			this.toastrService.success("This is a work in progress for demo purposes, and is not a production system. Thanks for playing!", "Hi");
 		});
 	}
 
@@ -49,7 +49,7 @@ export class AppHeaderComponent implements OnInit {
 		// this.backendService.logout().subscribe(d => {
 		this.loadMarketplaceStatus();
 		console.log("Logout complete.");
-		this.toasterService.pop('success', 'Logged out.', 'See you next time!');
+		this.toastrService.success('See you next time!', 'Logged out.');
 		this.router.navigateByUrl('/');
 		// });
 	}

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 // import { Ng2Cable, Broadcaster } from 'ng2-cable/dist';
 
-import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
+import {ToastrService} from 'ngx-toastr';
 
 import {Message} from '../message/message';
 
@@ -21,14 +21,14 @@ export class ChatComponent {
 		// private ng2cable: Ng2Cable,
         // private broadcaster: Broadcaster,
         private backendService: BackendService,
-        private toasterService: ToasterService) {
+        private toastrService: ToastrService) {
         // this.ng2cable.subscribe(this.backendService.webSocketUrl(), 'ChatChannel');
         //By default the event name is 'channel name'. But you can pass from backend field { action: 'MyEventName'}
 
         // this.broadcaster.on<Message>('ChatChannel').subscribe(
         //     message => {
         //         console.log(message);
-        //         this.toasterService.pop('success', message.subject, message.text);
+        //         this.toastrService.success(message.subject, message.text);
         //     }
         // );
     }

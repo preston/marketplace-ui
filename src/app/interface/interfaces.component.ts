@@ -5,7 +5,7 @@ import {UUID} from 'angular2-uuid';
 import {Interface} from '../interface/interface';
 
 
-import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
+import {ToastrService} from 'ngx-toastr';
 
 // import {SlideComponent, CarouselComponent, CarouselModule} from 'ng2-bootstrap';
 
@@ -24,7 +24,7 @@ export class InterfacesComponent {
 
     constructor(private backendService: BackendService,
         private interfaceService: InterfaceService,
-        private toasterService: ToasterService) {
+        private toastrService: ToastrService) {
         this.reload();
     }
 
@@ -46,21 +46,21 @@ export class InterfacesComponent {
 		iface.uri = "hspc://interfaces/" + uuid;
 		iface.version = "" + uuid;
         this.interfaceService.create(iface).subscribe(d => {
-            this.toasterService.pop('success', 'Interface Created', 'Please update the details accordingly!');
+            this.toastrService.success('Please update the details accordingly!', 'Interface Created');
             this.interfaces.push(d);
             this.select(d);
         });
     }
     update(iface: Interface) {
         this.interfaceService.update(iface).subscribe(d => {
-            this.toasterService.pop('success', 'Interface Updated');
+            this.toastrService.success('Interface Updated');
             let i = this.interfaces.indexOf(iface, 0);
             this.interfaces[i] = d;
         });
     }
     delete(iface: Interface) {
         this.interfaceService.delete(iface).subscribe(d => {
-            this.toasterService.pop('success', 'Interface Deleted');
+            this.toastrService.success('Interface Deleted');
             let i = this.interfaces.indexOf(iface, 0);
             if (i >= 0) {
                 this.interfaces.splice(i, 1);

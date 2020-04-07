@@ -1,6 +1,6 @@
 import {Component, Output, Inject} from '@angular/core';
 
-import {ToasterModule, ToasterService} from 'angular2-toaster/angular2-toaster';
+import {ToastrService} from 'ngx-toastr';
 
 import {Identity} from '../identity/identity';
 import {User} from '../user/user';
@@ -25,8 +25,6 @@ export class AccountComponent {
     identityProviders: Array<IdentityProvider>; // = new Array<IdentityProvider>();
     identities: Array<Identity>;
     user: User;
-
-	public toasterConfig = ToasterConfigurationService.TOASTER_CONFIG
 
     constructor(private backendService: BackendService,
         private userService: UserService,

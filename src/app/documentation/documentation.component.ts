@@ -10,8 +10,6 @@ export class DocumentationComponent {
 
     verses: Object[] = [];
 
-	public toasterConfig = ToasterConfigurationService.TOASTER_CONFIG
-
     stringify(obj: any): string {
         return JSON.stringify(obj, null, "\t").trim();
     }
