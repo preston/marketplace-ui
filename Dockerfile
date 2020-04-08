@@ -9,7 +9,7 @@ RUN npm i
 
 # Build
 COPY . .
-RUN npm run ng build
+RUN npm run ng build --production
 #  -- --prod
 
 FROM nginx:latest
