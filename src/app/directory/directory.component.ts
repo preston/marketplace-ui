@@ -69,17 +69,20 @@ export class DirectoryComponent implements OnInit {
 			this.products = [];
 		}
 	}
+
 	select(product: Product) {
 		this.product = product;
 	}
 
 	search() {
 		if (this.validSearch()) {
+			console.log("Searching for: " + this.searchQuery.text);
 			// let mimeTypes: string[] = ;
 			this.productService.searchPublished(this.searchQuery.text, this.selectedMimeTypes()).subscribe(d => {
 				this.products = d['results'];
 			});
 		} else {
+			console.log('Invalid search.');
 			this.loadInitialProducts();
 		}
 	}
@@ -95,6 +98,7 @@ export class DirectoryComponent implements OnInit {
 		}
 		return selected;
 	}
+
 	validSearch() {
 		return this.searchQuery.text.length > 2;
 	}

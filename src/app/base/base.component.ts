@@ -1,4 +1,4 @@
-export abstract class BaseComponent {
+export class BaseComponent {
 
     canMoveUp<T>(item: T, within: Array<T>): boolean {
         return within.indexOf(item) > 0;

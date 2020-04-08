@@ -34,13 +34,13 @@ First, build:
 
 Then, assuming you've already familiar with [Docker](https://www.docker.com) awesomeness and have it installed, plop the build into a wicked-fast [nginx](http://nginx.org) web server container using the including Dockerfile with:
 
-	docker build -t p3000/hsp-marketplace-ui:latest . # though you probably want your own repo and tag strings :)
+	docker build -t p3000/marketplace-ui:latest . # though you probably want your own repo and tag strings :)
 
 ## Production Deployment
 
 Extremely easy in your existing Dockerized hosting environment by pointing it at your Marketplace Server installation. Just:
 
-	docker run -d -p 9000:80 --restart unless-stopped -e "MARKETPLACE_SERVER_URL=http://localhost:3000" p3000/hsp-marketplace-ui:latest # or any official tag
+	docker run -d -p 9000:80 --restart unless-stopped -e "MARKETPLACE_SERVER_URL=http://localhost:3000" p3000/marketplace-ui:latest # or any official tag
 
 And you're done. No environment variables or further configuration are needed. Jedi's may use your existing Kubernetes, Open Shift etc installations as you see fit. :)
 

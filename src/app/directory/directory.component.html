@@ -182,10 +182,10 @@
 
 		<!-- Tool bar -->
 		<div id="content">
-				<div class="">
-						<h2>Find and deploy a health product<span *ngIf="status?.identity">,
-								{{status.identity.user.first_name}}.</span></h2>
-					</div>
+			<div class="">
+				<h2>Find a computable health product<span *ngIf="status?.identity">,
+						{{status.identity.user.first_name}}.</span></h2>
+			</div>
 
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<div class="container-fluid">
@@ -204,15 +204,19 @@
 
 
 
-					<div class="input-group input-group-lg">
-						<input class="form-control form-control-lg" type="text" autofocus="true" type="search"
-							[(ngModel)]="searchQuery.text" name="search_text" (keyup)="search()" focus />
-						<div class="input-group-append">
-							<span class="input-group-text" id="inputGroup-sizing-lg">
-								<i class="fa fa-search"></i>
-							</span>
+					<form (ngSubmit)="search()">
+						<div class="input-group input-group-lg">
+
+							<input class="form-control form-control-lg" type="text" autofocus="true" type="search"
+								[(ngModel)]="searchQuery.text" name="search_text" focus />
+							<!-- (keyup)="search()" /> -->
+							<div class="input-group-append">
+								<span class="input-group-text" id="inputGroup-sizing-lg">
+									<i class="fa fa-search"></i>
+								</span>
+							</div>
 						</div>
-					</div>
+					</form>
 
 
 					<!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
